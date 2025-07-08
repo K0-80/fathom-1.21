@@ -23,6 +23,15 @@ public class ModItemGroups {
                         entries.add(ModBlocks.RAW_MITHRIL_BLOCK);
                         entries.add(ModBlocks.MITHRIL_ORE);
                         entries.add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
+
+                        entries.add(ModBlocks.DRIFTWOO_LOG);
+                        entries.add(ModBlocks.STRIPED_DRIFTWOOD_LOG);
+                        entries.add(ModBlocks.DRIFTWOOD_WOOD);
+                        entries.add(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
+                        entries.add(ModBlocks.DRIFTWOOD_PLANK);
+                        entries.add(ModBlocks.DRIFTWOOD_LEAVES);
+                        entries.add(ModBlocks.DRIFTWOOD_SAPLING);
+
                     }) .build());
 
     public static void registerItemGroups() {

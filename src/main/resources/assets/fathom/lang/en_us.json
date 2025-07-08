@@ -7,5 +7,14 @@
   "block.fathom.mithril_ore": "Mithril Ore",
   "block.fathom.deepslate_mithril_ore": "Deepslate Mithril ore",
 
+  "block.fathom.driftwood_log": "Driftwood Log",
+  "block.fathom.striped_driftwood_log": "Striped Driftwood Log",
+  "block.fathom.driftwood_wood": "Driftwood Wood",
+  "block.fathom.striped_driftwood_wood": "Striped Driftwood Wood",
+  "block.fathom.driftwood_plank": "Driftwood Plank",
+  "block.fathom.driftwood_sapling": "Driftwood Sapling",
+  "block.fathom.driftwood_leaves": "Driftwood Leaves",
+
   "itemgroup.fathom.fathom_items": "Fathom"
+
 }
