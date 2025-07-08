@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "fathom:raw_mithril_block"
+    }
+  ],
+  "result": {
+    "id": "fathom:raw_mithril",
+    "count": 9
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "fathom:mithril_block",
+    "fathom:raw_mithril_block",
+    "fathom:mithril_ore",
+    "fathom:deepslate_mithril_ore"
+  ]
+}

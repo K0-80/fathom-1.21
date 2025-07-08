@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "fathom:mithril_block"
+    }
+  ],
+  "result": {
+    "id": "fathom:mithril_ingot",
+    "count": 9
+  }
+}

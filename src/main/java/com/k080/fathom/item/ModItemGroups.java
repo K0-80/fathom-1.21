@@ -3,7 +3,6 @@ package com.k080.fathom.item;
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.client.particle.TotemParticle;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -23,9 +22,10 @@ public class ModItemGroups {
                         entries.add(ModBlocks.MITHRIL_BLOCK);
                         entries.add(ModBlocks.RAW_MITHRIL_BLOCK);
                         entries.add(ModBlocks.MITHRIL_ORE);
+                        entries.add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
                     }) .build());
 
     public static void registerItemGroups() {
-        Fathom.LOGGER.info("Registering Item Groups for" + Fathom.MOD_ID);
+        Fathom.LOGGER.info("Registering Item Groups for " + Fathom.MOD_ID);
     }
 }

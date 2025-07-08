@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 1.0,
+  "group": "mithril_ingot",
+  "ingredient": {
+    "item": "fathom:raw_mithril"
+  },
+  "result": {
+    "id": "fathom:mithril_ingot"
+  }
+}
