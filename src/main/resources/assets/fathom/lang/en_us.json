@@ -1,1 +1,10 @@
-{"item.fathom.mithril_ingot": "Mithril Ingot"}
+{
+  "item.fathom.mithril_ingot": "Mithril Ingot",
+  "item.fathom.raw_mithril": "Raw Mithril",
+
+  "block.fathom.mithril_block": "Mithril Block",
+  "block.fathom.raw_mithril_block": "Raw Mithril Block",
+  "block.fathom.mithril_ore": "Mithril Ore",
+
+  "itemgroup.fathom.fathom_items": "Fathom"
+}

@@ -1,5 +1,8 @@
 package com.k080.fathom;
 
+import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.item.ModItemGroups;
+import com.k080.fathom.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -11,7 +14,9 @@ public class Fathom implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModItemGroups.registerItemGroups();
 
-
+		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
 	}
 }

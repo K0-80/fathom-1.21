@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "fathom:block/raw_mithril_block"
+    }
+  }
+}
