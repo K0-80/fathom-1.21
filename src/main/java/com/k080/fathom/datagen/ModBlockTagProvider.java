@@ -29,7 +29,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
 
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
-                .add(ModBlocks.DRIFTWOO_LOG)
+                .add(ModBlocks.DRIFTWOOD_LOG)
                 .add(ModBlocks.STRIPED_DRIFTWOOD_LOG)
                 .add(ModBlocks.DRIFTWOOD_WOOD)
                 .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD);

@@ -27,7 +27,7 @@ public class ModBlocks {
             new ExperienceDroppingBlock(UniformIntProvider.create(3,6),
                     AbstractBlock.Settings.create().strength(4.5F, 3.0F).sounds(BlockSoundGroup.DEEPSLATE).requiresTool()));
 
-    public static final Block DRIFTWOO_LOG = registerBlock("driftwood_log",
+    public static final Block DRIFTWOOD_LOG = registerBlock("driftwood_log",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG)));
     public static final Block STRIPED_DRIFTWOOD_LOG = registerBlock("striped_driftwood_log",
             new PillarBlock(AbstractBlock.Settings.copy(Blocks.STRIPPED_OAK_LOG)));

@@ -22,7 +22,7 @@
 			"com.k080.fathom.FathomDataGenerator"
 		],
 		"client": [
-			"com.k080.fathom.FathomModClient"
+			"com.k080.fathom.client.FathomModClient"
 		]
 	},
 	"mixins": [

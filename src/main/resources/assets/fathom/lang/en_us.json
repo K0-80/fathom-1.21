@@ -15,6 +15,9 @@
   "block.fathom.driftwood_sapling": "Driftwood Sapling",
   "block.fathom.driftwood_leaves": "Driftwood Leaves",
 
-  "itemgroup.fathom.fathom_items": "Fathom"
+  "itemgroup.fathom.fathom_items": "Fathom",
+
+  "effect.fathom.stunned": "Stunned",
+  "subtitles.fathom.effect.stun.applies": "Stun effect applies"
 
 }

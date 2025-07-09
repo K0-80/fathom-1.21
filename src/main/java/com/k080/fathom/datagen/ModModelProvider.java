@@ -22,7 +22,7 @@ public class ModModelProvider extends FabricModelProvider    {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.MITHRIL_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_MITHRIL_ORE);
 
-        blockStateModelGenerator.registerLog(ModBlocks.DRIFTWOO_LOG).log(ModBlocks.DRIFTWOO_LOG).wood(ModBlocks.DRIFTWOOD_WOOD);
+        blockStateModelGenerator.registerLog(ModBlocks.DRIFTWOOD_LOG).log(ModBlocks.DRIFTWOOD_LOG).wood(ModBlocks.DRIFTWOOD_WOOD);
         blockStateModelGenerator.registerLog(ModBlocks.STRIPED_DRIFTWOOD_LOG).log(ModBlocks.STRIPED_DRIFTWOOD_LOG).wood(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DRIFTWOOD_PLANK);
         blockStateModelGenerator.registerSingleton(ModBlocks.DRIFTWOOD_LEAVES, TexturedModel.LEAVES);

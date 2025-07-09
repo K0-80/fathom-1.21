@@ -32,7 +32,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.MITHRIL_ORE, oreDrops(ModBlocks.MITHRIL_ORE, ModItems.RAW_MITHRIL));
         addDrop(ModBlocks.DEEPSLATE_MITHRIL_ORE, multipleOreDrops(ModBlocks.DEEPSLATE_MITHRIL_ORE, ModItems.RAW_MITHRIL, 2, 3));
 
-        addDrop(ModBlocks.DRIFTWOO_LOG);
+        addDrop(ModBlocks.DRIFTWOOD_LOG);
         addDrop(ModBlocks.STRIPED_DRIFTWOOD_LOG);
         addDrop(ModBlocks.DRIFTWOOD_WOOD);
         addDrop(ModBlocks.STRIPED_DRIFTWOOD_WOOD);

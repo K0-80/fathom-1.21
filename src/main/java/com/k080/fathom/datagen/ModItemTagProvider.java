@@ -20,7 +20,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
         getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
-                .add(ModBlocks.DRIFTWOO_LOG.asItem())
+                .add(ModBlocks.DRIFTWOOD_LOG.asItem())
                 .add(ModBlocks.STRIPED_DRIFTWOOD_LOG.asItem())
                 .add(ModBlocks.DRIFTWOOD_WOOD.asItem())
                 .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD.asItem());
@@ -28,7 +28,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModBlocks.DRIFTWOOD_PLANK.asItem());
 
         getOrCreateTagBuilder(ModTags.Items.DRIFTWOOD_LOGS)
-                .add(ModBlocks.DRIFTWOO_LOG.asItem())
+                .add(ModBlocks.DRIFTWOOD_LOG.asItem())
                 .add(ModBlocks.STRIPED_DRIFTWOOD_LOG.asItem())
                 .add(ModBlocks.DRIFTWOOD_WOOD.asItem())
                 .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD.asItem());
