@@ -1,14 +1,17 @@
 package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.util.FishConversionUtil;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
-import net.minecraft.block.FireBlock;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +26,10 @@ public class Fathom implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 
+		ModDataComponentTypes.registerDataComponentTypes();
+
 		ModEffects.registerEffects();
+
 
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);
@@ -35,5 +41,15 @@ public class Fathom implements ModInitializer {
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_LEAVES, 30, 60);
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_PLANK,5,  20);
 
+		registerFishConversions();
+
+	}
+	private static void registerFishConversions() {
+		FishConversionUtil.register(Items.COD, EntityType.COD);
+		FishConversionUtil.register(Items.SALMON, EntityType.SALMON);
+		FishConversionUtil.register(Items.TROPICAL_FISH, EntityType.TROPICAL_FISH);
+		FishConversionUtil.register(Items.PUFFERFISH, EntityType.PUFFERFISH);
+
+		// FishConversion.register(ModItems.GHOST_FIN, ModEntities.GHOST_FISH);
 	}
 }
