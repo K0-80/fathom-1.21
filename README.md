@@ -1,4 +1,4 @@
-# Fathoms
+# Fathom
 
 > The First is gone.
 >
