@@ -3,12 +3,15 @@ package com.k080.fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
+import com.k080.fathom.entity.ModEntitys;
+import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.util.FishConversionUtil;
 import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.entity.EntityType;
@@ -27,6 +30,8 @@ public class Fathom implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 
+		ModEntitys.registerModEntities();
+
 		ModDataComponentTypes.registerDataComponentTypes();
 
 		ModEffects.registerEffects();
@@ -42,6 +47,8 @@ public class Fathom implements ModInitializer {
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.STRIPED_DRIFTWOOD_LOG, 5, 5);
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_LEAVES, 30, 60);
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_PLANK,5,  20);
+
+		FabricDefaultAttributeRegistry.register(ModEntitys.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
 
 		registerFishConversions();
 
