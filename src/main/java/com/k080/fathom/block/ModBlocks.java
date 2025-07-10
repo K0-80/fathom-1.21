@@ -2,7 +2,6 @@ package com.k080.fathom.block;
 
 import com.k080.fathom.Fathom;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -11,7 +10,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
-import static net.minecraft.block.Blocks.createLogBlock;
 
 public class ModBlocks {
 

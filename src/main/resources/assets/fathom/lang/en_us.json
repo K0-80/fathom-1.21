@@ -7,6 +7,11 @@
   "block.fathom.mithril_ore": "Mithril Ore",
   "block.fathom.deepslate_mithril_ore": "Deepslate Mithril ore",
 
+  "item.fathom.mithril_helmet" : "Mithril Helmet",
+  "item.fathom.mithril_chestplate" : "Mithril Chestplate",
+  "item.fathom.mithril_leggings" : "Mithril Leggings",
+  "item.fathom.mithril_boots" : "Mithril Boots",
+
   "block.fathom.driftwood_log": "Driftwood Log",
   "block.fathom.striped_driftwood_log": "Striped Driftwood Log",
   "block.fathom.driftwood_wood": "Driftwood Wood",
@@ -18,6 +23,9 @@
   "itemgroup.fathom.fathom_items": "Fathom",
 
   "effect.fathom.stunned": "Stunned",
-  "subtitles.fathom.effect.stun.applies": "Stun effect applies"
+  "effect.fathom.mithril_veil" : "Mithril Veil",
+  "subtitles.fathom.effect.stun.applies": "Stun effect applies",
+
+  "entity.fathom.skeleton_fish": "Skeleton Fish"
 
 }

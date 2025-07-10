@@ -63,8 +63,8 @@ public class SkeletonFishModel<T extends SkeletonFishEntity> extends SinglePartE
 
             float wiggleAngle = MathHelper.sin(animationProgress * 0.7F) * 0.4F;
 
-            this.body.pitch = wiggleAngle;
-            this.tail.pitch = wiggleAngle * 1.3F;
+            this.body.yaw = wiggleAngle;
+            this.tail.yaw = wiggleAngle * 1.3F;
         }
     }
 

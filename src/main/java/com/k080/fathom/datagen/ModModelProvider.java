@@ -8,6 +8,7 @@ import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 import net.minecraft.data.client.TexturedModel;
+import net.minecraft.item.ArmorItem;
 
 public class ModModelProvider extends FabricModelProvider    {
     public ModModelProvider(FabricDataOutput output) {
@@ -33,6 +34,12 @@ public class ModModelProvider extends FabricModelProvider    {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.RAW_MITHRIL, Models.GENERATED);
         itemModelGenerator.register(ModItems.MITHRIL_INGOT, Models.GENERATED);
+
+        itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_HELMET));
+        itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_CHESTPLATE));
+        itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_LEGGINGS));
+        itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_BOOTS));
+
 
     }
 }

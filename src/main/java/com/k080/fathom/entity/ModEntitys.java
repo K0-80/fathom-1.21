@@ -16,6 +16,6 @@ public class ModEntitys {
                     .dimensions(0.5F, 0.3F).eyeHeight(0.195f).maxTrackingRange(4).build());
 
     public static void registerModEntities() {
-        Fathom.LOGGER.info("Registering Entitys for " + Fathom.MOD_ID);
+        Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
     }
 }

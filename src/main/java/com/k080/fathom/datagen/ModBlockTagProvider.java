@@ -2,6 +2,7 @@ package com.k080.fathom.datagen;
 
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryWrapper;
@@ -33,5 +34,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.STRIPED_DRIFTWOOD_LOG)
                 .add(ModBlocks.DRIFTWOOD_WOOD)
                 .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
+
     }
 }

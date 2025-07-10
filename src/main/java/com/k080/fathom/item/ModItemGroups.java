@@ -32,6 +32,12 @@ public class ModItemGroups {
                         entries.add(ModBlocks.DRIFTWOOD_LEAVES);
                         entries.add(ModBlocks.DRIFTWOOD_SAPLING);
 
+                        entries.add(ModItems.MITHRIL_HELMET);
+                        entries.add(ModItems.MITHRIL_CHESTPLATE);
+                        entries.add(ModItems.MITHRIL_LEGGINGS);
+                        entries.add(ModItems.MITHRIL_BOOTS);
+
+
                     }) .build());
 
     public static void registerItemGroups() {
