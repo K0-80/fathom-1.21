@@ -10,6 +10,8 @@ import net.minecraft.util.Identifier;
 public class ModTags {
     public static class Blocks  {
 
+        public static final TagKey<Block> DRIFTWOOD_TRANSFORMABLE_LOGS = createTag("driftwood_transformable_logs");
+
         public static final  TagKey<Block> DRIFTWOOD_LOGS = createTag("driftwood_logs");
 
         private static TagKey<Block> createTag(String name) {

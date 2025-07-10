@@ -1,7 +1,5 @@
-// src/main/java/com/k080/fathom/util/FishConversionUtil.java
 package com.k080.fathom.util;
 
-import com.k080.fathom.component.ModDataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +22,7 @@ public class FishConversionUtil {
 
     public static Optional<Entity> tryConvert(ItemStack stack, FishingBobberEntity bobber) {
         if (!FISH_CONVERSION_MAP.containsKey(stack.getItem())) {
-            return Optional.empty(); // Not a fish we want to convert
+            return Optional.empty();
         }
 
         World world = bobber.getWorld();

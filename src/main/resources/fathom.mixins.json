@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "FishingBobberEntityMixin",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "PillarBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
