@@ -4,9 +4,9 @@
 >
 > Their journal is all that remains — a record of scientific fascination? Now you are here, at the edge. **The Second.**
 >
-> Your line is a question sent into the suffocating dark. The abyss answers with impossible life and forgotten things.
+> You cast your line, a question sent into the suffocating dark. The abyss answers with impossible life and forgotten things.
 >
-> You do not merely fish. You dredge up the horrors they chose to forget. Follow the path of ḑ̵̼̪͖͖̮̬̊̀̀̓̀e̵̟͖̰̹͔̳͖͎͇̭̞̩͙̋s̸̱̳̻͚͒̅͂͊p̷͇̦͉͎̼̼̝̰̦̀̆͐̐̉̆̑͑̌̂á̵͇̰̻͙̔͗̄͑̓̾̈́́̈́͆̀͋̈͆ͅi̴̡̞͉̭̮͎̳̟̞̝̞̺͇͑̈̿͑̄̚ř̷̳͓̭̋͘̚. Descend where they were lost. Discover...
+> You dredge up the horrors they chose to forget. Follow the path of ḑ̵̼̪͖͖̮̬̊̀̀̓̀e̵̟͖̰̹͔̳͖͎͇̭̞̩͙̋s̸̱̳̻͚͒̅͂͊p̷͇̦͉͎̼̼̝̰̦̀̆͐̐̉̆̑͑̌̂á̵͇̰̻͙̔͗̄͑̓̾̈́́̈́͆̀͋̈͆ͅi̴̡̞͉̭̮͎̳̟̞̝̞̺͇͑̈̿͑̄̚ř̷̳͓̭̋͘̚. Descend where they were lost. Discover...
 >
 > _...what floats below._
 
