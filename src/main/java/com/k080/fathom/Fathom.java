@@ -8,12 +8,14 @@ import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.util.FishConversionUtil;
+import com.k080.fathom.util.ModLootTableModifiers;
 import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import net.minecraft.client.render.entity.feature.EnergySwirlOverlayFeatureRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
 import org.slf4j.Logger;
@@ -38,6 +40,8 @@ public class Fathom implements ModInitializer {
 
 		ModWorldGeneration.generateModWorldGen();
 
+		ModLootTableModifiers.replaceLootTables();
+
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);
 
@@ -53,11 +57,15 @@ public class Fathom implements ModInitializer {
 		registerFishConversions();
 
 	}
+
+
 	private static void registerFishConversions() {
 		FishConversionUtil.register(Items.COD, EntityType.COD);
 		FishConversionUtil.register(Items.SALMON, EntityType.SALMON);
 		FishConversionUtil.register(Items.TROPICAL_FISH, EntityType.TROPICAL_FISH);
 		FishConversionUtil.register(Items.PUFFERFISH, EntityType.PUFFERFISH);
+		FishConversionUtil.register(Items.INK_SAC, EntityType.SQUID);
+		FishConversionUtil.register(Items.BONE, ModEntitys.SKELETON_FISH);
 
 		// FishConversion.register(ModItems.GHOST_FIN, ModEntities.GHOST_FISH);
 	}
