@@ -37,6 +37,8 @@ public class ModItemGroups {
                         entries.add(ModItems.MITHRIL_LEGGINGS);
                         entries.add(ModItems.MITHRIL_BOOTS);
 
+                        entries.add(ModItems.BUCKET_OF_SKELETON_FISH);
+
 
                     }) .build());
 

@@ -3,8 +3,11 @@ package com.k080.fathom.item.custom;
 import com.google.common.collect.ImmutableMap;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.item.ModArmorMaterials;
+import net.minecraft.block.Portal;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -19,7 +22,9 @@ public class ModArmorItem extends ArmorItem {
     private static final Map<RegistryEntry<ArmorMaterial>, List<StatusEffectInstance>> MATERIAL_TO_EFFECT_MAP =
             (new ImmutableMap.Builder<RegistryEntry<ArmorMaterial>, List<StatusEffectInstance>>())
                     .put(ModArmorMaterials.MITHRIL_ARMOUR_MATERIAL,
-                            List.of(new StatusEffectInstance(ModEffects.MITHRIL_VEIL, 5    , 1, false, false))).build();
+                            List.of(new StatusEffectInstance(ModEffects.MITHRIL_VEIL, 20, 1, false, false),
+                                    new StatusEffectInstance(StatusEffects.NIGHT_VISION, 40, 1, false, false)
+                            )).build();
 
     public ModArmorItem(RegistryEntry<ArmorMaterial> material, Type type, Settings settings) {
         super(material, type, settings);

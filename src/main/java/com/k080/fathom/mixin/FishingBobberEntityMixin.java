@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public abstract class FishingBobberEntityMixin {
                 Fathom.LOGGER.info(Fathom.MOD_ID + "  Converted {} to an entity", stack.getItem().toString());
             }
         }
-
         return remainingLoot;
     }
+
 }

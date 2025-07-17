@@ -26,6 +26,6 @@
   "effect.fathom.mithril_veil" : "Mithril Veil",
   "subtitles.fathom.effect.stun.applies": "Stun effect applies",
 
-  "entity.fathom.skeleton_fish": "Skeleton Fish"
-
+  "entity.fathom.skeleton_fish": "Skeleton Fish",
+  "item.fathom.bucket_of_skeleton_fish": "Bucket of Skeleton Fish"
 }

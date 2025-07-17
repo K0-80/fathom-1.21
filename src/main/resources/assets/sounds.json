@@ -1,8 +1,0 @@
-{
-  "effect.stun.applies": {
-    "subtitle": "subtitles.fathom.effect.stun.applies",
-    "sounds": [
-      "fathom:effect/stun_applies"
-    ]
-  }
-}

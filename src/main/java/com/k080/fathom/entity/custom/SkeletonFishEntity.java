@@ -1,6 +1,7 @@
 package com.k080.fathom.entity.custom;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.item.ModItems;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -97,13 +98,8 @@ public class SkeletonFishEntity extends FishEntity {
     }
 
     @Override
-    protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-        return ActionResult.PASS;
-    }
-
-    @Override
     public ItemStack getBucketItem() {
-        return ItemStack.EMPTY;
+        return new ItemStack(ModItems.BUCKET_OF_SKELETON_FISH);
     }
 
     @Override
