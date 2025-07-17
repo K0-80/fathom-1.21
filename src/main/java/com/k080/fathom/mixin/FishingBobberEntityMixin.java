@@ -1,4 +1,3 @@
-// src/main/java/com/k080/fathom/mixin/FishingBobberEntityMixin.java
 package com.k080.fathom.mixin;
 
 import com.k080.fathom.Fathom;
@@ -24,8 +23,8 @@ public abstract class FishingBobberEntityMixin {
         List<ItemStack> remainingLoot = new ArrayList<>();
 
         for (ItemStack stack : originalLoot) {
-
-            if (FishConversionUtil.tryConvert(stack, bobber).isEmpty()) {
+            boolean wasConverted = FishConversionUtil.tryConvert(stack, bobber);
+            if (!wasConverted) {
                 remainingLoot.add(stack);
             } else {
                 Fathom.LOGGER.info(Fathom.MOD_ID + "  Converted {} to an entity", stack.getItem().toString());
@@ -33,5 +32,4 @@ public abstract class FishingBobberEntityMixin {
         }
         return remainingLoot;
     }
-
 }

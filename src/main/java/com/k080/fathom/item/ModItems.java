@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
@@ -32,9 +31,13 @@ public class ModItems {
             new ArmorItem(ModArmorMaterials.MITHRIL_ARMOUR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Settings()
                     .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(15))));
 
-    public static final Item BUCKET_OF_SKELETON_FISH = registerItem("bucket_of_skeleton_fish",
-            new EntityBucketItem(ModEntitys.SKELETON_FISH, Fluids.WATER, SoundEvents.ENTITY_SKELETON_STEP,
+
+
+    public static final Item SKELETON_FISH_BUCKET = registerItem("skeleton_fish_bucket",
+            new EntityBucketItem(ModEntitys.SKELETON_FISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,
                     new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
+
+
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(Fathom.MOD_ID, name), item);

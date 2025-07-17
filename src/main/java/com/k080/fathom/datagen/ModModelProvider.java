@@ -40,7 +40,7 @@ public class ModModelProvider extends FabricModelProvider    {
         itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_LEGGINGS));
         itemModelGenerator.registerArmor(((ArmorItem) ModItems.MITHRIL_BOOTS));
 
-        itemModelGenerator.register(ModItems.BUCKET_OF_SKELETON_FISH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SKELETON_FISH_BUCKET, Models.GENERATED);
 
     }
 }
