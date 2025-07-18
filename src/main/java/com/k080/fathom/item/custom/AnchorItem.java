@@ -2,7 +2,6 @@ package com.k080.fathom.item.custom;
 
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
-import com.k080.fathom.index.ModSounds;
 import com.k080.fathom.item.ModToolMaterials;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -10,6 +9,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -26,9 +27,15 @@ public class AnchorItem extends AxeItem {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
         World world = target.getWorld();
-        world.playSound(null, target.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.2f, 0.9f);
+
+        world.playSound(null, target.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.1f, 0.6f);
         world.playSound(null, target.getBlockPos(), SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, 2.0f, 1.0f);
         world.playSound(null, target.getBlockPos(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, SoundCategory.PLAYERS, 0.5f, 1.2f);
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.spawnParticles(ParticleTypes.SPLASH,
+                    target.getX(), target.getBodyY(0.5), target.getZ(), 20, 0.3, 0.5, 0.3, 0.0);
+        }
+
         return super.postHit(stack, target, attacker);
     }
     @Override
@@ -48,7 +55,7 @@ public class AnchorItem extends AxeItem {
         }
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        user.getItemCooldownManager().set(this, 15);
+        user.getItemCooldownManager().set(this, 10);
         return TypedActionResult.success(itemStack, world.isClient());
     }
 

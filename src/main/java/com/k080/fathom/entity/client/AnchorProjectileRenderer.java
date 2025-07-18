@@ -2,6 +2,7 @@ package com.k080.fathom.entity.client;
 
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
 import com.k080.fathom.item.ModItems;
+import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -3,6 +3,8 @@ package com.k080.fathom.entity;
 import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -19,8 +21,10 @@ public class ModEntities {
     public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(
             Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "anchor_projectile"),
-            EntityType.Builder.create(AnchorProjectileEntity::new,SpawnGroup.MISC)
-                    .dimensions(1.0F, 0.5F).maxTrackingRange(4).alwaysUpdateVelocity(true).build()
+            FabricEntityTypeBuilder.<AnchorProjectileEntity>create(SpawnGroup.MISC, AnchorProjectileEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.0F, 0.5F))
+                    .trackRangeBlocks(4).trackedUpdateRate(10)
+                    .build()
     );
 
 
