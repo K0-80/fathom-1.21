@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "fathom:block/driftwood_log_top",
+    "side": "fathom:block/driftwood_log"
+  }
+}
