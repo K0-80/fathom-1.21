@@ -39,5 +39,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.MITHRIL_CHESTPLATE)
                 .add(ModItems.MITHRIL_LEGGINGS)
                 .add(ModItems.MITHRIL_BOOTS);
+
+        getOrCreateTagBuilder(ItemTags.SWORDS)
+                .add(ModItems.ANCHOR);
     }
 }

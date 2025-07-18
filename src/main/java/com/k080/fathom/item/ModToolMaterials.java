@@ -11,7 +11,7 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial {
-    ANCHOR(BlockTags.INCORRECT_FOR_IRON_TOOL, 1024, 8.0F, 4.0F, 18, () -> Ingredient.ofItems(Items.IRON_INGOT));
+    ANCHOR(BlockTags.INCORRECT_FOR_IRON_TOOL, 1024, 8.0F, 4F, 18, () -> Ingredient.ofItems(Items.IRON_INGOT));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;

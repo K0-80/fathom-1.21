@@ -4,6 +4,7 @@ import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.custom.AnchorItem;
 import com.k080.fathom.item.custom.ModArmorItem;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -28,7 +29,6 @@ public class ModItems {
     public static final Item MITHRIL_BOOTS = registerItem("mithril_boots",
             new ArmorItem(ModArmorMaterials.MITHRIL_ARMOUR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Settings()
                     .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(15))));
-
 
 
     public static final Item SKELETON_FISH_BUCKET = registerItem("skeleton_fish_bucket",

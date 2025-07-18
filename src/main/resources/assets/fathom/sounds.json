@@ -1,0 +1,88 @@
+{
+  "entity.anchor.throw": {
+    "subtitle": "subtitles.arsenal.entity.anchor.throw",
+    "sounds": [
+      {
+        "name": "minecraft:item.trident.throw",
+        "pitch": 0.8,
+        "volume": 0.9
+      },
+      {
+        "name": "minecraft:block.chain.place",
+        "pitch": 1.2,
+        "volume": 0.4
+      },
+      {
+        "name": "minecraft:entity.player.attack.swoop",
+        "pitch": 0.7
+      }
+    ]
+  },
+  "entity.anchor.hit_ground": {
+    "subtitle": "subtitles.arsenal.entity.anchor.hit_ground",
+    "sounds": [
+      {
+        "name": "minecraft:block.anvil.land",
+        "pitch": 0.9,
+        "volume": 1.0
+      },
+      {
+        "name": "minecraft:entity.wind_charge.wind_burst",
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:item.shield.block",
+        "pitch": 0.7,
+        "volume": 0.7
+      }
+    ]
+  },
+  "entity.anchor.hit_mob": {
+    "subtitle": "subtitles.arsenal.entity.anchor.hit_mob",
+    "sounds": [
+      {
+        "name": "minecraft:item.trident.hit",
+        "pitch": 0.9
+      },
+      {
+        "name": "minecraft:entity.player.attack.strong",
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:entity.zombie.attack_iron_door",
+        "pitch": 1.1,
+        "volume": 0.5
+      }
+    ]
+  },
+  "entity.anchor.pickup": {
+    "subtitle": "subtitles.arsenal.entity.anchor.pickup",
+    "sounds": [
+      {
+        "name": "minecraft:item.trident.return",
+        "pitch": 1.1,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:item.armor.equip_chain",
+        "pitch": 1.2,
+        "volume": 0.7
+      }
+    ]
+  },
+  "entity.anchor.flying": {
+    "subtitle": "subtitles.arsenal.entity.anchor.flying",
+    "sounds": [
+      {
+        "name": "minecraft:entity.vex.charge",
+        "pitch": 0.6,
+        "volume": 0.2
+      },
+      {
+        "name": "minecraft:block.beacon.ambient",
+        "pitch": 0.7,
+        "volume": 0.15
+      }
+    ]
+  }
+}
