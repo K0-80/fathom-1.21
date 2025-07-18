@@ -1,6 +1,6 @@
 package com.k080.fathom.entity.custom;
 
-import com.k080.fathom.Fathom;
+import com.k080.fathom.index.ModSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
@@ -41,12 +41,15 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             return;
         }
 
+        if (!this.inGround && this.age % 10 == 0) {
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_VEX_CHARGE, this.getSoundCategory(), 0.2f, 0.6f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_BEACON_AMBIENT, this.getSoundCategory(), 0.15f, 0.7f);
+        }
+
         if (this.isReturning()) {
             if (!this.getWorld().isClient && this.distanceTo(owner) < 2.0f) {
-                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_BUNDLE_INSERT, SoundCategory.NEUTRAL,0.6F, 1F );
-                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL,0.6F, 1F );
-
-                this.discard();
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, this.getSoundCategory(), 0.8f, 1.1f);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, this.getSoundCategory(), 0.7f, 1.2f);                this.discard();
                 return;
             }
             Vec3d directionToOwner = owner.getEyePos().subtract(this.getPos());
@@ -55,12 +58,14 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
         else if (this.inGround) {
             this.getWorld().addParticle(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.NEUTRAL,2F, 0.7F );
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_FALL, SoundCategory.NEUTRAL,0.3F, 0.9F );
+
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 1.0f, 0.9f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST, this.getSoundCategory(), 0.8f, 1.0f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
 
             float knockbackRadius = 5.0f;
             for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(knockbackRadius), LivingEntity::isAlive)) {
-                if (nearbyEntity == owner) continue;
+                //if (nearbyEntity == owner) continue;
                 Vec3d pushDirection = nearbyEntity.getPos().subtract(this.getPos()).normalize();
                 nearbyEntity.addVelocity(pushDirection.x, pushDirection.y + 0.2, pushDirection.z);
             }
@@ -72,12 +77,19 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-            Entity hitEntity = entityHitResult.getEntity();
+        Entity hitEntity = entityHitResult.getEntity();
+
         float damage = 10F;
         hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.ARROW, this, this.getOwner()), damage);
+
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, this.getSoundCategory(), 0.5f, 1.3f);
+
         this.setNoClip(true);
         this.setReturning(true);
     }
+
 
     public boolean isReturning() {
         return this.getDataTracker().get(IS_RETURNING);

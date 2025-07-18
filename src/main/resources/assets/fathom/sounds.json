@@ -4,16 +4,19 @@
     "sounds": [
       {
         "name": "minecraft:item.trident.throw",
+        "type": "event",
         "pitch": 0.8,
         "volume": 0.9
       },
       {
         "name": "minecraft:block.chain.place",
+        "type": "event",
         "pitch": 1.2,
-        "volume": 0.4
+        "volume": 2.0
       },
       {
         "name": "minecraft:entity.player.attack.swoop",
+        "type": "event",
         "pitch": 0.7
       }
     ]
@@ -23,15 +26,18 @@
     "sounds": [
       {
         "name": "minecraft:block.anvil.land",
+        "type": "event",
         "pitch": 0.9,
         "volume": 1.0
       },
       {
         "name": "minecraft:entity.wind_charge.wind_burst",
+        "type": "event",
         "volume": 0.8
       },
       {
         "name": "minecraft:item.shield.block",
+        "type": "event",
         "pitch": 0.7,
         "volume": 0.7
       }
@@ -42,14 +48,17 @@
     "sounds": [
       {
         "name": "minecraft:item.trident.hit",
+        "type": "event",
         "pitch": 0.9
       },
       {
         "name": "minecraft:entity.player.attack.strong",
+        "type": "event",
         "pitch": 0.8
       },
       {
         "name": "minecraft:entity.zombie.attack_iron_door",
+        "type": "event",
         "pitch": 1.1,
         "volume": 0.5
       }
@@ -60,11 +69,13 @@
     "sounds": [
       {
         "name": "minecraft:item.trident.return",
+        "type": "event",
         "pitch": 1.1,
         "volume": 0.8
       },
       {
         "name": "minecraft:item.armor.equip_chain",
+        "type": "event",
         "pitch": 1.2,
         "volume": 0.7
       }
@@ -75,11 +86,13 @@
     "sounds": [
       {
         "name": "minecraft:entity.vex.charge",
+        "type": "event",
         "pitch": 0.6,
         "volume": 0.2
       },
       {
         "name": "minecraft:block.beacon.ambient",
+        "type": "event",
         "pitch": 0.7,
         "volume": 0.15
       }
