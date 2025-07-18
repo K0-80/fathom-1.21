@@ -20,7 +20,7 @@ public class ModEntities {
             Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "anchor_projectile"),
             EntityType.Builder.create(AnchorProjectileEntity::new,SpawnGroup.MISC)
-                    .dimensions(0.5F, 0.5F).maxTrackingRange(4).alwaysUpdateVelocity(true).build()
+                    .dimensions(1.0F, 0.5F).maxTrackingRange(4).alwaysUpdateVelocity(true).build()
     );
 
 

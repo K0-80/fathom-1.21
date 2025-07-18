@@ -1,6 +1,5 @@
 package com.k080.fathom.entity.custom;
 
-import com.k080.fathom.index.ModSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -12,9 +11,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -77,10 +76,35 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        Entity hitEntity = entityHitResult.getEntity();
 
-        float damage = 10F;
-        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.ARROW, this, this.getOwner()), damage);
+        World world = this.getWorld();
+        Entity hitEntity = entityHitResult.getEntity();
+        Entity owner = this.getOwner();
+
+        if (owner != null && hitEntity.getUuid().equals(owner.getUuid())) {
+            return;
+        }
+
+
+        hitEntity.setVelocity(Vec3d.ZERO);
+        if (owner != null) {
+            double maxEffectiveDistance = 25.0;
+            double minStrength = 1.0;
+            double maxStrength = 3.0;
+
+            double distance = owner.distanceTo(hitEntity);
+            double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
+            double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
+
+            Vec3d pullDirection = owner.getPos().subtract(hitEntity.getPos()).normalize();
+            Vec3d pullVelocity = pullDirection.multiply(pullStrength);
+
+            hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
+        }
+
+
+        float damage = 4F;
+        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), damage);
 
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
@@ -111,5 +135,9 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     @Override
     protected float getDragInWater() {
         return 1.0F;
+    }
+    @Override
+    protected double getGravity() {
+        return 0.03F; // Default arrow gravity is 0.05F. This is about 60% of normal.
     }
 }
