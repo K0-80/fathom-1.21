@@ -8,7 +8,9 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 
@@ -62,5 +64,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('I', ModItems.MITHRIL_INGOT)
                 .criterion(hasItem(ModItems.MITHRIL_INGOT), conditionsFromItem(ModItems.MITHRIL_INGOT))
                 .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MITHRIL_BOOTS));
+
+        //ANCHOR WEAPON
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.ANCHOR)
+                .pattern("IID")
+                .pattern(" HI")
+                .pattern("D I")
+                .input('H', Items.HEART_OF_THE_SEA)
+                .input('I', Items.IRON_INGOT)
+                .input('D', ModBlocks.DRIFTWOOD_LOG)
+                .criterion(hasItem(Items.HEART_OF_THE_SEA), conditionsFromItem(Items.HEART_OF_THE_SEA))
+                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.ANCHOR));
     }
 }

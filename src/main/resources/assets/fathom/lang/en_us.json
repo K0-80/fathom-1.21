@@ -27,5 +27,7 @@
   "subtitles.fathom.effect.stun.applies": "Stun effect applies",
 
   "entity.fathom.skeleton_fish": "Skeleton Fish",
-  "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish"
+  "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
+
+  "item.fathom.anchor": "Anchor"
 }

@@ -39,6 +39,7 @@ public class ModItemGroups {
 
                         entries.add(ModItems.SKELETON_FISH_BUCKET);
 
+                        entries.add(ModItems.ANCHOR);
 
                     }) .build());
 

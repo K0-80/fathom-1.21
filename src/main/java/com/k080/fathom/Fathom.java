@@ -3,7 +3,7 @@ package com.k080.fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
-import com.k080.fathom.entity.ModEntitys;
+import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
@@ -31,7 +31,7 @@ public class Fathom implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 
-		ModEntitys.registerModEntities();
+		ModEntities.registerModEntities();
 
 		ModDataComponentTypes.registerDataComponentTypes();
 
@@ -51,7 +51,7 @@ public class Fathom implements ModInitializer {
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_LEAVES, 30, 60);
 		FlammableBlockRegistry.getDefaultInstance().add(ModBlocks.DRIFTWOOD_PLANK,5,  20);
 
-		FabricDefaultAttributeRegistry.register(ModEntitys.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
 
 		registerFishConversions();
 
@@ -64,7 +64,7 @@ public class Fathom implements ModInitializer {
 		FishConversionUtil.register(Items.TROPICAL_FISH, EntityType.TROPICAL_FISH);
 		FishConversionUtil.register(Items.PUFFERFISH, EntityType.PUFFERFISH);
 		FishConversionUtil.register(Items.INK_SAC, EntityType.SQUID);
-		FishConversionUtil.register(Items.BONE, ModEntitys.SKELETON_FISH);
+		FishConversionUtil.register(Items.BONE, ModEntities.SKELETON_FISH);
 
 		// FishConversion.register(ModItems.GHOST_FIN, ModEntities.GHOST_FISH);
 	}

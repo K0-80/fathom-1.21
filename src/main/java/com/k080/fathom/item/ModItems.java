@@ -1,13 +1,11 @@
 package com.k080.fathom.item;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.entity.ModEntitys;
+import com.k080.fathom.entity.ModEntities;
+import com.k080.fathom.item.custom.AnchorItem;
 import com.k080.fathom.item.custom.ModArmorItem;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.EntityBucketItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
@@ -34,9 +32,13 @@ public class ModItems {
 
 
     public static final Item SKELETON_FISH_BUCKET = registerItem("skeleton_fish_bucket",
-            new EntityBucketItem(ModEntitys.SKELETON_FISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,
+            new EntityBucketItem(ModEntities.SKELETON_FISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,
                     new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
 
+
+    public static final Item ANCHOR = registerItem("anchor",
+            new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1)
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ANCHOR, 5, -3.0f))));
 
 
     private static Item registerItem(String name, Item item) {

@@ -6,6 +6,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.entity.Bucketable;
@@ -45,7 +47,7 @@ public class FishConversionUtil {
         if (offhandStack.isOf(Items.BUCKET) && fishEntity instanceof Bucketable bucketableEntity) {
             ItemStack fishBucketStack = bucketableEntity.getBucketItem();
             offhandStack.decrement(1);
-
+            world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_BUCKET_FILL_FISH, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             if (player.getMainHandStack().isEmpty()) {
                 player.setStackInHand(player.getActiveHand(), fishBucketStack);
             } else {

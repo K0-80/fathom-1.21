@@ -27,7 +27,7 @@ public abstract class FishingBobberEntityMixin {
             if (!wasConverted) {
                 remainingLoot.add(stack);
             } else {
-                Fathom.LOGGER.info(Fathom.MOD_ID + "  Converted {} to an entity", stack.getItem().toString());
+                Fathom.LOGGER.info(Fathom.MOD_ID + "Handled custom fish conversion for: {}", stack.getItem().toString());
             }
         }
         return remainingLoot;
