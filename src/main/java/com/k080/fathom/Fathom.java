@@ -3,6 +3,8 @@ package com.k080.fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
+import com.k080.fathom.enchantment.ModEnchantmentEffects;
+import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.event.GauntletAttackHandler;
@@ -49,6 +51,8 @@ public class Fathom implements ModInitializer {
 		ModParticles.registerParticles();
 
 		GauntletAttackHandler.register();
+
+		ModEnchantmentEffects.registerEnchantmentEffects();
 
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);

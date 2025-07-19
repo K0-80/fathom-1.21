@@ -67,7 +67,7 @@ public class AnchorItem extends SwordItem {
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         user.getItemCooldownManager().set(this, 10);
-        itemStack.damage(2, user, user.getSlotForHand(hand));
+        itemStack.damage(2, user, LivingEntity.getSlotForHand(hand));
         return TypedActionResult.success(itemStack, world.isClient());
     }
 }

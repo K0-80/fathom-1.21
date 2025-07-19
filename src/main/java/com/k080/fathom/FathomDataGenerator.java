@@ -1,6 +1,7 @@
 package com.k080.fathom;
 
 import com.k080.fathom.datagen.*;
+import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.world.ModConfiguredFeatures;
 import com.k080.fathom.world.ModPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -26,5 +27,6 @@ public class FathomDataGenerator implements DataGeneratorEntrypoint {
 
 		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
+		registryBuilder.addRegistry(RegistryKeys.ENCHANTMENT, ModEnchantments::bootstrap);
 	}
 }

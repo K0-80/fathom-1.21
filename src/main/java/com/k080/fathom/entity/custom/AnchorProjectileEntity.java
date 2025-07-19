@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -62,23 +63,6 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         }
 
         if (this.inGround) {
-            BlockPos pos = this.getBlockPos();
-            BlockState blockState = this.getWorld().getBlockState(pos);
-            if (blockState.isAir()) {
-                blockState = this.getWorld().getBlockState(pos.down());
-            }
-            if (!blockState.isAir()) {
-                double spawnSpread = 0.5;
-                for (int i = 0; i < 20; i++) {
-                    double px = this.getX() + (this.random.nextDouble() - 0.5) * spawnSpread;
-                    double py = this.getY() + this.random.nextDouble() * spawnSpread;
-                    double pz = this.getZ() + (this.random.nextDouble() - 0.5) * spawnSpread;
-                    double d = this.random.nextGaussian() * 2.5;
-                    double e = this.random.nextGaussian() * 2.5;
-                    double f = this.random.nextGaussian() * 2.5;
-                    this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), px, py, pz, d, e, f);
-                }
-            }
 
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST, this.getSoundCategory(), 0.8f, 1.2f);
@@ -145,6 +129,47 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         this.inGround = false;
         this.setNoClip(true);
         this.setReturning(true);
+    }
+
+    @Override
+    protected void onBlockHit(BlockHitResult blockHitResult) {
+        super.onBlockHit(blockHitResult);
+
+
+        BlockPos pos = blockHitResult.getBlockPos();
+        BlockState blockState = this.getWorld().getBlockState(pos);
+
+        if (!blockState.isAir()) {
+            double centerX = blockHitResult.getPos().getX();
+            double centerY = blockHitResult.getPos().getY();
+            double centerZ = blockHitResult.getPos().getZ();
+
+            double radius = 3.0;
+            int particleCount = 200;
+
+            for (int i = 0; i < particleCount; ++i) {
+                double d = this.random.nextGaussian();
+                double e = this.random.nextGaussian();
+                double f = this.random.nextGaussian();
+                double magnitude = Math.sqrt(d * d + e * e + f * f);
+
+                double dirX = d / magnitude;
+                double dirY = e / magnitude;
+                double dirZ = f / magnitude;
+
+                double dist = this.random.nextDouble() * radius;
+                double px = centerX + dirX * dist;
+                double py = centerY + dirY * dist;
+                double pz = centerZ + dirZ * dist;
+
+                double speed = this.random.nextDouble() * 0.2;
+                double velX = dirX * speed;
+                double velY = dirY * speed;
+                double velZ = dirZ * speed;
+
+                this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), px, py, pz, velX, velY, velZ);
+            }
+        }
     }
 
     public boolean isReturning() {
