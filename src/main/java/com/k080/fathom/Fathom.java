@@ -8,6 +8,7 @@ import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.index.ModSounds;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.util.FishConversionUtil;
 import com.k080.fathom.util.ModLootTableModifiers;
 import com.k080.fathom.world.gen.ModWorldGeneration;
@@ -43,6 +44,8 @@ public class Fathom implements ModInitializer {
 		ModLootTableModifiers.replaceLootTables();
 
 		ModSounds.registerSounds();
+
+		ModParticles.registerParticles();
 
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);

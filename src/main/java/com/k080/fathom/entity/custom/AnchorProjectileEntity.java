@@ -92,8 +92,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             return;
         }
 
-        float damage = 4F;
-        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), damage);
+        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 4F);
 
         hitEntity.setVelocity(Vec3d.ZERO);
         if (owner != null) {
@@ -105,7 +104,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
             double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
 
-            Vec3d pullDirection = owner.getPos().subtract(hitEntity.getPos()).normalize();
+            Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
             Vec3d pullVelocity = pullDirection.multiply(pullStrength);
 
             hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);

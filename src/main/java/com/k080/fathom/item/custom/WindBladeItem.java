@@ -1,5 +1,6 @@
 package com.k080.fathom.item.custom;
 
+import com.k080.fathom.particle.ModParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,10 +25,10 @@ import java.util.Optional;
 
 public class WindBladeItem extends SwordItem {
     public static final int CHARGE_TIME = 10;
-    private static final double RANGE = 25.0;
+    private static final double RANGE = 30.0;
     private static final int COOLDOWN = 20;
-    private static final double RAY_TOLERANCE_FUZZINESS = 1.2;
-    private static final int AIM_LOST_GRACE_PERIOD = 3;
+    private static final double RAY_TOLERANCE_FUZZINESS = 1.4;
+    private static final int AIM_LOST_GRACE_PERIOD = 4;
     private int aimLostTicks = 0;
 
     public WindBladeItem(ToolMaterial toolMaterial, Settings settings) {
@@ -104,7 +105,6 @@ public class WindBladeItem extends SwordItem {
                 if (!world.isClient) {
                     player.requestTeleport(teleportPos.getX(), teleportPos.getY() + yOffset, teleportPos.getZ());
                     player.getItemCooldownManager().set(this, COOLDOWN);
-                    // Use the captured preTeleportPos
                     spawnDashParticles((ServerWorld) world, preTeleportPos, teleportPos);
                 }
             } else {
@@ -124,12 +124,40 @@ public class WindBladeItem extends SwordItem {
     }
 
     private void spawnDashParticles(ServerWorld world, Vec3d start, Vec3d end) {
-        world.spawnParticles(ParticleTypes.CLOUD, start.x, start.y + 0.5, start.z, 15, 0.4, 0.4, 0.4, 0.05);
-        world.spawnParticles(ParticleTypes.GUST, start.x, start.y + 0.5, start.z, 1, 0,0,0, 0);
+        final double spiralRadius = 0.6;         // How wide the spiral is.
+        final double totalRotations = 10;         // How many times the spiral twists around the path.
+        final double particlesPerBlock = 5.0;    // Density of the particles.
 
-            world.spawnParticles(ParticleTypes.ELECTRIC_SPARK, end.x, end.y, end.z, 40, 1.5, 1.5, 1.5, 0);
-        world.spawnParticles(ParticleTypes.END_ROD, end.x, end.y, end.z, 20, 1.5, 1.5, 1.5, 0);
-        world.spawnParticles(ParticleTypes.WHITE_SMOKE, end.x, end.y, end.z, 15, 1, 1, 1, 0);
+        world.spawnParticles(ModParticles.WIND_PARTICLE,
+                start.x, start.y, start.z, 25, 0.4, 0.4, 0.4, 0.15);
+
+        Vec3d direction = end.subtract(start);
+        double distance = direction.length();
+        if (distance < 0.1) {
+            return;
+        }
+        direction = direction.normalize();
+        int particleCount = (int) (distance * particlesPerBlock);
+        Vec3d perpendicular = direction.crossProduct(new Vec3d(0, 1, 0));
+        if (perpendicular.lengthSquared() < 1.0E-6) {
+            perpendicular = direction.crossProduct(new Vec3d(0, 0, 1));
+        }
+        perpendicular = perpendicular.normalize();
+        Vec3d perpendicular2 = direction.crossProduct(perpendicular).normalize();
+
+        for (int i = 0; i < particleCount; i++) {
+            double t = (double) i / (particleCount - 1);
+            double currentDistance = t * distance;
+            double angle = t * totalRotations * 2 * Math.PI;
+            Vec3d linePos = start.add(direction.multiply(currentDistance));
+            Vec3d offset = perpendicular.multiply(Math.cos(angle) * spiralRadius)
+                    .add(perpendicular2.multiply(Math.sin(angle) * spiralRadius));
+            Vec3d particlePos = linePos.add(offset);
+            world.spawnParticles(ModParticles.WIND_PARTICLE, particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0);
+        }
+
+        world.spawnParticles(ModParticles.WIND_PARTICLE,
+                end.x, end.y, end.z, 25, 0.4, 0.4, 0.4, 0.15);
     }
 
     private Optional<EntityHitResult> raycastForEntity(PlayerEntity player) {

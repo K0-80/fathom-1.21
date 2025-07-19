@@ -5,12 +5,16 @@ import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.SkeletonFishModel;
 import com.k080.fathom.entity.client.SkeletonFishRender;
 import com.k080.fathom.entity.client.AnchorProjectileRenderer;
+import com.k080.fathom.particle.ModParticles;
+import com.k080.fathom.particle.custom.WindParticle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.render.RenderLayer;
+
 
 public class FathomModClient implements ClientModInitializer {
     @Override
@@ -25,5 +29,8 @@ public class FathomModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);
 
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
+
+        ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
+
     }
 }
