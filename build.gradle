@@ -81,3 +81,6 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+artifacts {
+	archives(tasks.remapJar)
+}

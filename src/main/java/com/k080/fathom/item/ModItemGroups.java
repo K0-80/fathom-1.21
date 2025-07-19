@@ -40,6 +40,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SKELETON_FISH_BUCKET);
 
                         entries.add(ModItems.ANCHOR);
+                        entries.add(ModItems.WIND_BLADE);
 
                     }) .build());
 

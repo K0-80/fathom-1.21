@@ -56,6 +56,8 @@ public class AnchorItem extends AxeItem {
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         user.getItemCooldownManager().set(this, 10);
+        ItemStack stack = user.getStackInHand(hand);
+        stack.damage(4, user, user.getSlotForHand(hand));
         return TypedActionResult.success(itemStack, world.isClient());
     }
 

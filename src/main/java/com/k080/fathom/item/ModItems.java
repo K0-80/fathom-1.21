@@ -4,6 +4,7 @@ import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.custom.AnchorItem;
 import com.k080.fathom.item.custom.ModArmorItem;
+import com.k080.fathom.item.custom.WindBladeItem;
 import net.minecraft.component.type.ToolComponent;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
@@ -39,6 +40,10 @@ public class ModItems {
     public static final Item ANCHOR = registerItem("anchor",
             new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1)
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ANCHOR, 5, -3.0f))));
+
+    public static final Item WIND_BLADE = registerItem("wind_blade",
+            new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1)
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.WINDBLADE, 1, -2.4f))));
 
 
     private static Item registerItem(String name, Item item) {

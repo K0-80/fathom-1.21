@@ -29,6 +29,7 @@
   "entity.fathom.skeleton_fish": "Skeleton Fish",
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
 
-  "item.fathom.anchor": "Anchor"
+  "item.fathom.anchor": "Anchor",
+  "item.fathom.wind_blade" : "Sylph's Blade"
 
 }

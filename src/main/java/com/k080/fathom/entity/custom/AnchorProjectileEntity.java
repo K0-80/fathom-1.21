@@ -1,6 +1,5 @@
 package com.k080.fathom.entity.custom;
 
-import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,7 +11,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.EntityHitResult;
@@ -58,7 +56,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             Vec3d directionToOwner = owner.getEyePos().subtract(this.getPos());
             this.setVelocity(directionToOwner.normalize().multiply(1.5));
         }
-        else if (this.distanceTo(owner) > 15.0f) {
+        else if (this.distanceTo(owner) > 20.0f) {
             this.setReturning(true);
         }
 
