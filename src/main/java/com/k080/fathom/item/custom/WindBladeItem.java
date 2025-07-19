@@ -57,6 +57,7 @@ public class WindBladeItem extends SwordItem {
             this.aimLostTicks = 0;
             return TypedActionResult.consume(itemStack);
         }
+        user.getStackInHand(hand).damage(4, user, user.getSlotForHand(hand));
         return TypedActionResult.fail(itemStack);
     }
 
@@ -108,7 +109,7 @@ public class WindBladeItem extends SwordItem {
                     spawnDashParticles((ServerWorld) world, preTeleportPos, teleportPos);
                 }
             } else {
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.0f);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 0.5f);
             }
             player.stopUsingItem();
         }
@@ -129,7 +130,7 @@ public class WindBladeItem extends SwordItem {
         final double particlesPerBlock = 5.0;    // Density of the particles.
 
         world.spawnParticles(ModParticles.WIND_PARTICLE,
-                start.x, start.y, start.z, 25, 0.4, 0.4, 0.4, 0.15);
+                start.x, start.y, start.z, 25, 1.2, 1.2, 1.2, 0.15);
 
         Vec3d direction = end.subtract(start);
         double distance = direction.length();
@@ -157,7 +158,7 @@ public class WindBladeItem extends SwordItem {
         }
 
         world.spawnParticles(ModParticles.WIND_PARTICLE,
-                end.x, end.y, end.z, 25, 0.4, 0.4, 0.4, 0.15);
+                end.x, end.y, end.z, 25, 1.2, 1.2, 1.2, 0.15);
     }
 
     private Optional<EntityHitResult> raycastForEntity(PlayerEntity player) {

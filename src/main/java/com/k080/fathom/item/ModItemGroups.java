@@ -41,6 +41,7 @@ public class ModItemGroups {
 
                         entries.add(ModItems.ANCHOR);
                         entries.add(ModItems.WIND_BLADE);
+                        entries.add(ModItems.GAUNTLET);
 
                     }) .build());
 

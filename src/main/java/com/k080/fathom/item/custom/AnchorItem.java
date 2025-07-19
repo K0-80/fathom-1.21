@@ -7,8 +7,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -18,7 +18,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class AnchorItem extends AxeItem {
+public class AnchorItem extends SwordItem {
     public AnchorItem(ModToolMaterials anchor, Settings settings) {
         super(ModToolMaterials.ANCHOR, settings);
     }
@@ -38,10 +38,21 @@ public class AnchorItem extends AxeItem {
 
         return super.postHit(stack, target, attacker);
     }
+
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-
         ItemStack itemStack = user.getStackInHand(hand);
+
+        boolean hasExistingAnchor = !world.getEntitiesByClass(
+                AnchorProjectileEntity.class,
+                user.getBoundingBox().expand(256),
+                projectile -> projectile.isProjectileOwner(user)
+        ).isEmpty();
+
+        if (hasExistingAnchor) {
+            return TypedActionResult.pass(itemStack);
+        }
+
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.9f, 0.8f);
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.7f);
@@ -56,9 +67,7 @@ public class AnchorItem extends AxeItem {
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         user.getItemCooldownManager().set(this, 10);
-        ItemStack stack = user.getStackInHand(hand);
-        stack.damage(4, user, user.getSlotForHand(hand));
+        itemStack.damage(2, user, user.getSlotForHand(hand));
         return TypedActionResult.success(itemStack, world.isClient());
     }
-
 }

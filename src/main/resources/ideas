@@ -1,0 +1,10 @@
+anchor (knocks entitys back in a 3 block radious when it hits a block, pulls hit entitys towards user) enchants:
+better pull - instead of pulling entity oon hit, drag entity with anchor
+be able to pull items and stuff
+damaging knockback -  damage all things hit by aoe
+
+wind blade (hold right while looking at entity to charge, once fully charged (10 ticks) teleport to that entity) enchants:
+slow down player speed (slow down ticks) when charging
+faster charging time
+more forgiving when charging
+makes entity hit box bigger

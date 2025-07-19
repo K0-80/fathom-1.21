@@ -3,15 +3,16 @@ package com.k080.fathom.item;
 import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.custom.AnchorItem;
+import com.k080.fathom.item.custom.GauntletItem;
 import com.k080.fathom.item.custom.ModArmorItem;
 import com.k080.fathom.item.custom.WindBladeItem;
-import net.minecraft.component.type.ToolComponent;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 public class ModItems {
 
@@ -38,12 +39,16 @@ public class ModItems {
 
 
     public static final Item ANCHOR = registerItem("anchor",
-            new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1)
+            new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ANCHOR, 5, -3.0f))));
 
     public static final Item WIND_BLADE = registerItem("wind_blade",
-            new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1)
+            new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.WINDBLADE, 1, -2.4f))));
+
+    public static final Item GAUNTLET = registerItem("gauntlet",
+            new GauntletItem(ModToolMaterials.GAUNTLET, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.GAUNTLET, 0, -2.2f))));
 
 
     private static Item registerItem(String name, Item item) {

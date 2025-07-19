@@ -5,6 +5,7 @@ import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
+import com.k080.fathom.event.GauntletAttackHandler;
 import com.k080.fathom.index.ModSounds;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
@@ -46,6 +47,8 @@ public class Fathom implements ModInitializer {
 		ModSounds.registerSounds();
 
 		ModParticles.registerParticles();
+
+		GauntletAttackHandler.register();
 
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);

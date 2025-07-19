@@ -41,6 +41,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.MITHRIL_BOOTS);
 
         getOrCreateTagBuilder(ItemTags.SWORDS)
-                .add(ModItems.ANCHOR);
+                .add(ModItems.ANCHOR)
+                .add(ModItems.WIND_BLADE)
+                .add(ModItems.GAUNTLET);
+
     }
 }
