@@ -56,7 +56,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             Vec3d directionToOwner = owner.getEyePos().subtract(this.getPos());
             this.setVelocity(directionToOwner.normalize().multiply(1.5));
         }
-        else if (this.distanceTo(owner) > 20.0f) {
+        else if (this.distanceTo(owner) > 19.0f) {
             this.setReturning(true);
         }
 
