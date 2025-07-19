@@ -71,8 +71,8 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             float knockbackRadius = 3.0f;
             for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(knockbackRadius), LivingEntity::isAlive)) {
                 //for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(knockbackRadius), e -> e.isAlive() && !this.isOwner(e))) {
-                Vec3d pushDirection = nearbyEntity.getPos().subtract(this.getPos()).normalize();
-                nearbyEntity.addVelocity(pushDirection.x, pushDirection.y + 0.2, pushDirection.z);
+                Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
+                nearbyEntity.addVelocity(pushDirection.x, pushDirection.y, pushDirection.z);
                 nearbyEntity.fallDistance = 0.0f;
             }
 
