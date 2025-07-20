@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import java.util.Optional;
 
 public class WindBladeItem extends SwordItem {
-    public static final int CHARGE_TIME = 10;
+    public static final int CHARGE_TIME = 11;
     private static final double RANGE = 30.0;
     private static final int COOLDOWN = 20;
     private static final double RAY_TOLERANCE_FUZZINESS = 1.4;

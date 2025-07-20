@@ -1,8 +1,12 @@
 package com.k080.fathom.item.custom;
 
+import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
 import com.k080.fathom.item.ModToolMaterials;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -10,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -40,34 +45,53 @@ public class AnchorItem extends ToolItem {
     }
 
     @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
+
+        if (!world.isClient && entity instanceof PlayerEntity player) {
+            boolean hasExistingAnchor = !world.getEntitiesByClass(
+                    AnchorProjectileEntity.class,
+                    player.getBoundingBox().expand(256),
+                    projectile -> projectile.isProjectileOwner(player)
+            ).isEmpty();
+
+            if (hasExistingAnchor) {
+                player.getItemCooldownManager().set(this, 100000);
+            } else
+                player.getItemCooldownManager().set(this, 0);
+        }
+    }
+
+    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
 
-        boolean hasExistingAnchor = !world.getEntitiesByClass(
-                AnchorProjectileEntity.class,
-                user.getBoundingBox().expand(256),
-                projectile -> projectile.isProjectileOwner(user)
-        ).isEmpty();
-
-        if (hasExistingAnchor) {
-            return TypedActionResult.pass(itemStack);
-        }
-
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.9f, 0.8f);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.7f);
-
         if (!world.isClient) {
+
             AnchorProjectileEntity anchorProjectile = new AnchorProjectileEntity(ModEntities.ANCHOR_PROJECTILE, world);
+
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.9f, 0.8f);
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.7f);
+
+            int maelstromLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MAELSTROM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+            anchorProjectile.setMaelstromLevel(maelstromLevel);
+            int momentumLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MOMENTUM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+            anchorProjectile.setMomentumLevel(momentumLevel);
+            int resonanceLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.RESONANCE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+            anchorProjectile.setResonanceLevel(resonanceLevel);
+
             anchorProjectile.setOwner(user);
             anchorProjectile.setPosition(user.getEyePos().getX(), user.getEyePos().getY() - 0.5, user.getEyePos().getZ());
-            anchorProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 2F, 1.0F);
+            float speed = 2F + (momentumLevel * 0.3F);
+            anchorProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, speed, 1.0F);
+
             world.spawnEntity(anchorProjectile);
         }
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));
-        user.getItemCooldownManager().set(this, 10);
         itemStack.damage(2, user, LivingEntity.getSlotForHand(hand));
-        return TypedActionResult.success(itemStack, world.isClient());
+
+            return TypedActionResult.success(itemStack, world.isClient());
     }
 }

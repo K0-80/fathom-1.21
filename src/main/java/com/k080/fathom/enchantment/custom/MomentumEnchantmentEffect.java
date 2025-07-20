@@ -7,8 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
-public class MaelStromEnchantmentEffect implements EnchantmentEntityEffect{
-    public static final MapCodec<MaelStromEnchantmentEffect> CODEC = MapCodec.unit(MaelStromEnchantmentEffect::new);
+public class MomentumEnchantmentEffect implements EnchantmentEntityEffect {
+    public static final MapCodec<MomentumEnchantmentEffect> CODEC = MapCodec.unit(MomentumEnchantmentEffect::new);
     @Override
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
     }

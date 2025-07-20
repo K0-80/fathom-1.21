@@ -71,7 +71,7 @@ public class GauntletAttackHandler {
                 world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, SoundCategory.PLAYERS, 1.0f, 1.5f);
                 serverWorld.spawnParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getBodyY(0.5), target.getZ(), 10, 0.5, 0.5, 0.5, 0.1);
                 break;
-            case 3: // 10 total damage, bypassing armor
+            case 3: // 10 total damage, bypass armour
                 DamageSource gauntletDamage = world.getDamageSources().create(ModDamageTypes.GAUNTLET_COMBO, player);
                 target.damage(gauntletDamage, 10.0f);
                 world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, SoundCategory.PLAYERS, 1.0f, 0.8f);

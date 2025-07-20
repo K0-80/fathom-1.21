@@ -6,11 +6,6 @@
   "effects": {
     "minecraft:damage": [
       {
-        "requirements": {
-          "condition": "minecraft:weather_check",
-          "raining": true,
-          "thundering": true
-        },
         "effect": {
           "type": "minecraft:add",
           "value": {
@@ -18,6 +13,11 @@
             "base": 1,
             "per_level_above_first": 1
           }
+        },
+        "requirements": {
+          "condition": "minecraft:weather_check",
+          "raining": true,
+          "thundering": true
         }
       },
       {
@@ -37,12 +37,18 @@
               "raining": true
             },
             {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:water"
-            },
-            {
-              "condition": "minecraft:block_state_property",
-              "block": "minecraft:water_cauldron"
+              "condition": "minecraft:entity_properties",
+              "entity": "attacker",
+              "predicate": {
+                "location": {
+                  "block": {
+                    "blocks": [
+                      "minecraft:water",
+                      "minecraft:water_cauldron"
+                    ]
+                  }
+                }
+              }
             }
           ]
         }
@@ -62,6 +68,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/trident",
+  "supported_items": "#fathom:impaling_new",
   "weight": 2
 }

@@ -1,4 +1,6 @@
-// 1.21	2025-07-19T20:28:42.345384	Fathom/
+// 1.21	2025-07-20T15:51:27.7808136	Fathom/
 853dd42ac91ad5e1f30def730b719a3f127517b0 data\fathom\worldgen\configured_feature\mithril_ore_key.json
-d878a1ca13f3c5dfe2e1c053d9300688dc4e950b data\fathom\enchantment\maelstrom.json
+b170c2e5d827f20ed3b9a462096c570ed9399122 data\fathom\enchantment\maelstrom.json
+b7d795e9f39454ae4c355853d8741b2de2d4ef93 data\fathom\enchantment\momentum.json
 3fb9b57d2dfe74c8be42890a88e5b7207c522044 data\fathom\worldgen\placed_feature\mithril_ore_placed.json
+ffff74c210952e36bb96a1552865717fecb5991b data\fathom\enchantment\resonance.json

@@ -1,14 +1,11 @@
 package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
-import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantmentEffects;
-import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.event.GauntletAttackHandler;
-import com.k080.fathom.index.ModSounds;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.particle.ModParticles;
@@ -39,15 +36,11 @@ public class Fathom implements ModInitializer {
 
 		ModEntities.registerModEntities();
 
-		ModDataComponentTypes.registerDataComponentTypes();
-
 		ModEffects.registerEffects();
 
 		ModWorldGeneration.generateModWorldGen();
 
 		ModLootTableModifiers.replaceLootTables();
-
-		ModSounds.registerSounds();
 
 		ModParticles.registerParticles();
 

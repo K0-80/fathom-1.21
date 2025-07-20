@@ -6,6 +6,7 @@ import com.k080.fathom.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -46,9 +47,20 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.MITHRIL_LEGGINGS)
                 .add(ModItems.MITHRIL_BOOTS);
 
-        getOrCreateTagBuilder(ItemTags.SWORDS)
-                .add(ModItems.WIND_BLADE)
-                .add(ModItems.GAUNTLET)
+        getOrCreateTagBuilder(ModTags.Items.ANCHOR_ENCHANTBLE)
                 .add(ModItems.ANCHOR);
+        getOrCreateTagBuilder(ModTags.Items.WIND_BLADE_ENCHANTBLE)
+                .add(ModItems.WIND_BLADE);
+        getOrCreateTagBuilder(ModTags.Items.GAUNLET_ENCHANTBLE)
+                .add(ModItems.GAUNTLET);
+
+        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(ModItems.ANCHOR)
+                .add(ModItems.WIND_BLADE)
+                .add(ModItems.GAUNTLET);
+
+        getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
+                .add(ModItems.ANCHOR)
+                .add(Items.TRIDENT);
     }
 }

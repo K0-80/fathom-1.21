@@ -1,4 +1,4 @@
-package com.k080.fathom.client; // Make sure this is in a .client sub-package
+package com.k080.fathom.client;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.effect.ModEffects;
@@ -10,7 +10,6 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 
 public class StunnedOverlayRender implements HudRenderCallback {
-    // Create an identifier for our overlay texture
     private static final Identifier STUNNED_OVERLAY_TEXTURE = Identifier.of(Fathom.MOD_ID, "textures/misc/stunned_overlay.png");
 
     @Override

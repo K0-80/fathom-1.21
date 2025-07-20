@@ -8,15 +8,18 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModEnchantmentEffects {
+
     public static final MapCodec<? extends EnchantmentEntityEffect> MAELSTROM =
             registerEntityEffect("maelstrom", MaelStromEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> MOMENTUM =
+            registerEntityEffect("momentum", MaelStromEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> RESONANCE =
+            registerEntityEffect("resonance", MaelStromEnchantmentEffect.CODEC);
 
 
-    private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name,
-                                                                                    MapCodec<? extends EnchantmentEntityEffect> codec) {
+    private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(Fathom.MOD_ID, name), codec);
     }
-
     public static void registerEnchantmentEffects() {
         Fathom.LOGGER.info("Registering Mod Enchantment Effects for " + Fathom.MOD_ID);
     }

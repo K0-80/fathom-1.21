@@ -18,14 +18,11 @@ public class ModEntities {
             EntityType.Builder.create(SkeletonFishEntity::new, SpawnGroup.WATER_AMBIENT)
                     .dimensions(0.5F, 0.3F).eyeHeight(0.195f).maxTrackingRange(4).build());
 
-    public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(
-            Registries.ENTITY_TYPE,
-            Identifier.of(Fathom.MOD_ID, "anchor_projectile"),
-            FabricEntityTypeBuilder.<AnchorProjectileEntity>create(SpawnGroup.MISC, AnchorProjectileEntity::new)
-                    .dimensions(EntityDimensions.fixed(1.0F, 0.5F))
-                    .trackRangeBlocks(4).trackedUpdateRate(10)
-                    .build()
-    );
+    public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "anchor"),
+            EntityType.Builder.create(AnchorProjectileEntity::new, SpawnGroup.MONSTER)
+                    .dimensions(0.5F, 1F)
+                    .maxTrackingRange(8).build());
 
 
     public static void registerModEntities() {

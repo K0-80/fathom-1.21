@@ -1,5 +1,6 @@
 package com.k080.fathom.entity.custom;
 
+import com.k080.fathom.Fathom;
 import com.k080.fathom.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -25,7 +26,9 @@ import net.minecraft.world.World;
 public class AnchorProjectileEntity extends PersistentProjectileEntity {
     private static final TrackedData<Boolean> IS_RETURNING = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final ItemStack DEFAULT_STACK = new ItemStack(ModItems.ANCHOR);
-
+    private static final TrackedData<Integer> MAELSTROM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> MOMENTUM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> RESONANCE_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
     public AnchorProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -34,8 +37,17 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(IS_RETURNING, false);
+        builder.add(MAELSTROM_LEVEL, 0);
+        builder.add(MOMENTUM_LEVEL, 0);
+        builder.add(RESONANCE_LEVEL, 0);
     }
 
+    public void setMaelstromLevel(int level) { this.getDataTracker().set(MAELSTROM_LEVEL, level); }
+    public int getMaelstromLevel() { return this.getDataTracker().get(MAELSTROM_LEVEL); }
+    public void setMomentumLevel(int level) { this.getDataTracker().set(MOMENTUM_LEVEL, level); }
+    public int getMomentumLevel() { return this.getDataTracker().get(MOMENTUM_LEVEL); }
+    public void setResonanceLevel(int level) { this.getDataTracker().set(RESONANCE_LEVEL, level); }
+    public int getResonanceLevel() { return this.getDataTracker().get(RESONANCE_LEVEL); }
     public boolean isProjectileOwner(Entity entity) {
         return this.isOwner(entity);
     }
@@ -56,8 +68,9 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
                 this.discard();
                 return;
             }
-            Vec3d directionToOwner = owner.getEyePos().subtract(this.getPos());
-            this.setVelocity(directionToOwner.normalize().multiply(1.5));
+            double returnSpeed = 2.0 + (this.getMomentumLevel() * 0.4f);
+            Vec3d directionToOwner = owner.getBoundingBox().getCenter().subtract(this.getPos());
+            this.setVelocity(directionToOwner.normalize().multiply(returnSpeed));
             super.tick();
             return;
         }
@@ -65,27 +78,25 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         if (this.inGround) {
 
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST, this.getSoundCategory(), 0.8f, 1.2f);
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
 
-            float knockbackRadius = 3.0f;
-            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(knockbackRadius), LivingEntity::isAlive)) {
-                //for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(knockbackRadius), e -> e.isAlive() && !this.isOwner(e))) {
-                Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
-                nearbyEntity.addVelocity(pushDirection.x, pushDirection.y, pushDirection.z);
-                nearbyEntity.fallDistance = 0.0f;
-            }
+            handleAreaOfEffect(null);
 
             this.setReturning(true);
             this.setNoClip(true);
         }
 
-        if (this.distanceTo(owner) > 19.0f || this.age > 100) {
+
+        if (this.distanceTo(owner) > 15f + (3 * this.getMomentumLevel())) {
+            this.setReturning(true);
+            this.setNoClip(true);
+        }
+        if (this.age > 250) {
             this.setReturning(true);
             this.setNoClip(true);
         }
 
-        if (!this.inGround && this.age % 10 == 0) {
+        if (!this.inGround && this.age % 7 == 0) {
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_VEX_CHARGE, this.getSoundCategory(), 0.2f, 0.6f);
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_BEACON_AMBIENT, this.getSoundCategory(), 0.15f, 0.7f);
         }
@@ -103,71 +114,57 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             return;
         }
 
-        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 4F);
-
+        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 4F + ( 1.0f * this.getMomentumLevel()));
         hitEntity.setVelocity(Vec3d.ZERO);
+
         if (owner != null) {
-            double maxEffectiveDistance = 25.0;
-            double minStrength = 0.5;
-            double maxStrength = 2.5;
+            if (this.getMaelstromLevel() == 0) {
+                double maxEffectiveDistance = 10.0 + (this.getMomentumLevel() * 5);
+                double minStrength = 0.5 + (this.getMomentumLevel() * 0.05);
+                double maxStrength = 2.5 + (this.getMomentumLevel() * 0.25);
 
-            double distance = owner.distanceTo(hitEntity);
-            double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
-            double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
+                double distance = owner.distanceTo(hitEntity);
+                double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
+                double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
 
-            Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
-            Vec3d pullVelocity = pullDirection.multiply(pullStrength);
+                Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
+                Vec3d pullVelocity = pullDirection.multiply(pullStrength);
 
-            hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
+                hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
+            }
         }
-
 
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, this.getSoundCategory(), 0.3f, 1.4f);
+
+        handleAreaOfEffect(hitEntity);
 
         this.inGround = false;
         this.setNoClip(true);
         this.setReturning(true);
     }
 
-    @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
+    private void handleAreaOfEffect(Entity excludedEntity) {
+        int maelstromLevel = this.getMaelstromLevel();
+        if (maelstromLevel > 0) {
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST, this.getSoundCategory(), 0.8f, 0.6f);
+            float pullRadius = 1.5f + maelstromLevel / 2f;
+            float pullStrength = 0.3f * maelstromLevel;
+            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pullRadius), e -> e.isAlive() && !this.isOwner(e) && !e.equals(excludedEntity))) {
+                Vec3d pullDirection = this.getPos().subtract(nearbyEntity.getPos()).normalize();
+                nearbyEntity.addVelocity(pullDirection.multiply(pullStrength));
+            }
+        }
 
-
-        BlockPos pos = blockHitResult.getBlockPos();
-        BlockState blockState = this.getWorld().getBlockState(pos);
-
-        if (!blockState.isAir()) {
-            double centerX = blockHitResult.getPos().getX();
-            double centerY = blockHitResult.getPos().getY();
-            double centerZ = blockHitResult.getPos().getZ();
-
-            double radius = 3.0;
-            int particleCount = 200;
-
-            for (int i = 0; i < particleCount; ++i) {
-                double d = this.random.nextGaussian();
-                double e = this.random.nextGaussian();
-                double f = this.random.nextGaussian();
-                double magnitude = Math.sqrt(d * d + e * e + f * f);
-
-                double dirX = d / magnitude;
-                double dirY = e / magnitude;
-                double dirZ = f / magnitude;
-
-                double dist = this.random.nextDouble() * radius;
-                double px = centerX + dirX * dist;
-                double py = centerY + dirY * dist;
-                double pz = centerZ + dirZ * dist;
-
-                double speed = this.random.nextDouble() * 0.2;
-                double velX = dirX * speed;
-                double velY = dirY * speed;
-                double velZ = dirZ * speed;
-
-                this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, blockState), px, py, pz, velX, velY, velZ);
+        int resonanceLevel = this.getResonanceLevel();
+        if (resonanceLevel > 0) {
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, this.getSoundCategory(), 0.3f, 1.8f);
+            float pushRadius = 1.5f + resonanceLevel /2f;
+            float pushStrength = 0.3f * resonanceLevel;
+            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pushRadius), LivingEntity::isAlive)) {Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
+                nearbyEntity.addVelocity(pushDirection.multiply(pushStrength));
+                nearbyEntity.fallDistance = 0.0f;
             }
         }
     }
@@ -189,6 +186,14 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected boolean canHit(Entity entity) {
+        if (this.getMaelstromLevel() > 0) {
+            return false;
+        }
+        return super.canHit(entity);
     }
 
     @Override

@@ -31,9 +31,10 @@
 
   "item.fathom.anchor": "Anchor",
   "enchantment.fathom.maelstrom": "Maelstrom",
+  "enchantment.fathom.resonance": "Resonance",
+  "enchantment.fathom.momentum": "Momentum",
+
 
   "item.fathom.wind_blade" : "Sylph's Blade",
   "item.fathom.gauntlet" : "Earthshaker Gauntlet"
-
-
 }

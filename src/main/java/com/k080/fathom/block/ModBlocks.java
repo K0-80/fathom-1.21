@@ -41,8 +41,6 @@ public class ModBlocks {
     public static final Block DRIFTWOOD_SAPLING = registerBlock("driftwood_sapling",
             new Block(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING)));
 
-
-
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(Registries.BLOCK, Identifier.of(Fathom.MOD_ID, name), block);
