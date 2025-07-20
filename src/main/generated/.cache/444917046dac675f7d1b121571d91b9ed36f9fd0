@@ -1,4 +1,4 @@
-// 1.21	2025-07-19T16:49:29.8601893	Fathom/Model Definitions
+// 1.21	2025-07-19T20:28:42.3421744	Fathom/Model Definitions
 97b31efb917c23b3786cfda5419c15661623ebe6 assets\fathom\models\item\mithril_boots_amethyst_trim.json
 08eed516c7d074f1e215f69fbf40e8c232e51eba assets\fathom\models\item\raw_mithril_block.json
 b12f430a70b4d165536a2c9492dd60d0478b28b6 assets\fathom\models\item\driftwood_wood.json
@@ -11,8 +11,8 @@ d86553a3ad293e0c1f2bb231f19862120ed47753 assets\fathom\models\block\mithril_ore.
 cd4de876ffafa9d9dd4311573d31ed66d573ecc8 assets\fathom\models\item\mithril_boots_diamond_trim.json
 a7b07e7bc5aad36c04ea4dc069b4b1b931c9ed55 assets\fathom\models\item\mithril_chestplate_quartz_trim.json
 a25a037737ffd345be6c3abfda92030cbc7782eb assets\fathom\models\item\mithril_helmet_iron_trim.json
-d16e73536b36f51d69de307bf5c2046c21f9a11c assets\fathom\models\item\mithril_helmet.json
 a9f2588a7019dcb2a02c97d1fededbe1a21cbe07 assets\fathom\models\item\mithril_boots_netherite_trim.json
+d16e73536b36f51d69de307bf5c2046c21f9a11c assets\fathom\models\item\mithril_helmet.json
 b844c8249dd24ab78c52e9310eb2f34691efc4ce assets\fathom\models\item\mithril_boots_gold_trim.json
 bf503bdcab93824de70ebc6a28eb93f864c0b6b2 assets\fathom\models\block\deepslate_mithril_ore.json
 4eb7985ea9566f2583cea98bdfcc901bdf29eba3 assets\fathom\models\item\mithril_leggings_emerald_trim.json
