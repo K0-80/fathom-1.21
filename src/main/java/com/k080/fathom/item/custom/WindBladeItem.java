@@ -1,5 +1,6 @@
 package com.k080.fathom.item.custom;
 
+import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.particle.ModParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -7,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,6 +20,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.minecraft.entity.effect.StatusEffectInstance;
 
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class WindBladeItem extends SwordItem {
             this.aimLostTicks = 0;
             return TypedActionResult.consume(itemStack);
         }
-        user.getStackInHand(hand).damage(4, user, user.getSlotForHand(hand));
+        user.getStackInHand(hand).damage(4, user, LivingEntity.getSlotForHand(hand));
         return TypedActionResult.fail(itemStack);
     }
 
@@ -72,14 +73,14 @@ public class WindBladeItem extends SwordItem {
             aimLostTicks++;
             if (aimLostTicks >= AIM_LOST_GRACE_PERIOD) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM.value(), SoundCategory.PLAYERS, 0.4f, 0.7f);
+                        SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 0.5f);
                 player.stopUsingItem();
                 return;
             }
         } else {
             aimLostTicks = 0;
-            if (timeUsed % 4 == 0 && !world.isClient && world instanceof ServerWorld serverWorld) {
-                serverWorld.spawnParticles(ParticleTypes.END_ROD, hitResult.get().getPos().x, hitResult.get().getPos().y + 0.1, hitResult.get().getPos().z, 1, 0, 0, 0, 0.01);
+            if (hitResult.get().getEntity() instanceof LivingEntity target) {
+                target.addStatusEffect(new StatusEffectInstance(ModEffects.WIND_GLOW, 2, 0, false, false));
             }
         }
 

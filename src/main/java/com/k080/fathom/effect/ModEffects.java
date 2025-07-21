@@ -14,6 +14,8 @@ public class ModEffects {
             new StunnedEffect(StatusEffectCategory.HARMFUL, 0xfcf003));
     public static final RegistryEntry<StatusEffect> MITHRIL_VEIL = registerStatusEffect("mithril_veil",
             new StunnedEffect(StatusEffectCategory.BENEFICIAL, 0x48e2f0));
+    public static final RegistryEntry<StatusEffect> WIND_GLOW = registerStatusEffect("wind_glow",
+            new WindGlowEffect (StatusEffectCategory.NEUTRAL, 0x10cda5));
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Fathom.MOD_ID, name), statusEffect);

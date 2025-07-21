@@ -24,7 +24,8 @@
 
   "effect.fathom.stunned": "Stunned",
   "effect.fathom.mithril_veil" : "Mithril Veil",
-  "subtitles.fathom.effect.stun.applies": "Stun effect applies",
+  "effect.fathom.wind_glow": "Marked",
+
 
   "entity.fathom.skeleton_fish": "Skeleton Fish",
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",

@@ -114,7 +114,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             return;
         }
 
-        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 4F + ( 1.0f * this.getMomentumLevel()));
+        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 5F + ( 1.0f * this.getMomentumLevel()));
         hitEntity.setVelocity(Vec3d.ZERO);
 
         if (owner != null) {
@@ -148,7 +148,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     private void handleAreaOfEffect(Entity excludedEntity) {
         int maelstromLevel = this.getMaelstromLevel();
         if (maelstromLevel > 0) {
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST, this.getSoundCategory(), 0.8f, 0.6f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, this.getSoundCategory(), 0.5f, 0.3f);
             float pullRadius = 1.5f + maelstromLevel / 2f;
             float pullStrength = 0.3f * maelstromLevel;
             for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pullRadius), e -> e.isAlive() && !this.isOwner(e) && !e.equals(excludedEntity))) {
@@ -159,7 +159,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
         int resonanceLevel = this.getResonanceLevel();
         if (resonanceLevel > 0) {
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, this.getSoundCategory(), 0.3f, 1.8f);
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, this.getSoundCategory(), 0.6f, 1.8f);
             float pushRadius = 1.5f + resonanceLevel /2f;
             float pushStrength = 0.3f * resonanceLevel;
             for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pushRadius), LivingEntity::isAlive)) {Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
