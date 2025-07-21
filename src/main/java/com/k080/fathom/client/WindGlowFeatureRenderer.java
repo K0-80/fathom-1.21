@@ -27,7 +27,7 @@ public class WindGlowFeatureRenderer<T extends LivingEntity, M extends EntityMod
             return;
         }
         float time = entity.age + tickDelta;
-        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEnergySwirl(WIND_GLOW_TEXTURE, time * 0.01f, 0));
-        this.getContextModel().render(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 0xFFFFFFFF);
+        VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEnergySwirl(WIND_GLOW_TEXTURE, time * 0.005f, 0));
+        this.getContextModel().render(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 0x80FFFFFF);
     }
 }

@@ -12,11 +12,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.entity.Bucketable;
 import net.minecraft.item.Items;
-import com.k080.fathom.item.ModItems;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class FishConversionUtil {
     private static final Map<Item, EntityType<?>> FISH_CONVERSION_MAP = new HashMap<>();

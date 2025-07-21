@@ -25,7 +25,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import java.util.Optional;
 
 public class WindBladeItem extends SwordItem {
-    public static final int CHARGE_TIME = 11;
+    public static final int CHARGE_TIME = 10;
     private static final double RANGE = 30.0;
     private static final int COOLDOWN = 20;
     private static final double RAY_TOLERANCE_FUZZINESS = 1.4;
@@ -43,7 +43,7 @@ public class WindBladeItem extends SwordItem {
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000;
+        return CHARGE_TIME + 1;
     }
 
     @Override
@@ -73,7 +73,8 @@ public class WindBladeItem extends SwordItem {
             aimLostTicks++;
             if (aimLostTicks >= AIM_LOST_GRACE_PERIOD) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 0.5f);
+                        SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
+                player.getItemCooldownManager().set(this, COOLDOWN);
                 player.stopUsingItem();
                 return;
             }
@@ -84,10 +85,22 @@ public class WindBladeItem extends SwordItem {
             }
         }
 
+
+
         if (timeUsed < CHARGE_TIME) {
-            if (timeUsed % 4 == 0) {
+            int soundPoint1 = 1;
+            int soundPoint2 = CHARGE_TIME / 2;
+            int soundPoint3 = CHARGE_TIME - 2;
+
+            if (timeUsed == soundPoint1) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                        SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.3f, 0.5f + (timeUsed * 0.02f));
+                        SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.4f, 0.5f);
+            } else if (timeUsed == soundPoint2) {
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.4f, 1.0f);
+            } else if (timeUsed == soundPoint3) {
+                world.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.4f, 1.5f);
             }
         } else {
             if (hitResult.isPresent()) {
@@ -110,7 +123,8 @@ public class WindBladeItem extends SwordItem {
                     spawnDashParticles((ServerWorld) world, preTeleportPos, teleportPos);
                 }
             } else {
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 0.5f);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
+                player.getItemCooldownManager().set(this, COOLDOWN);
             }
             player.stopUsingItem();
         }
@@ -120,14 +134,17 @@ public class WindBladeItem extends SwordItem {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         int timeUsed = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (timeUsed < CHARGE_TIME) {
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.0f);
+            if (user instanceof PlayerEntity player) {
+                player.getItemCooldownManager().set(this, COOLDOWN);
+            }
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
         }
         this.aimLostTicks = 0;
     }
 
     private void spawnDashParticles(ServerWorld world, Vec3d start, Vec3d end) {
         final double spiralRadius = 0.6;         // How wide the spiral is.
-        final double totalRotations = 10;         // How many times the spiral twists around the path.
+        final double totalRotations = 10;        // How many times the spiral twists around the path.
         final double particlesPerBlock = 5.0;    // Density of the particles.
 
         world.spawnParticles(ModParticles.WIND_PARTICLE,

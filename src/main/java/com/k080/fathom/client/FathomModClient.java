@@ -1,10 +1,13 @@
 package com.k080.fathom.client;
 
+import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.SkeletonFishModel;
 import com.k080.fathom.entity.client.SkeletonFishRender;
 import com.k080.fathom.entity.client.AnchorProjectileRenderer;
+import com.k080.fathom.item.ModItems;
+import com.k080.fathom.item.custom.WindBladeItem;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.WindParticle;
 import net.fabricmc.api.ClientModInitializer;
@@ -13,15 +16,18 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.entity.EntityType;
+import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class FathomModClient implements ClientModInitializer {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(Fathom.MOD_ID);
+
     @Override
     public void onInitializeClient() {
 
@@ -40,5 +46,14 @@ public class FathomModClient implements ClientModInitializer {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             registrationHelper.register(new WindGlowFeatureRenderer<>(entityRenderer));
         });
+
+        ModelPredicateProviderRegistry.register(ModItems.WIND_BLADE, Identifier.of(Fathom.MOD_ID, "charge"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null || !entity.isUsingItem() || entity.getActiveItem() != stack) {return 0.0f;}
+
+                    float chargeTime = stack.getItem().getMaxUseTime(stack, entity);
+                    float timeUsed = chargeTime - entity.getItemUseTimeLeft();
+                    return timeUsed / chargeTime;
+                });
     }
 }
