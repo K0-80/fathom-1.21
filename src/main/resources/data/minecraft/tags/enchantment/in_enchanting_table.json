@@ -3,6 +3,10 @@
   "values" : [
     "fathom:maelstrom",
     "fathom:momentum",
-    "fathom:resonance"
+    "fathom:resonance",
+
+    "fathom:alacrity",
+    "fathom:gale_force",
+    "fathom:gaze"
   ]
 }

@@ -10,8 +10,12 @@ import net.minecraft.util.Identifier;
 public class ModParticles {
 
     public static final SimpleParticleType WIND_PARTICLE = FabricParticleTypes.simple();
+    public static final SimpleParticleType MARKED_PARTICLE = FabricParticleTypes.simple();
+
 
     public static void registerParticles() {
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "wind_particle"), WIND_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "marked_particle"), MARKED_PARTICLE);
+
     }
 }

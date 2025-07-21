@@ -9,6 +9,7 @@ import com.k080.fathom.entity.client.AnchorProjectileRenderer;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.item.custom.WindBladeItem;
 import com.k080.fathom.particle.ModParticles;
+import com.k080.fathom.particle.custom.MarkedParticle;
 import com.k080.fathom.particle.custom.WindParticle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -19,6 +20,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,10 +47,8 @@ public class FathomModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticles.MARKED_PARTICLE, MarkedParticle.Factory::new);
 
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            registrationHelper.register(new WindGlowFeatureRenderer<>(entityRenderer));
-        });
 
         ModelPredicateProviderRegistry.register(ModItems.WIND_BLADE, Identifier.of(Fathom.MOD_ID, "charge"),
                 (stack, world, entity, seed) -> {

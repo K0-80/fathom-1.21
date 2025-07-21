@@ -9,10 +9,8 @@ import net.minecraft.particle.SimpleParticleType;
 @Environment(EnvType.CLIENT)
 public class WindParticle extends SpriteBillboardParticle {
 
-    // Constants for particle behavior
-    //private static final float ACCELERATION_SCALE = 0.0025F;
-    private static final float ACCELERATION_SCALE = 0.04F;
-    private static final float WIND_STRENGTH = 2.0F;
+    private static final float ACCELERATION_SCALE = 0.05F;
+    private static final float WIND_STRENGTH = 1.5F;
     private static final int MAX_LIFETIME = 300;
     private final float baseAngle;
     private final float rollSpeed;

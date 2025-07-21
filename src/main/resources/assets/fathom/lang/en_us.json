@@ -37,5 +37,9 @@
 
 
   "item.fathom.wind_blade" : "Sylph's Blade",
+  "enchantment.fathom.alacrity": "Alacrity",
+  "enchantment.fathom.gale_force": "Gale Force",
+  "enchantment.fathom.gaze": "Gaze",
+
   "item.fathom.gauntlet" : "Earthshaker Gauntlet"
 }

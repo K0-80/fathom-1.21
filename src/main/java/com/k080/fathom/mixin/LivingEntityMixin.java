@@ -2,7 +2,6 @@ package com.k080.fathom.mixin;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.effect.ModEffects;
-import com.k080.fathom.util.WindGlowAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -20,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin implements WindGlowAccessor {
+public abstract class LivingEntityMixin {
 
     @Shadow
     public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
@@ -32,13 +31,6 @@ public abstract class LivingEntityMixin implements WindGlowAccessor {
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     private void initDataTracker(DataTracker.Builder builder, CallbackInfo ci) {
         builder.add(IS_WIND_GLOWING, false);
-    }
-
-    @Inject(method = "onStatusEffectRemoved", at = @At("TAIL"))
-    private void onEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
-        if (effect.getEffectType() == ModEffects.WIND_GLOW) {
-            this.setWindGlow(false);
-        }
     }
 
     @Inject(method = "getMovementSpeed*", at = @At("RETURN"), cancellable = true)
@@ -53,15 +45,5 @@ public abstract class LivingEntityMixin implements WindGlowAccessor {
         if (this.hasStatusEffect(ModEffects.STUNNED)) {
             ci.cancel();
         }
-    }
-
-    @Override
-    public boolean getWindGlow() {
-        return ((LivingEntity) (Object) this).getDataTracker().get(IS_WIND_GLOWING);
-    }
-
-    @Override
-    public void setWindGlow(boolean glowing) {
-        ((LivingEntity) (Object) this).getDataTracker().set(IS_WIND_GLOWING, glowing);
     }
 }

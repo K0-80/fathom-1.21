@@ -62,5 +62,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
                 .add(ModItems.ANCHOR)
                 .add(Items.TRIDENT);
+
+        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
+                .add(ModItems.WIND_BLADE);
+
+        getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
+                .add(ModItems.ANCHOR)
+                .add(ModItems.WIND_BLADE)
+                .add(ModItems.GAUNTLET);
     }
 }

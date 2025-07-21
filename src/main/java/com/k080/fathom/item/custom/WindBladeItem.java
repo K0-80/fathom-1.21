@@ -1,13 +1,18 @@
 package com.k080.fathom.item.custom;
 
 import com.k080.fathom.effect.ModEffects;
+import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.particle.ModParticles;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,16 +25,14 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.entity.effect.StatusEffectInstance;
 
 import java.util.Optional;
 
 public class WindBladeItem extends SwordItem {
-    public static final int CHARGE_TIME = 10;
-    private static final double RANGE = 30.0;
-    private static final int COOLDOWN = 20;
-    private static final double RAY_TOLERANCE_FUZZINESS = 1.4;
-    private static final int AIM_LOST_GRACE_PERIOD = 4;
+    public static final int CHARGE_TIME = 30;
+    private static final int COOLDOWN = 60;
+    private static final double RAY_TOLERANCE_FUZZINESS = 1.5;
+    private static final int AIM_LOST_GRACE_PERIOD = 5;
     private int aimLostTicks = 0;
 
     public WindBladeItem(ToolMaterial toolMaterial, Settings settings) {
@@ -43,7 +46,7 @@ public class WindBladeItem extends SwordItem {
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return CHARGE_TIME + 1;
+        return getChargeTime(user, stack) + 1;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class WindBladeItem extends SwordItem {
             return TypedActionResult.pass(itemStack);
         }
 
-        if (raycastForEntity(user).isPresent()) {
+        if (raycastForEntity(user, itemStack).isPresent()) {
             user.setCurrentHand(hand);
             this.aimLostTicks = 0;
             return TypedActionResult.consume(itemStack);
@@ -66,8 +69,9 @@ public class WindBladeItem extends SwordItem {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (!(user instanceof PlayerEntity player)) return;
 
+        int currentChargeTime = getChargeTime(user, stack);
         int timeUsed = this.getMaxUseTime(stack, user) - remainingUseTicks;
-        Optional<EntityHitResult> hitResult = raycastForEntity(player);
+        Optional<EntityHitResult> hitResult = raycastForEntity(player, stack);
 
         if (hitResult.isEmpty()) {
             aimLostTicks++;
@@ -81,16 +85,14 @@ public class WindBladeItem extends SwordItem {
         } else {
             aimLostTicks = 0;
             if (hitResult.get().getEntity() instanceof LivingEntity target) {
-                target.addStatusEffect(new StatusEffectInstance(ModEffects.WIND_GLOW, 2, 0, false, false));
+                target.addStatusEffect(new StatusEffectInstance(ModEffects.WIND_GLOW, 1, 0, false, false));
             }
         }
 
-
-
-        if (timeUsed < CHARGE_TIME) {
+        if (timeUsed < currentChargeTime) {
             int soundPoint1 = 1;
-            int soundPoint2 = CHARGE_TIME / 2;
-            int soundPoint3 = CHARGE_TIME - 2;
+            int soundPoint2 = currentChargeTime / 2;
+            int soundPoint3 = currentChargeTime - 2;
 
             if (timeUsed == soundPoint1) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
@@ -107,9 +109,13 @@ public class WindBladeItem extends SwordItem {
                 Entity target = hitResult.get().getEntity();
                 Vec3d playerLookDir = player.getRotationVec(1.0f).normalize();
                 Vec3d teleportPos = hitResult.get().getPos().subtract(playerLookDir.multiply(1.5));
-                double yOffset = 0.2;
 
-                // Capture player's position *before* the teleport request
+                int galeForceLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT)
+                        .getEntry(ModEnchantments.GALE_FORCE)
+                        .map(entry -> EnchantmentHelper.getLevel(entry, stack))
+                        .orElse(0);
+                double yOffset = galeForceLevel > 0 ? 0.5 : 0.2;
+
                 Vec3d preTeleportPos = player.getPos();
 
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PUFFER_FISH_DEATH, SoundCategory.PLAYERS, 0.7f, 1.2f);
@@ -121,6 +127,10 @@ public class WindBladeItem extends SwordItem {
                     player.requestTeleport(teleportPos.getX(), teleportPos.getY() + yOffset, teleportPos.getZ());
                     player.getItemCooldownManager().set(this, COOLDOWN);
                     spawnDashParticles((ServerWorld) world, preTeleportPos, teleportPos);
+
+                    if (galeForceLevel > 0) {
+                        applyGaleForce(world, player, galeForceLevel, target);
+                    }
                 }
             } else {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
@@ -133,7 +143,7 @@ public class WindBladeItem extends SwordItem {
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         int timeUsed = this.getMaxUseTime(stack, user) - remainingUseTicks;
-        if (timeUsed < CHARGE_TIME) {
+        if (timeUsed < getChargeTime(user, stack)) {
             if (user instanceof PlayerEntity player) {
                 player.getItemCooldownManager().set(this, COOLDOWN);
             }
@@ -142,10 +152,53 @@ public class WindBladeItem extends SwordItem {
         this.aimLostTicks = 0;
     }
 
+    private int getChargeTime(LivingEntity user, ItemStack stack) {
+        int level = user.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT)
+                .getEntry(ModEnchantments.ALACRITY)
+                .map(entry -> EnchantmentHelper.getLevel(entry, stack))
+                .orElse(0);
+        return switch (level) {
+            case 1 -> 24;
+            case 2 -> 18;
+            case 3 -> 10;
+            default -> CHARGE_TIME;
+        };
+    }
+
+    private double getGazeFuzziness(PlayerEntity player, ItemStack stack) {
+        int level = player.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT)
+                .getEntry(ModEnchantments.GAZE)
+                .map(entry -> EnchantmentHelper.getLevel(entry, stack))
+                .orElse(0);
+        return RAY_TOLERANCE_FUZZINESS + (level * 0.5);
+    }
+
+    private void applyGaleForce(World world, PlayerEntity player, int level, Entity teleportTarget) {
+        if (world.isClient) return;
+
+        float radius = 1.0f + level;
+        Vec3d playerPos = player.getPos();
+        ((ServerWorld)world).spawnParticles(ParticleTypes.GUST, player.getX(), player.getY(), player.getZ(), 1, radius / 2, 0.5, radius / 2, 0.0);
+
+        Box areaOfEffect = new Box(playerPos, playerPos).expand(radius);
+        for (LivingEntity entity : world.getEntitiesByClass(LivingEntity.class, areaOfEffect, e -> e != player && e != teleportTarget && e.isAlive())) {
+            Vec3d knockbackDir = entity.getPos().subtract(playerPos).normalize();
+            entity.addVelocity(knockbackDir.x * 1.2, 0.4, knockbackDir.z * 1.2);
+        }
+    }
+
+    private double getTeleportRange(PlayerEntity player, ItemStack stack) {
+        int level = player.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT)
+                .getEntry(ModEnchantments.GALE_FORCE)
+                .map(entry -> EnchantmentHelper.getLevel(entry, stack))
+                .orElse(0);
+        return 24.0 + (level * 4.0);
+    }
+
     private void spawnDashParticles(ServerWorld world, Vec3d start, Vec3d end) {
-        final double spiralRadius = 0.6;         // How wide the spiral is.
-        final double totalRotations = 10;        // How many times the spiral twists around the path.
-        final double particlesPerBlock = 5.0;    // Density of the particles.
+        final double spiralRadius = 0.5;
+        final double totalRotations = 10;
+        final double particlesPerBlock = 3.0;
 
         world.spawnParticles(ModParticles.WIND_PARTICLE,
                 start.x, start.y, start.z, 25, 1.2, 1.2, 1.2, 0.15);
@@ -179,15 +232,17 @@ public class WindBladeItem extends SwordItem {
                 end.x, end.y, end.z, 25, 1.2, 1.2, 1.2, 0.15);
     }
 
-    private Optional<EntityHitResult> raycastForEntity(PlayerEntity player) {
+    private Optional<EntityHitResult> raycastForEntity(PlayerEntity player, ItemStack stack) {
+        double currentRange = getTeleportRange(player, stack);
         Vec3d startPos = player.getEyePos();
         Vec3d rotation = player.getRotationVec(1.0f);
-        Vec3d endPos = startPos.add(rotation.multiply(RANGE));
-        Box searchBox = player.getBoundingBox().expand(RANGE);
+        Vec3d endPos = startPos.add(rotation.multiply(currentRange));
+        Box searchBox = player.getBoundingBox().expand(currentRange);
 
         Entity targetEntity = null;
         Vec3d targetHitPos = null;
-        double minDistanceSqToRay = RAY_TOLERANCE_FUZZINESS * RAY_TOLERANCE_FUZZINESS;
+        double gazeFuzziness = getGazeFuzziness(player, stack);
+        double minDistanceSqToRay = gazeFuzziness * gazeFuzziness;
 
         for (Entity entity : player.getWorld().getOtherEntities(player, searchBox)) {
             if (!(entity instanceof LivingEntity) || entity.isSpectator() || !entity.isAlive() || entity.isPlayer()) {
@@ -199,7 +254,7 @@ public class WindBladeItem extends SwordItem {
 
             double distSqToRay = closestPointOnRay.squaredDistanceTo(entityCenter);
 
-            if (distSqToRay < minDistanceSqToRay && player.squaredDistanceTo(entity) <= RANGE * RANGE) {
+            if (distSqToRay < minDistanceSqToRay && player.squaredDistanceTo(entity) <= currentRange * currentRange) {
                 HitResult blockHit = player.getWorld().raycast(new RaycastContext(
                         startPos,
                         entityCenter,

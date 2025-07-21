@@ -1,12 +1,42 @@
-anchor (knocks entitys back in a 3 block radious when it hits a block, pulls hit entitys towards user) enchants:
-better pull - instead of pulling entity oon hit, drag entity with anchor
-be able to pull items and stuff
-damaging knockback -  damage all things hit by aoe
 
-wind blade (hold right while looking at entity to charge, once fully charged (10 ticks) teleport to that entity) enchants:
-slow down player speed (slow down ticks) when charging
-faster charging time
-more forgiving when charging
-makes entity hit box bigger
+    *   **New Enchantment:** **Alacrity (I-III)**
+    *   **What it does:** Reduces the time required to charge the teleport.
+        *   **Alacrity I:** Reduces charge time by 15% (to ~1.28s).
+        *   **Alacrity II:** Reduces charge time by 30% (to ~1.05s).
+        *   **Alacrity III:** Reduces charge time by 45% (to ~0.83s).
+    *   **Why it's better:** "Alacrity" is a more magical-sounding word for speed and fits the ethereal theme. The tiered levels provide a clear sense of progression.
 
-make uhh make impaling actually do something bruh
+    *   **New Enchantment:** **Gaze (I-II)**
+    *   **What it does:** The charge will not break if your crosshair strays slightly from the target. It increases the "stickiness" of the lock-on.
+        *   **Zephyr's Gaze I:** You can aim up to 10 degrees away from the target's hitbox without breaking the charge.
+        *   **Zephyr's Gaze II:** You can aim up to 15 degrees away.
+    *   **Why it's better:** It has a clear, defined mechanic instead of being "forgiving." The name connects to the wind theme (a Zephyr is a gentle breeze) and the idea of "gazing" at a target.
+
+    *   **New Enchantment:** **Gale Force (I-III)**
+    *   **What it does:** You teleport 0.5 blocks above the target, and unleash a blast of wind, knocking back other nearby enemies.
+        *   **Gale Force I:** Knocks back enemies within a 2-block radius.
+        *   **Gale Force II:** Knocks back enemies within a 3-block radius.
+        *   **Gale Force III:** Knocks back enemies within a 4-block radius.
+    *   **Why it's better:** This is a much more dynamic and visual effect that fits the "air magic" theme perfectly. It provides crowd control, which is incredibly useful after teleporting into a group of mobs. It achieves the goal of making your arrival more impactful.
+
+
+1.  **Echoing Shift** this can be like a netherite upgrade ts
+    *   **What it does:** If you kill an entity with the teleport-attack, the cooldown is instantly reset and the durability cost is refunded.
+    *   **Why it's an "Ultimate":** In the hands of a skilled player, this allows for chaining teleports together, wiping out groups of weaker enemies in a beautiful, flowing sequence of attacks. It's high-risk, high-reward, and feels incredibly powerful when you pull it off.
+
+
+
+ **Alacrity (I-III)**
+    *   **What it does:** Reduces the time required to charge the teleport.
+        *   **Alacrity I:** Reduces charge time to 1.2s.
+        *   **Alacrity II:** Reduces charge time by 0.9s.
+        *   **Alacrity III:** Reduces charge time by 0.5s.
+ **Gaze (I-II)**
+    *   **What it does:** The charge will not break if your crosshair strays slightly from the target. It increases the "stickiness" of the lock-on.
+        *   **Zephyr's Gaze I:** You can aim further away without breaking the charge.
+        *   **Zephyr's Gaze II:** You can aim even further away.
+**Gale Force (I-III)**
+    *   **What it does:** You teleport 0.5 blocks above the target, and unleash a blast of wind, knocking back other nearby enemies.
+        *   **Gale Force I:** Knocks back enemies within a 2-block radius.
+        *   **Gale Force II:** Knocks back enemies within a 3-block radius.
+        *   **Gale Force III:** Knocks back enemies within a 4-block radius.
