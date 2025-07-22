@@ -11,3 +11,5 @@
 > _...what floats below._
 
 ![Fathom Icon](https://github.com/K0-80/fathom-1.21/blob/master/src/main/resources/assets/fathom/icon.png)
+
+Fathom Wiki: https://github.com/K0-80/fathom-1.21/wiki
