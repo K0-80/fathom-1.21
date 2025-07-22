@@ -32,7 +32,7 @@ public class ModTags {
         public static final  TagKey<Item> ANCHOR_ENCHANTBLE = createTag("anchor_enchantble");
         public static final  TagKey<Item> WIND_BLADE_ENCHANTBLE = createTag("wind_blade_enchantble");
         public static final  TagKey<Item> GAUNLET_ENCHANTBLE = createTag("gaunlet_enchantble");
-
+        public static final  TagKey<Item> SCYTHE_ENCHANTBLE = createTag("scythe_enchantble");
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(Fathom.MOD_ID, name));

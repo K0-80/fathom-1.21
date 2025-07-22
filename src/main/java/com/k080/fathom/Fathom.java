@@ -1,6 +1,7 @@
 package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantmentEffects;
 import com.k080.fathom.entity.ModEntities;
@@ -15,10 +16,15 @@ import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +53,8 @@ public class Fathom implements ModInitializer {
 		GauntletAttackHandler.register();
 
 		ModEnchantmentEffects.registerEnchantmentEffects();
+
+		ModDataComponentTypes.registerDataComponentTypes();
 
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_LOG, ModBlocks.STRIPED_DRIFTWOOD_LOG);
 		StrippableBlockRegistry.register(ModBlocks.DRIFTWOOD_WOOD, ModBlocks.STRIPED_DRIFTWOOD_WOOD);

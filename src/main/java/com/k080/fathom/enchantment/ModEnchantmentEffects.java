@@ -23,6 +23,13 @@ public class ModEnchantmentEffects {
     public static final MapCodec<? extends EnchantmentEntityEffect> GAZE =
             registerEntityEffect("gaze", MaelStromEnchantmentEffect.CODEC);
 
+    public static final MapCodec<? extends EnchantmentEntityEffect> REND =
+            registerEntityEffect("rend", MaelStromEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> SANGUINE_COVENANT =
+            registerEntityEffect("sanguine_covenant", MaelStromEnchantmentEffect.CODEC);
+    public static final MapCodec<? extends EnchantmentEntityEffect> FLOWSTATE =
+            registerEntityEffect("flowstate", MaelStromEnchantmentEffect.CODEC);
+
 
     private static MapCodec<? extends EnchantmentEntityEffect> registerEntityEffect(String name, MapCodec<? extends EnchantmentEntityEffect> codec) {
         return Registry.register(Registries.ENCHANTMENT_ENTITY_EFFECT_TYPE, Identifier.of(Fathom.MOD_ID, name), codec);

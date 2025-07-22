@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 public class ModItemGroups {
     public static final ItemGroup FATHOM_ITEMS_GROUP = Registry.register(Registries.ITEM_GROUP,
             Identifier.of(Fathom.MOD_ID, "fathom_items"),
-            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.MITHRIL_INGOT))
+            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.ANCHOR))
                     .displayName(Text.translatable("itemgroup.fathom.fathom_items"))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.MITHRIL_INGOT);
@@ -42,6 +42,7 @@ public class ModItemGroups {
                         entries.add(ModItems.ANCHOR);
                         entries.add(ModItems.WIND_BLADE);
                         entries.add(ModItems.GAUNTLET);
+                        entries.add(ModItems.SCYTHE);
 
                     }) .build());
 

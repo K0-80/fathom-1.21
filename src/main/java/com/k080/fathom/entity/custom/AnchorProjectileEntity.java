@@ -66,6 +66,9 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, this.getSoundCategory(), 0.8f, 1.1f);
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, this.getSoundCategory(), 0.7f, 1.2f);
                 this.discard();
+                if(owner instanceof PlayerEntity player) {
+                    this.reduceCooldown(player);
+                }
                 return;
             }
             double returnSpeed = 2.0 + (this.getMomentumLevel() * 0.4f);
@@ -177,9 +180,22 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         this.getDataTracker().set(IS_RETURNING, returning);
     }
 
+    private void reduceCooldown(PlayerEntity player) {
+        final int TOTAL_COOLDOWN_TICKS = 60;
+        final int REDUCTION_TICKS = 40;
+
+        float progress = player.getItemCooldownManager().getCooldownProgress(ModItems.ANCHOR, 0f);
+        if (progress > 0) {
+            int remainingTicks = (int) (progress * TOTAL_COOLDOWN_TICKS);
+            int newCooldown = Math.max(0, remainingTicks - REDUCTION_TICKS);
+            player.getItemCooldownManager().set(ModItems.ANCHOR, newCooldown);
+        }
+    }
+
     @Override
     protected boolean tryPickup(PlayerEntity player) {
-        if (this.isOwner(player) || this.isReturning()) {
+        if (this.isOwner(player)) {
+            this.reduceCooldown(player);
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, this.getSoundCategory(), 0.8f, 1.1f);
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, this.getSoundCategory(), 2.0f, 1.2f);
             this.discard();

@@ -7,6 +7,10 @@
 
     "fathom:alacrity",
     "fathom:gale_force",
-    "fathom:gaze"
+    "fathom:gaze",
+
+    "fathom:rend",
+    "fathom:sanguine_covenant",
+    "fathom:flowstate"
   ]
 }

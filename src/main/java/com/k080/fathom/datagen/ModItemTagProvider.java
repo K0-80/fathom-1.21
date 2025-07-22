@@ -51,17 +51,16 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.ANCHOR);
         getOrCreateTagBuilder(ModTags.Items.WIND_BLADE_ENCHANTBLE)
                 .add(ModItems.WIND_BLADE);
+        getOrCreateTagBuilder(ModTags.Items.SCYTHE_ENCHANTBLE)
+                .add(ModItems.SCYTHE);
         getOrCreateTagBuilder(ModTags.Items.GAUNLET_ENCHANTBLE)
                 .add(ModItems.GAUNTLET);
 
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
-                .add(ModItems.GAUNTLET);
-
-        getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
-                .add(ModItems.ANCHOR)
-                .add(Items.TRIDENT);
+                .add(ModItems.GAUNTLET)
+                .add(ModItems.SCYTHE);
 
         getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
                 .add(ModItems.WIND_BLADE);
@@ -69,6 +68,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
-                .add(ModItems.GAUNTLET);
+                .add(ModItems.GAUNTLET)
+                .add(ModItems.SCYTHE);
+
+        getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
+                .add(ModItems.ANCHOR)
+                .add(Items.TRIDENT);
     }
 }

@@ -25,6 +25,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -114,7 +115,7 @@ public class WindBladeItem extends SwordItem {
                         .getEntry(ModEnchantments.GALE_FORCE)
                         .map(entry -> EnchantmentHelper.getLevel(entry, stack))
                         .orElse(0);
-                double yOffset = galeForceLevel > 0 ? 0.5 : 0.2;
+                double yOffset = target.isOnGround() ? 0.5 : 0.0;
 
                 Vec3d preTeleportPos = player.getPos();
 
@@ -145,14 +146,14 @@ public class WindBladeItem extends SwordItem {
         int timeUsed = this.getMaxUseTime(stack, user) - remainingUseTicks;
         if (timeUsed < getChargeTime(user, stack)) {
             if (user instanceof PlayerEntity player) {
-                player.getItemCooldownManager().set(this, COOLDOWN);
+                //player.getItemCooldownManager().set(this, COOLDOWN);
             }
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
+            //world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
         }
         this.aimLostTicks = 0;
     }
 
-    private int getChargeTime(LivingEntity user, ItemStack stack) {
+    private int getChargeTime(@NotNull LivingEntity user, ItemStack stack) {
         int level = user.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT)
                 .getEntry(ModEnchantments.ALACRITY)
                 .map(entry -> EnchantmentHelper.getLevel(entry, stack))

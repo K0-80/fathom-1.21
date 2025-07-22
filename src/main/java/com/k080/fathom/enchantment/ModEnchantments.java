@@ -29,6 +29,13 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> GAZE =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "gaze"));
 
+    public static final RegistryKey<Enchantment> REND =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "rend"));
+    public static final RegistryKey<Enchantment> SANGUINE_COVENANT =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "sanguine_covenant"));
+    public static final RegistryKey<Enchantment> FLOWSTATE =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "flowstate"));
+
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var enchantments = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
@@ -90,6 +97,35 @@ public class ModEnchantments {
                 Enchantment.leveledCost(1, 6),
                 Enchantment.leveledCost(16, 6),
                 1,
+                AttributeModifierSlot.HAND))
+        );
+
+
+        register(registerable, REND, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
+                5,
+                5,
+                Enchantment.leveledCost(15, 0),
+                Enchantment.leveledCost(35, 0),
+                2,
+                AttributeModifierSlot.HAND))
+        );
+        register(registerable, SANGUINE_COVENANT, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
+                3,
+                1,
+                Enchantment.leveledCost(20, 0),
+                Enchantment.leveledCost(50, 0),
+                4,
+                AttributeModifierSlot.HAND))
+        );
+        register(registerable, FLOWSTATE, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
+                1,
+                4,
+                Enchantment.leveledCost(20, 10),
+                Enchantment.leveledCost(50, 10),
+                2,
                 AttributeModifierSlot.HAND))
         );
     }

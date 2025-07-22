@@ -7,10 +7,8 @@ import com.k080.fathom.entity.client.SkeletonFishModel;
 import com.k080.fathom.entity.client.SkeletonFishRender;
 import com.k080.fathom.entity.client.AnchorProjectileRenderer;
 import com.k080.fathom.item.ModItems;
-import com.k080.fathom.item.custom.WindBladeItem;
 import com.k080.fathom.particle.ModParticles;
-import com.k080.fathom.particle.custom.MarkedParticle;
-import com.k080.fathom.particle.custom.WindParticle;
+import com.k080.fathom.particle.custom.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -19,11 +17,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
-import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +41,9 @@ public class FathomModClient implements ClientModInitializer {
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.MARKED_PARTICLE, MarkedParticle.Factory::new);
-
+        ParticleFactoryRegistry.getInstance().register(ModParticles.ANCHORED_PARTICLE, AnchoredParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticles.RAPTURE_PARTICLE, RaptureParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticles.FLOWSTATE_PARTICLE, FlowstateParticle.Factory::new);
 
         ModelPredicateProviderRegistry.register(ModItems.WIND_BLADE, Identifier.of(Fathom.MOD_ID, "charge"),
                 (stack, world, entity, seed) -> {

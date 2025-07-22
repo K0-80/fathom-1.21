@@ -25,21 +25,26 @@
   "effect.fathom.stunned": "Stunned",
   "effect.fathom.mithril_veil" : "Mithril Veil",
   "effect.fathom.wind_glow": "Marked",
+  "effect.fathom.anchored": "Anchored",
 
 
   "entity.fathom.skeleton_fish": "Skeleton Fish",
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
 
-  "item.fathom.anchor": "Anchor",
+  "item.fathom.anchor": "Fathom",
   "enchantment.fathom.maelstrom": "Maelstrom",
   "enchantment.fathom.resonance": "Resonance",
   "enchantment.fathom.momentum": "Momentum",
 
-
-  "item.fathom.wind_blade" : "Sylph's Blade",
+  "item.fathom.wind_blade" : "Zephyr",
   "enchantment.fathom.alacrity": "Alacrity",
   "enchantment.fathom.gale_force": "Gale Force",
   "enchantment.fathom.gaze": "Gaze",
+
+  "item.fathom.scythe" : "Hex",
+  "enchantment.fathom.rend": "Rend",
+  "enchantment.fathom.sanguine_covenant": "Sanguine Covenant",
+  "enchantment.fathom.flowstate": "Flowstate",
 
   "item.fathom.gauntlet" : "Earthshaker Gauntlet"
 }

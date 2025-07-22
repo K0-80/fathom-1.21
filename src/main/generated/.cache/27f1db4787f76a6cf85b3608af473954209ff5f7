@@ -1,9 +1,12 @@
-// 1.21	2025-07-21T13:01:07.3991619	Fathom/
+// 1.21	2025-07-21T16:41:17.7050057	Fathom/
 853dd42ac91ad5e1f30def730b719a3f127517b0 data\fathom\worldgen\configured_feature\mithril_ore_key.json
-b170c2e5d827f20ed3b9a462096c570ed9399122 data\fathom\enchantment\maelstrom.json
 b7d795e9f39454ae4c355853d8741b2de2d4ef93 data\fathom\enchantment\momentum.json
+b170c2e5d827f20ed3b9a462096c570ed9399122 data\fathom\enchantment\maelstrom.json
 a7a09b8575ae97fe0adef67a2ac2468f0a190b62 data\fathom\enchantment\alacrity.json
+30c20fc3d5932cf2005f838dc547b738b985bc81 data\fathom\enchantment\sanguine_covenant.json
 3fb9b57d2dfe74c8be42890a88e5b7207c522044 data\fathom\worldgen\placed_feature\mithril_ore_placed.json
+1d4db7c5df7e768984479ddd704321105b3470e7 data\fathom\enchantment\flowstate.json
 3dc16ae75ebbe61f55710739c5b5a32dde6c0ce1 data\fathom\enchantment\gaze.json
 ffff74c210952e36bb96a1552865717fecb5991b data\fathom\enchantment\resonance.json
+df243c3d08ecda25fb518dc59a9603fd2c8ffcd2 data\fathom\enchantment\rend.json
 239caad2e57e2dee4adcb396de3450f48c56e70b data\fathom\enchantment\gale_force.json

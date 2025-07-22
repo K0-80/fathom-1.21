@@ -44,23 +44,7 @@ public class AnchorItem extends ToolItem {
         return super.postHit(stack, target, attacker);
     }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
 
-        if (!world.isClient && entity instanceof PlayerEntity player) {
-            boolean hasExistingAnchor = !world.getEntitiesByClass(
-                    AnchorProjectileEntity.class,
-                    player.getBoundingBox().expand(256),
-                    projectile -> projectile.isProjectileOwner(player)
-            ).isEmpty();
-
-            if (hasExistingAnchor) {
-                player.getItemCooldownManager().set(this, 100000);
-            } else
-                player.getItemCooldownManager().set(this, 0);
-        }
-    }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -87,6 +71,7 @@ public class AnchorItem extends ToolItem {
             anchorProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, speed, 1.0F);
 
             world.spawnEntity(anchorProjectile);
+            user.getItemCooldownManager().set(this, 20 * 3);
         }
 
         user.incrementStat(Stats.USED.getOrCreateStat(this));

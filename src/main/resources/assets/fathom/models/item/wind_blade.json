@@ -3,19 +3,19 @@
 	"overrides": [
 		{
 			"predicate": {
-				"fathom:charge": 0.00001
+				"fathom:charge": 0.0001
 			},
 			"model": "fathom:item/wind_blade_charging_1"
 		},
 		{
 			"predicate": {
-				"fathom:charge": 0.3
+				"fathom:charge": 0.5
 			},
 			"model": "fathom:item/wind_blade_charging_2"
 		},
 		{
 			"predicate": {
-				"fathom:charge": 0.6
+				"fathom:charge": 0.9
 			},
 			"model": "fathom:item/wind_blade_charging_3"
 		}
