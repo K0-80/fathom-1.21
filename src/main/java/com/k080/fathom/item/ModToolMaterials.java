@@ -11,10 +11,12 @@ import net.minecraft.registry.tag.TagKey;
 import java.util.function.Supplier;
 
 public enum ModToolMaterials implements ToolMaterial {
-    ANCHOR(BlockTags.INCORRECT_FOR_IRON_TOOL, 256, 8.0F, -1F, 18, () -> Ingredient.ofItems(Items.IRON_INGOT)),
-    WINDBLADE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 8.0F, -1F, 5, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    ANCHOR(BlockTags.INCORRECT_FOR_IRON_TOOL, 256, 8.0F, -1F, 155, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    WINDBLADE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 8.0F, -1F, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
     GAUNTLET(BlockTags.INCORRECT_FOR_IRON_TOOL, 640, 1.0F, -1F, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
-    SCYTHE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT));
+    SCYTHE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    MIRAGE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT));
+
 
 
     private final TagKey<Block> inverseTag;

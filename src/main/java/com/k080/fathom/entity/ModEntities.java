@@ -2,7 +2,9 @@ package com.k080.fathom.entity;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
+import com.k080.fathom.entity.custom.PlayerCloneEntity;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -24,8 +26,17 @@ public class ModEntities {
                     .dimensions(0.5F, 1F)
                     .maxTrackingRange(8).build());
 
+    public static final EntityType<PlayerCloneEntity> PLAYER_CLONE = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "player_clone"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PlayerCloneEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.6f, 1.8f)).build()
+    );
+
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
+        FabricDefaultAttributeRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntity.createPlayerCloneAttributes());
     }
 }

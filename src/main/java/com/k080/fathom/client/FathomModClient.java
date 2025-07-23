@@ -3,6 +3,7 @@ package com.k080.fathom.client;
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.entity.ModEntities;
+import com.k080.fathom.entity.client.PlayerCloneEntityRenderer;
 import com.k080.fathom.entity.client.SkeletonFishModel;
 import com.k080.fathom.entity.client.SkeletonFishRender;
 import com.k080.fathom.entity.client.AnchorProjectileRenderer;
@@ -20,6 +21,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.minecraft.client.render.entity.EntityRenderers; // This is the import you need
 
 
 public class FathomModClient implements ClientModInitializer {
@@ -38,6 +40,7 @@ public class FathomModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);
 
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
+        EntityRendererRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.MARKED_PARTICLE, MarkedParticle.Factory::new);

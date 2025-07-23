@@ -43,6 +43,7 @@ public class ModItemGroups {
                         entries.add(ModItems.WIND_BLADE);
                         entries.add(ModItems.GAUNTLET);
                         entries.add(ModItems.SCYTHE);
+                        entries.add(ModItems.MIRAGE);
 
                     }) .build());
 

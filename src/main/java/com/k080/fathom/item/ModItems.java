@@ -40,11 +40,15 @@ public class ModItems {
 
     public static final Item WIND_BLADE = registerItem("wind_blade",
             new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
-                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.WINDBLADE, 6, 1.6f -4f))));
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.WINDBLADE, 7, 1.6f -4f))));
 
     public static final Item SCYTHE = registerItem("scythe",
             new ScytheItem(ModToolMaterials.GAUNTLET, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SCYTHE, 9, 1.2f -4f))));
+
+    public static final Item MIRAGE = registerItem("mirage",
+            new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 1.4f -4f))));
 
     public static final Item GAUNTLET = registerItem("gauntlet",
             new GauntletItem(ModToolMaterials.GAUNTLET, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)

@@ -29,6 +29,7 @@
 
 
   "entity.fathom.skeleton_fish": "Skeleton Fish",
+
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
 
   "item.fathom.anchor": "Fathom",
@@ -45,6 +46,9 @@
   "enchantment.fathom.rend": "Rend",
   "enchantment.fathom.sanguine_covenant": "Sanguine Covenant",
   "enchantment.fathom.flowstate": "Flowstate",
+
+  "item.fathom.mirage" : "Mirage",
+  "entity.fathom.player_clone": "Clone",
 
   "item.fathom.gauntlet" : "Earthshaker Gauntlet"
 }

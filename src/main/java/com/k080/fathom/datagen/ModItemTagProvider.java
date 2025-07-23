@@ -55,12 +55,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.SCYTHE);
         getOrCreateTagBuilder(ModTags.Items.GAUNLET_ENCHANTBLE)
                 .add(ModItems.GAUNTLET);
+        getOrCreateTagBuilder(ModTags.Items.MIRAGE_ENCHANTBLE)
+                .add(ModItems.MIRAGE);
 
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
                 .add(ModItems.GAUNTLET)
-                .add(ModItems.SCYTHE);
+                .add(ModItems.SCYTHE)
+                .add(ModItems.MIRAGE);
 
         getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
                 .add(ModItems.WIND_BLADE);
@@ -69,7 +72,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
                 .add(ModItems.GAUNTLET)
-                .add(ModItems.SCYTHE);
+                .add(ModItems.SCYTHE)
+                .add(ModItems.MIRAGE);
 
         getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
                 .add(ModItems.ANCHOR)
