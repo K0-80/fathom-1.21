@@ -1,6 +1,5 @@
 package com.k080.fathom.entity.custom;
 
-import com.k080.fathom.Fathom;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.item.custom.Mirageitem;
 import com.mojang.authlib.GameProfile;
@@ -20,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -37,6 +35,7 @@ import java.util.UUID;
 public class PlayerCloneEntity extends PathAwareEntity {
 
     private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(PlayerCloneEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    private static final TrackedData<String> PLAYER_MODEL = DataTracker.registerData(PlayerCloneEntity.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> SHATTER_LEVEL = DataTracker.registerData(PlayerCloneEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private GameProfile serverOwnerProfile;
@@ -49,19 +48,20 @@ public class PlayerCloneEntity extends PathAwareEntity {
         this.initGoals();
     }
 
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(OWNER_UUID, Optional.empty());
+        builder.add(PLAYER_MODEL, "default");
+        builder.add(SHATTER_LEVEL, 0);
+    }
+
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(6, new LookAtEntityGoal(this, LivingEntity.class, 8.0f));
         this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
-
-    @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(OWNER_UUID, Optional.empty());
-        builder.add(SHATTER_LEVEL, 0);
-    }
 
     public static DefaultAttributeContainer.Builder createPlayerCloneAttributes() {
         return HostileEntity.createHostileAttributes()
