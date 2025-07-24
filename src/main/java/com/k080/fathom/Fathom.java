@@ -10,6 +10,7 @@ import com.k080.fathom.item.ModItems;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.util.FishConversionUtil;
 import com.k080.fathom.util.ModLootTableModifiers;
+import com.k080.fathom.util.ReportCommand;
 import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
@@ -26,6 +27,8 @@ public class Fathom implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+
+		ReportCommand.register();
 
 		ModItemGroups.registerItemGroups();
 

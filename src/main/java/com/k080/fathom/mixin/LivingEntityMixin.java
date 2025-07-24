@@ -54,28 +54,23 @@ public abstract class LivingEntityMixin {
         LivingEntity entity = (LivingEntity) (Object) this;
 
         if (entity instanceof PlayerEntity player) {
-            ItemStack totemStack = null;
-            if (player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
-                totemStack = player.getOffHandStack();
-            } else if (player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
-                totemStack = player.getMainHandStack();
-            }
+            boolean hasTotem = player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING)
+                    || player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING);
 
-            if (totemStack != null) {
+            if (hasTotem) {
                 if (player.getItemCooldownManager().isCoolingDown(Items.TOTEM_OF_UNDYING)) {
-                    return;
-                }
+                    cir.setReturnValue(false);
+                } else {
+                    player.getItemCooldownManager().set(Items.TOTEM_OF_UNDYING, 60 * 20);
 
-                player.getItemCooldownManager().set(Items.TOTEM_OF_UNDYING, 1200);
+                    player.setHealth(1.0F);
+                    player.clearStatusEffects();
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+                    player.getWorld().sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
 
-                player.setHealth(1.0F);
-                player.clearStatusEffects();
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 800, 1));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
-
-                player.getWorld().sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
-                cir.setReturnValue(true);
+                    cir.setReturnValue(true);                }
             }
         }
     }
@@ -97,7 +92,7 @@ public abstract class LivingEntityMixin {
 
             if (rendLevel > 0) {
                 float chance = (amount / 13.5f) * (rendLevel * 0.1f);
-                attacker.sendMessage(Text.literal(String.format("Rend Chance: %.2f%%", chance * 100)), false);
+                //attacker.sendMessage(Text.literal(String.format("Rend Chance: %.2f%%", chance * 100)), false);
 
                 if (world.getRandom().nextFloat() < chance) {
                     int currentSouls = stack.getOrDefault(ModDataComponentTypes.SOULS, 0);
