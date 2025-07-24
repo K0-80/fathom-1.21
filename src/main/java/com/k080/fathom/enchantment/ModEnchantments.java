@@ -1,11 +1,8 @@
 package com.k080.fathom.enchantment;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.enchantment.custom.MaelStromEnchantmentEffect;
 import com.k080.fathom.util.ModTags;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -36,6 +33,12 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> FLOWSTATE =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "flowstate"));
 
+    public static final RegistryKey<Enchantment> SHATTER =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "shatter"));
+    public static final RegistryKey<Enchantment> PROJECTION =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "projection"));
+    public static final RegistryKey<Enchantment> PHASE_SHIFT =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "phase_shift"));
 
     public static void bootstrap(Registerable<Enchantment> registerable) {
         var enchantments = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
@@ -121,6 +124,35 @@ public class ModEnchantments {
         );
         register(registerable, FLOWSTATE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
+                1,
+                4,
+                Enchantment.leveledCost(20, 10),
+                Enchantment.leveledCost(50, 10),
+                2,
+                AttributeModifierSlot.HAND))
+        );
+
+
+        register(registerable, SHATTER, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
+                5,
+                5,
+                Enchantment.leveledCost(15, 0),
+                Enchantment.leveledCost(35, 0),
+                2,
+                AttributeModifierSlot.HAND))
+        );
+        register(registerable, PROJECTION, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
+                3,
+                1,
+                Enchantment.leveledCost(20, 0),
+                Enchantment.leveledCost(50, 0),
+                4,
+                AttributeModifierSlot.HAND))
+        );
+        register(registerable, PHASE_SHIFT, Enchantment.builder(Enchantment.definition(
+                items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
                 1,
                 4,
                 Enchantment.leveledCost(20, 10),

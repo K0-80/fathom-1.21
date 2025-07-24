@@ -8,10 +8,10 @@
 		"K08_"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/K0-80/fathom-1.21/wiki",
+		"sources": "https://github.com/K0-80/fathom-1.21"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/fathom/icon.png",
 	"environment": "*",
 	"entrypoints": {

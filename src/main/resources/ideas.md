@@ -41,3 +41,7 @@ to do: make shockwave particle caz i stole this one
 make effects on scythe better ok bye good night
 
 make windblde uhh do oonly teleport u above someone if they are on solid  ground, so air combos are more fluid
+
+
+DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them!
+

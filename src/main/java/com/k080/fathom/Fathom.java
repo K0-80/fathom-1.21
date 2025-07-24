@@ -3,10 +3,7 @@ package com.k080.fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
-import com.k080.fathom.enchantment.ModEnchantmentEffects;
 import com.k080.fathom.entity.ModEntities;
-import com.k080.fathom.entity.custom.PlayerCloneEntity;
-import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import com.k080.fathom.event.GauntletAttackHandler;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
@@ -16,21 +13,10 @@ import com.k080.fathom.util.ModLootTableModifiers;
 import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,8 +43,6 @@ public class Fathom implements ModInitializer {
 		ModParticles.registerParticles();
 
 		GauntletAttackHandler.register();
-
-		ModEnchantmentEffects.registerEnchantmentEffects();
 
 		ModDataComponentTypes.registerDataComponentTypes();
 

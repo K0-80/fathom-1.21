@@ -28,7 +28,7 @@ public class PlayerCloneEntityRenderer extends BipedEntityRenderer<PlayerCloneEn
     @Override
     public void render(PlayerCloneEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light) {
         matrixStack.push();
-        matrixStack.scale(0.9f, 0.9f, 0.9f);
+        matrixStack.scale(0.95f, 0.95f, 0.95f);
         super.render(entity, entityYaw, partialTicks, matrixStack, vertexConsumers, light);
         matrixStack.pop();
     }

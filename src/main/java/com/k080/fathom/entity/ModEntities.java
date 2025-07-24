@@ -30,7 +30,7 @@ public class ModEntities {
             Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "player_clone"),
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PlayerCloneEntity::new)
-                    .dimensions(EntityDimensions.fixed(0.6f, 1.8f)).build()
+                    .dimensions(EntityDimensions.fixed(0.7f, 1.9f)).build()
     );
 
 

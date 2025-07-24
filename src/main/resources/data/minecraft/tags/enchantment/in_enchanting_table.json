@@ -11,6 +11,10 @@
 
     "fathom:rend",
     "fathom:sanguine_covenant",
-    "fathom:flowstate"
+    "fathom:flowstate",
+
+    "fathom:phase_shift",
+    "fathom:projection",
+    "fathom:shatter"
   ]
 }

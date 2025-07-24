@@ -49,6 +49,9 @@
 
   "item.fathom.mirage" : "Mirage",
   "entity.fathom.player_clone": "Clone",
+  "enchantment.fathom.shatter": "Shatter",
+  "enchantment.fathom.projection": "Projection",
+  "enchantment.fathom.phase_shift": "Phase-shift",
 
   "item.fathom.gauntlet" : "Earthshaker Gauntlet"
 }
