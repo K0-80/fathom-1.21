@@ -161,8 +161,8 @@ public class PlayerCloneEntity extends PathAwareEntity {
             ServerWorld world = (ServerWorld) this.getWorld();
 
             world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_GLASS_BREAK, this.getSoundCategory(), 0.8f, 0.3f);
-            world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, this.getSoundCategory(), 0.6f, 2f);
-            world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_HURT_FREEZE, this.getSoundCategory(), 1.0f, 0.3f);
+            world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, this.getSoundCategory(), 0.4f, 2f);
+            world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_HURT_FREEZE, this.getSoundCategory(), 0.8f, 0.3f);
 
             world.spawnParticles(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.GLASS.getDefaultState()),
                     this.getX(), this.getBodyY(0.5), this.getZ(),

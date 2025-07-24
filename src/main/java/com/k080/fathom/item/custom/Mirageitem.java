@@ -24,7 +24,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -46,8 +49,8 @@ public class Mirageitem extends SwordItem {
         ItemStack stack = user.getStackInHand(hand);
 
         int shatterLevel = getEnchantmentLevel(world, stack, ModEnchantments.SHATTER);
-        int phaseShiftLevel = getEnchantmentLevel(world, stack, ModEnchantments.PHASE_SHIFT);
-        int projectionLevel = getEnchantmentLevel(world, stack, ModEnchantments.PROJECTION);
+        int phaseShiftLevel = getEnchantmentLevel(world, stack, ModEnchantments.TETHER);
+        int tetherLevel = getEnchantmentLevel(world, stack, ModEnchantments.PROJECTION);
 
         if (!world.isClient()) {
             ServerWorld serverWorld = (ServerWorld) world;
@@ -62,20 +65,22 @@ public class Mirageitem extends SwordItem {
                     pClone.discard();
                     world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
                 }
-                    stack.remove(ModDataComponentTypes.CLONE_UUID);
+                stack.remove(ModDataComponentTypes.CLONE_UUID);
 
             } else {
                 PlayerCloneEntity clone = new PlayerCloneEntity(ModEntities.PLAYER_CLONE, world);
-                clone.setShatterLevel(shatterLevel); //ppasses the shatter levelk to clone
+                clone.setShatterLevel(shatterLevel); //passes the shatter level to clone entity
                 clone.copyFrom(user);
                 clone.refreshPositionAndAngles(user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch());
                 world.spawnEntity(clone);
 
                 stack.set(ModDataComponentTypes.CLONE_UUID, clone.getUuid());
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+                handlePhaseShift(serverWorld, user, phaseShiftLevel, user.isSneaking());
             }
 
-            user.getItemCooldownManager().set(this, 20); // 1-second cooldown
+            user.getItemCooldownManager().set(this, 20); // 1s cooldown for now
             return TypedActionResult.success(stack);
         }
 
@@ -94,7 +99,7 @@ public class Mirageitem extends SwordItem {
         super.appendTooltip(stack, context, tooltip, type);
     }
 
-    //ingnore this for now TM
+    //ingnore this for now
 //    @Override
 //    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 //
@@ -118,5 +123,34 @@ public class Mirageitem extends SwordItem {
                 .getEntry(enchantmentKey)
                 .map(entry -> EnchantmentHelper.getLevel(entry, stack))
                 .orElse(0);
+    }
+
+    private void handlePhaseShift(ServerWorld world, PlayerEntity player, int level, boolean isShifting) {
+        if (level <= 0) return;
+
+        int distance = 2 * level; //each level is 2 blocks
+        Vec3d direction = player.getRotationVector().normalize();
+        Vec3d startPos = player.getPos();
+
+        Vec3d eyePos = player.getEyePos();
+        Vec3d lookVec = player.getRotationVector();
+        Vec3d endPos;
+
+        if (isShifting) {
+            endPos = eyePos.subtract(lookVec.multiply(distance));
+        } else {
+            endPos = eyePos.add(lookVec.multiply(distance));
+        }
+
+        RaycastContext context = new RaycastContext(eyePos, endPos, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, player);
+        BlockHitResult hitResult = world.raycast(context);
+
+        Vec3d targetPos = hitResult.getPos();
+        player.requestTeleport(targetPos.getX(), targetPos.getY(), targetPos.getZ());
+
+        world.playSound(null, startPos.getX(), startPos.getY(), startPos.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.PLAYERS, 0.6F, 1.7F);
+        world.spawnParticles(ParticleTypes.POOF,
+                startPos.getX(), startPos.getY() + (player.getHeight() / 2.0f), startPos.getZ(),
+                15, 0.2, 0.4, 0.2, 0.01);
     }
 }

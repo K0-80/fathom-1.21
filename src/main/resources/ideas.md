@@ -37,11 +37,12 @@ int level = user.getWorld().getRegistryManager().get(RegistryKeys.ENCHANTMENT)
 .orElse(0);
 
 
-to do: make shockwave particle caz i stole this one
 make effects on scythe better ok bye good night
 
-make windblde uhh do oonly teleport u above someone if they are on solid  ground, so air combos are more fluid
+make windblde uhh do oonly teleport u above someone if they are on solid  ground, so air combos are more fluid (sitll not fixed btw)
 
+DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them! (i will never make this caz lazy)
 
-DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them!
-
+TO DO::::::::::: CODE TETHER
+Tether (I-V): Replaces Phase-Swap with a projectile. On hit, create a tether that links the target and your clone. After 5/4/3/2/1 seconds, if the target is still within 25 blocks and in line of sight of the clone, they are teleported to it. The tether breaks if the clone is destroyed, line of sight is broken, or the target moves out of range.
+why the hel;l did i make it so complecated its 2am am suriving on bubble tea

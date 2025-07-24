@@ -1,4 +1,4 @@
-// 1.21	2025-07-23T11:13:55.6116172	Fathom/Model Definitions
+// 1.21	2025-07-24T01:39:08.6526858	Fathom/Model Definitions
 97b31efb917c23b3786cfda5419c15661623ebe6 assets\fathom\models\item\mithril_boots_amethyst_trim.json
 08eed516c7d074f1e215f69fbf40e8c232e51eba assets\fathom\models\item\raw_mithril_block.json
 b12f430a70b4d165536a2c9492dd60d0478b28b6 assets\fathom\models\item\driftwood_wood.json
@@ -61,8 +61,8 @@ db47ba11674a7f6c1dae62b67a81d566585e3791 assets\fathom\models\item\driftwood_lea
 5bb17e81c04763449951022bbf1b70bcaf443c7c assets\fathom\models\item\mithril_leggings_copper_trim.json
 61634e9c476deb796331cf8900c6fe4f04c777ef assets\fathom\models\item\mithril_boots_lapis_trim.json
 3d3ae035530fd835c9c6c01b2ef1a7e1c151367f assets\fathom\models\item\mithril_boots_redstone_trim.json
-07082b8fef2191dad05161d032fefc2d0a67fab0 assets\fathom\models\item\raw_mithril.json
 fcf40bf06be08e37cb62bcad5d9bf0bf0416ad02 assets\fathom\models\item\mithril_helmet_redstone_trim.json
+07082b8fef2191dad05161d032fefc2d0a67fab0 assets\fathom\models\item\raw_mithril.json
 d967c69de2b66556c6d6fb4bd1985127ce57f4b5 assets\fathom\models\block\raw_mithril_block.json
 fc9626bc2bf4d696a9c37d277ec4a641f0a2a0ea assets\fathom\models\item\mithril_helmet_copper_trim.json
 a7a1ad931bf4a20417782ec0e87fc7c0217b3bb9 assets\fathom\models\item\mithril_chestplate_iron_trim.json
@@ -72,12 +72,12 @@ cda87e25b3226371bed448271d6a861541fa8c6f assets\fathom\models\item\mithril_helme
 0c290191ddfe5bbc5daa1abb0880ebe904773d0b assets\fathom\models\item\mithril_leggings.json
 d3ef3a5b9e06995d6e5001ea912dfd4db4eea9a3 assets\fathom\models\block\driftwood_wood.json
 d0e2607866bca55affa429c0915b8dc4507aa4d2 assets\fathom\blockstates\driftwood_plank.json
-142959082e5750efbcca1b5552383539f8a9021d assets\fathom\blockstates\mithril_block.json
 f5cfa8442b4acca85892456ab3b939a9306c3ec8 assets\fathom\blockstates\deepslate_mithril_ore.json
+142959082e5750efbcca1b5552383539f8a9021d assets\fathom\blockstates\mithril_block.json
 9f54d82f0ea01d3ee6c84a37af8eed2e95810be1 assets\fathom\models\item\mithril_chestplate.json
 a4e450b68f8421ba3a11ef19f5c97c4b0dfe1e7b assets\fathom\models\item\mithril_leggings_iron_trim.json
-5fd8820e79126c1733cbad3dc4ac23ba6a68d57c assets\fathom\models\block\striped_driftwood_wood.json
 b211700972501aedbb6296c58eec52cc3bb846cd assets\fathom\models\item\mithril_boots_quartz_trim.json
+5fd8820e79126c1733cbad3dc4ac23ba6a68d57c assets\fathom\models\block\striped_driftwood_wood.json
 f29aca36b2e6ea4754213d14efa059edde524612 assets\fathom\models\block\driftwood_leaves.json
 0c0128a071519af9431a9fd480ab6c80f45cf05a assets\fathom\blockstates\driftwood_log.json
 e76d60ae93fef90e3fd9334e25e698c713b520a7 assets\fathom\models\item\mithril_ingot.json
