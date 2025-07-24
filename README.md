@@ -1,15 +1,16 @@
 # Fathom
 
-> The First is gone.
+> The world is older than you know.
 >
-> Their journal is all that remains — a record of scientific fascination? Now you are here, at the edge. **The Second.**
+> Beneath the waves, beneath the bedrock, lie secrets the world has forgotten.
 >
-> You cast your line, a question sent into the suffocating dark. The abyss answers with impossible life and forgotten things.
+> Echoes of power, sealed within artifacts of myth. They have laid dormant for eons.
 >
-> You dredge up the horrors they chose to forget. Follow the path of ḑ̵̼̪͖͖̮̬̊̀̀̓̀e̵̟͖̰̹͔̳͖͎͇̭̞̩͙̋s̸̱̳̻͚͒̅͂͊p̷͇̦͉͎̼̼̝̰̦̀̆͐̐̉̆̑͑̌̂á̵͇̰̻͙̔͗̄͑̓̾̈́́̈́͆̀͋̈͆ͅi̴̡̞͉̭̮͎̳̟̞̝̞̺͇͑̈̿͑̄̚ř̷̳͓̭̋͘̚. Descend where they were lost. Discover...
+> Waiting... for a will strong enough to claim them.
 >
-> _...what floats below._
+> __This power is not given. It must be earned.__
 
 ![Fathom Icon](https://github.com/K0-80/fathom-1.21/blob/master/src/main/resources/assets/fathom/icon.png)
 
 Fathom Wiki: https://github.com/K0-80/fathom-1.21/wiki
+
