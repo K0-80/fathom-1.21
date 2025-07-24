@@ -4,6 +4,8 @@ import com.k080.fathom.Fathom;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
+import com.k080.fathom.entity.custom.AnchorProjectileEntity;
+import com.k080.fathom.entity.custom.MirageThrowEntity;
 import com.k080.fathom.entity.custom.PlayerCloneEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -35,6 +37,10 @@ import java.util.UUID;
 
 public class Mirageitem extends SwordItem {
 
+    int spawnCloneCooldown = 2 * 20;
+    int tpToCloneCooldowon = 5 * 20;
+    int throwTetherCooldown = 6 * 20;
+
     public Mirageitem(ToolMaterial toolMaterial, Settings settings) {
         super(toolMaterial, settings);
     }
@@ -49,23 +55,44 @@ public class Mirageitem extends SwordItem {
         ItemStack stack = user.getStackInHand(hand);
 
         int shatterLevel = getEnchantmentLevel(world, stack, ModEnchantments.SHATTER);
-        int phaseShiftLevel = getEnchantmentLevel(world, stack, ModEnchantments.TETHER);
-        int tetherLevel = getEnchantmentLevel(world, stack, ModEnchantments.PROJECTION);
+        int phaseShiftLevel = getEnchantmentLevel(world, stack, ModEnchantments.PHASE_SHIFT);
+        int tetherLevel = getEnchantmentLevel(world, stack, ModEnchantments.TETHER);
 
         if (!world.isClient()) {
             ServerWorld serverWorld = (ServerWorld) world;
             UUID cloneUuid = stack.get(ModDataComponentTypes.CLONE_UUID);
 
             if (cloneUuid != null) {
-                Entity clone = serverWorld.getEntity(cloneUuid);
+                if (tetherLevel <= 0 ) {
+                    Entity clone = serverWorld.getEntity(cloneUuid);
 
-                if (clone instanceof PlayerCloneEntity pClone && pClone.isAlive()) {
-                    pClone.shatterOnTeleport();
-                    user.teleport(pClone.getX(), pClone.getY(), pClone.getZ(), false);
-                    pClone.discard();
-                    world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    if (clone instanceof PlayerCloneEntity pClone && pClone.isAlive()) {
+                        pClone.shatterOnTeleport();
+                        user.teleport(pClone.getX(), pClone.getY(), pClone.getZ(), false);
+                        pClone.discard();
+                        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    }
+                    stack.remove(ModDataComponentTypes.CLONE_UUID);
+
+                    user.getItemCooldownManager().set(this, tpToCloneCooldowon);
+
+                } else { //tether enchant function
+                    int teatherTime = 50 - (tetherLevel * 10); //max tether level is 4. this time is in ticks
+                    Fathom.LOGGER.info("Creating tether projectile. Duration: {}, Clone UUID: {}", teatherTime, cloneUuid);
+                    MirageThrowEntity mirageProjectile = new MirageThrowEntity(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, world);
+
+                    mirageProjectile.setCloneUuid(cloneUuid);
+                    mirageProjectile.setTetherDuration(teatherTime);
+
+                    mirageProjectile.setOwner(user);
+                    mirageProjectile.setPosition(user.getEyePos().getX(), user.getEyePos().getY() - 0.5, user.getEyePos().getZ());
+                    float speed = 3.5F ;
+                    mirageProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, speed, 1.0F);
+
+                    world.spawnEntity(mirageProjectile);
+
+                    user.getItemCooldownManager().set(this, throwTetherCooldown);
                 }
-                stack.remove(ModDataComponentTypes.CLONE_UUID);
 
             } else {
                 PlayerCloneEntity clone = new PlayerCloneEntity(ModEntities.PLAYER_CLONE, world);
@@ -78,14 +105,15 @@ public class Mirageitem extends SwordItem {
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
                 handlePhaseShift(serverWorld, user, phaseShiftLevel, user.isSneaking());
-            }
 
-            user.getItemCooldownManager().set(this, 20); // 1s cooldown for now
+                user.getItemCooldownManager().set(this, spawnCloneCooldown);
+            }
             return TypedActionResult.success(stack);
         }
-
         return TypedActionResult.pass(stack);
     }
+
+
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {

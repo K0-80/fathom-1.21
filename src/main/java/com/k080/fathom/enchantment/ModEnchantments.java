@@ -35,8 +35,8 @@ public class ModEnchantments {
 
     public static final RegistryKey<Enchantment> SHATTER =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "shatter"));
-    public static final RegistryKey<Enchantment> PROJECTION =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "projection"));
+    public static final RegistryKey<Enchantment> PHASE_SHIFT =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "phase_shift"));
     public static final RegistryKey<Enchantment> TETHER =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "tether"));
 
@@ -142,10 +142,10 @@ public class ModEnchantments {
                 2,
                 AttributeModifierSlot.HAND))
         );
-        register(registerable, PROJECTION, Enchantment.builder(Enchantment.definition(
+        register(registerable, PHASE_SHIFT, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
                 3,
-                1,
+                3,
                 Enchantment.leveledCost(20, 0),
                 Enchantment.leveledCost(50, 0),
                 4,

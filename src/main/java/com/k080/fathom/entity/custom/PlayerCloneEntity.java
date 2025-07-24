@@ -116,7 +116,7 @@ public class PlayerCloneEntity extends PathAwareEntity {
         this.setHealth(player.getHealth());
     }
 
-    private void cleanupAndDiscard(boolean playEffects) {
+    void cleanupAndDiscard(boolean playEffects) {
         if (this.getWorld().isClient() || this.isRemoved()) {
             return;
         }
@@ -171,7 +171,6 @@ public class PlayerCloneEntity extends PathAwareEntity {
             float damage = shatterLevel * 2f;
             world.getOtherEntities(this, this.getBoundingBox().expand(4.0), entity -> entity instanceof LivingEntity && entity != this.owner)
                     .forEach(entity -> entity.damage(this.getDamageSources().magic(), damage));
-            Fathom.LOGGER.info("SHATTER EFFECT");
         }
     }
 

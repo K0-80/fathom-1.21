@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.function.UnaryOperator;
 
 public class ModDataComponentTypes {
+
     public static final ComponentType<Integer> SOULS =
             register("souls", builder -> builder.codec(Codec.INT));
 
@@ -28,6 +29,7 @@ public class ModDataComponentTypes {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Fathom.MOD_ID, name),
                 builderOperator.apply(ComponentType.builder()).build());
     }
+
 
     public static void registerDataComponentTypes() {
         Fathom.LOGGER.info("Registering Data Component Types for " + Fathom.MOD_ID);
