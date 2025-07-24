@@ -18,7 +18,6 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> RESONANCE =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "resonance"));
 
-
     public static final RegistryKey<Enchantment> ALACRITY =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "alacrity"));
     public static final RegistryKey<Enchantment> GALE_FORCE =
@@ -161,7 +160,6 @@ public class ModEnchantments {
                 AttributeModifierSlot.HAND))
         );
     }
-
 
     private static void register(Registerable<Enchantment> registry, RegistryKey<Enchantment> key, Enchantment.Builder builder) {
         registry.register(key, builder.build(key.getValue()));

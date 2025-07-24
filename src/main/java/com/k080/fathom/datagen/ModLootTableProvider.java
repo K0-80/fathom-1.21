@@ -26,19 +26,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.MITHRIL_BLOCK);
-        addDrop(ModBlocks.RAW_MITHRIL_BLOCK);
 
-        addDrop(ModBlocks.MITHRIL_ORE, oreDrops(ModBlocks.MITHRIL_ORE, ModItems.RAW_MITHRIL));
-        addDrop(ModBlocks.DEEPSLATE_MITHRIL_ORE, multipleOreDrops(ModBlocks.DEEPSLATE_MITHRIL_ORE, ModItems.RAW_MITHRIL, 2, 3));
-
-        addDrop(ModBlocks.DRIFTWOOD_LOG);
-        addDrop(ModBlocks.STRIPED_DRIFTWOOD_LOG);
-        addDrop(ModBlocks.DRIFTWOOD_WOOD);
-        addDrop(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
-        addDrop(ModBlocks.DRIFTWOOD_PLANK);
-        addDrop(ModBlocks.DRIFTWOOD_SAPLING);
-        addDrop(ModBlocks.DRIFTWOOD_LEAVES, leavesDrops(ModBlocks.DRIFTWOOD_LEAVES, ModBlocks.DRIFTWOOD_SAPLING, 0.0625f));
 
     }
 

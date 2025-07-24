@@ -17,23 +17,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(ModBlocks.MITHRIL_BLOCK)
-                .add(ModBlocks.RAW_MITHRIL_BLOCK)
-                .add(ModBlocks.MITHRIL_ORE)
-                .add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
-
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.MITHRIL_BLOCK)
-                .add(ModBlocks.RAW_MITHRIL_BLOCK)
-                .add(ModBlocks.MITHRIL_ORE)
-                .add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
-
-        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
-                .add(ModBlocks.DRIFTWOOD_LOG)
-                .add(ModBlocks.STRIPED_DRIFTWOOD_LOG)
-                .add(ModBlocks.DRIFTWOOD_WOOD)
-                .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
 
     }
 }

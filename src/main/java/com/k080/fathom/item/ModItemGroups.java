@@ -16,32 +16,9 @@ public class ModItemGroups {
             FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.ANCHOR))
                     .displayName(Text.translatable("itemgroup.fathom.fathom_items"))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModItems.MITHRIL_INGOT);
-                        entries.add(ModItems.RAW_MITHRIL);
-
-                        entries.add(ModBlocks.MITHRIL_BLOCK);
-                        entries.add(ModBlocks.RAW_MITHRIL_BLOCK);
-                        entries.add(ModBlocks.MITHRIL_ORE);
-                        entries.add(ModBlocks.DEEPSLATE_MITHRIL_ORE);
-
-                        entries.add(ModBlocks.DRIFTWOOD_LOG);
-                        entries.add(ModBlocks.STRIPED_DRIFTWOOD_LOG);
-                        entries.add(ModBlocks.DRIFTWOOD_WOOD);
-                        entries.add(ModBlocks.STRIPED_DRIFTWOOD_WOOD);
-                        entries.add(ModBlocks.DRIFTWOOD_PLANK);
-                        entries.add(ModBlocks.DRIFTWOOD_LEAVES);
-                        entries.add(ModBlocks.DRIFTWOOD_SAPLING);
-
-                        entries.add(ModItems.MITHRIL_HELMET);
-                        entries.add(ModItems.MITHRIL_CHESTPLATE);
-                        entries.add(ModItems.MITHRIL_LEGGINGS);
-                        entries.add(ModItems.MITHRIL_BOOTS);
-
-                        entries.add(ModItems.SKELETON_FISH_BUCKET);
 
                         entries.add(ModItems.ANCHOR);
                         entries.add(ModItems.WIND_BLADE);
-                        entries.add(ModItems.GAUNTLET);
                         entries.add(ModItems.SCYTHE);
                         entries.add(ModItems.MIRAGE);
 

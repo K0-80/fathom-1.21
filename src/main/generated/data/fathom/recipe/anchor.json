@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "D": {
-      "item": "fathom:driftwood_log"
+      "item": "minecraft:stick"
     },
     "H": {
       "item": "minecraft:heart_of_the_sea"

@@ -3,6 +3,7 @@ package com.k080.fathom.item;
 import com.k080.fathom.Fathom;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,7 +25,7 @@ public class ModArmorMaterials {
                 map.put(ArmorItem.Type.CHESTPLATE, 6);
                 map.put(ArmorItem.Type.HELMET, 6);
                 map.put(ArmorItem.Type.BODY, 6);
-            }), 30, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(ModItems.MITHRIL_INGOT),
+            }), 30, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, () -> Ingredient.ofItems(Items.IRON_INGOT),
                     List.of(new ArmorMaterial.Layer(Identifier.of(Fathom.MOD_ID, "mithril"))), 0, 0));
 
     public static RegistryEntry<ArmorMaterial> registerArmorMaterial (String name, Supplier<ArmorMaterial> material) {

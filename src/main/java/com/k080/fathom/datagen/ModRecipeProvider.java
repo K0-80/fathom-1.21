@@ -25,45 +25,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter recipeExporter) {
 
-        List<ItemConvertible> MITHRIL_SMELTABLES = List.of(ModItems.RAW_MITHRIL, ModBlocks.MITHRIL_ORE, ModBlocks.DEEPSLATE_MITHRIL_ORE);
-        offerSmelting(recipeExporter, MITHRIL_SMELTABLES, RecipeCategory.MISC, ModItems.MITHRIL_INGOT, 0.5f, 200, "mithril");
-        offerBlasting(recipeExporter, MITHRIL_SMELTABLES, RecipeCategory.MISC, ModItems.MITHRIL_INGOT, 0.5f, 100, "mithril");
-
-        offerReversibleCompactingRecipes(recipeExporter, RecipeCategory.BUILDING_BLOCKS, ModItems.MITHRIL_INGOT, RecipeCategory.DECORATIONS, ModBlocks.MITHRIL_BLOCK);
-        offerReversibleCompactingRecipes(recipeExporter, RecipeCategory.BUILDING_BLOCKS, ModItems.RAW_MITHRIL, RecipeCategory.DECORATIONS, ModBlocks.RAW_MITHRIL_BLOCK);
-
-        offerPlanksRecipe(recipeExporter, ModBlocks.DRIFTWOOD_PLANK, ModTags.Items.DRIFTWOOD_LOGS, 4);
-
-        // Mithril Armor
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.MITHRIL_HELMET)
-                .pattern("III")
-                .pattern("I I")
-                .input('I', ModItems.MITHRIL_INGOT)
-                .criterion(hasItem(ModItems.MITHRIL_INGOT), conditionsFromItem(ModItems.MITHRIL_INGOT))
-                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MITHRIL_HELMET));
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.MITHRIL_CHESTPLATE)
-                .pattern("I I")
-                .pattern("III")
-                .pattern("III")
-                .input('I', ModItems.MITHRIL_INGOT)
-                .criterion(hasItem(ModItems.MITHRIL_INGOT), conditionsFromItem(ModItems.MITHRIL_INGOT))
-                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MITHRIL_CHESTPLATE));
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.MITHRIL_LEGGINGS)
-                .pattern("III")
-                .pattern("I I")
-                .pattern("I I")
-                .input('I', ModItems.MITHRIL_INGOT)
-                .criterion(hasItem(ModItems.MITHRIL_INGOT), conditionsFromItem(ModItems.MITHRIL_INGOT))
-                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MITHRIL_LEGGINGS));
-
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.MITHRIL_BOOTS)
-                .pattern("I I")
-                .pattern("I I")
-                .input('I', ModItems.MITHRIL_INGOT)
-                .criterion(hasItem(ModItems.MITHRIL_INGOT), conditionsFromItem(ModItems.MITHRIL_INGOT))
-                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MITHRIL_BOOTS));
 
         //ANCHOR WEAPON
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.ANCHOR)
@@ -72,7 +33,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern("D I")
                 .input('H', Items.HEART_OF_THE_SEA)
                 .input('I', Items.IRON_INGOT)
-                .input('D', ModBlocks.DRIFTWOOD_LOG)
+                .input('D', Items.STICK)
                 .criterion(hasItem(Items.HEART_OF_THE_SEA), conditionsFromItem(Items.HEART_OF_THE_SEA))
                 .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.ANCHOR));
     }

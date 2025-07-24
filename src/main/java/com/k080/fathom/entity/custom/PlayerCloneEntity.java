@@ -97,6 +97,9 @@ public class PlayerCloneEntity extends PathAwareEntity {
         if (this.getWorld().isClient() || this.isRemoved()) {
             return true;
         }
+        if (source.getAttacker() != null && source.getAttacker().equals(this.owner)) {  //cant be attacked by onwer to make it shatter more balanced
+            return false;
+        }
         if (!(source.getAttacker() instanceof PlayerEntity)) {
             return false;
         }
@@ -168,7 +171,7 @@ public class PlayerCloneEntity extends PathAwareEntity {
                     this.getX(), this.getBodyY(0.5), this.getZ(),
                     150, 4.0, 2.0, 4.0, 0.2);
 
-            float damage = shatterLevel * 2f;
+            float damage = shatterLevel * 1f;
             world.getOtherEntities(this, this.getBoundingBox().expand(4.0), entity -> entity instanceof LivingEntity && entity != this.owner)
                     .forEach(entity -> entity.damage(this.getDamageSources().magic(), damage));
         }

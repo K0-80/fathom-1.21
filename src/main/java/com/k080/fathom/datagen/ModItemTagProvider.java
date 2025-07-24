@@ -27,41 +27,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
-        getOrCreateTagBuilder(ItemTags.LOGS_THAT_BURN)
-                .add(ModBlocks.DRIFTWOOD_LOG.asItem())
-                .add(ModBlocks.STRIPED_DRIFTWOOD_LOG.asItem())
-                .add(ModBlocks.DRIFTWOOD_WOOD.asItem())
-                .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD.asItem());
-        getOrCreateTagBuilder(ItemTags.PLANKS)
-                .add(ModBlocks.DRIFTWOOD_PLANK.asItem());
-
-        getOrCreateTagBuilder(ModTags.Items.DRIFTWOOD_LOGS)
-                .add(ModBlocks.DRIFTWOOD_LOG.asItem())
-                .add(ModBlocks.STRIPED_DRIFTWOOD_LOG.asItem())
-                .add(ModBlocks.DRIFTWOOD_WOOD.asItem())
-                .add(ModBlocks.STRIPED_DRIFTWOOD_WOOD.asItem());
-
-        getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR)
-                .add(ModItems.MITHRIL_HELMET)
-                .add(ModItems.MITHRIL_CHESTPLATE)
-                .add(ModItems.MITHRIL_LEGGINGS)
-                .add(ModItems.MITHRIL_BOOTS);
-
         getOrCreateTagBuilder(ModTags.Items.ANCHOR_ENCHANTBLE)
                 .add(ModItems.ANCHOR);
         getOrCreateTagBuilder(ModTags.Items.WIND_BLADE_ENCHANTBLE)
                 .add(ModItems.WIND_BLADE);
         getOrCreateTagBuilder(ModTags.Items.SCYTHE_ENCHANTBLE)
                 .add(ModItems.SCYTHE);
-        getOrCreateTagBuilder(ModTags.Items.GAUNLET_ENCHANTBLE)
-                .add(ModItems.GAUNTLET);
         getOrCreateTagBuilder(ModTags.Items.MIRAGE_ENCHANTBLE)
                 .add(ModItems.MIRAGE);
 
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
-                .add(ModItems.GAUNTLET)
                 .add(ModItems.SCYTHE)
                 .add(ModItems.MIRAGE);
 
@@ -71,7 +48,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
                 .add(ModItems.ANCHOR)
                 .add(ModItems.WIND_BLADE)
-                .add(ModItems.GAUNTLET)
                 .add(ModItems.SCYTHE)
                 .add(ModItems.MIRAGE);
 

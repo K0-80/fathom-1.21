@@ -3,10 +3,8 @@
   "package": "com.k080.fathom.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "FishingBobberEntityMixin",
     "LivingEntityDamageMixin",
-    "LivingEntityMixin",
-    "PillarBlockMixin"
+    "LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

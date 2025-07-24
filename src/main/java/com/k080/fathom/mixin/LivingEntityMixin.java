@@ -32,28 +32,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @Shadow
-    public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
-
-    @Inject(method = "getMovementSpeed*", at = @At("RETURN"), cancellable = true)
-    private void onGetMovementSpeed(CallbackInfoReturnable<Float> cir) {
-        if (this.hasStatusEffect(ModEffects.STUNNED)) {
-            cir.setReturnValue(0.0f);
-        }
-    }
-
-    @Inject(method = "jump", at = @At("HEAD"), cancellable = true)
-    private void onJump(CallbackInfo ci) {
-        if (this.hasStatusEffect(ModEffects.STUNNED)) {
-            ci.cancel();
-        }
-    }
-
     @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
     private void applyCooldownToTotem(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        if (entity instanceof PlayerEntity player) {
+        if (entity instanceof PlayerEntity player) {  //totem now dose 60 sec cooldown instead of dispearing
             boolean hasTotem = player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING)
                     || player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING);
 
@@ -90,7 +73,7 @@ public abstract class LivingEntityMixin {
                     .map(entry -> EnchantmentHelper.getLevel(entry, stack))
                     .orElse(0);
 
-            if (rendLevel > 0) {
+            if (rendLevel > 0) {   //rend enchant from hex scythe item
                 float chance = (amount / 13.5f) * (rendLevel * 0.1f);
                 //attacker.sendMessage(Text.literal(String.format("Rend Chance: %.2f%%", chance * 100)), false);
 

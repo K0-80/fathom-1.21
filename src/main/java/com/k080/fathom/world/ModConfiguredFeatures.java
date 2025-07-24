@@ -2,6 +2,7 @@ package com.k080.fathom.world;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -24,8 +25,8 @@ public class ModConfiguredFeatures {
         RuleTest deepslateReplaceables = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
         List<OreFeatureConfig.Target> overworldMithrilOres =
-                List.of(OreFeatureConfig.createTarget(stoneReplaceables, ModBlocks.MITHRIL_ORE.getDefaultState()),
-                        OreFeatureConfig.createTarget(deepslateReplaceables, ModBlocks.DEEPSLATE_MITHRIL_ORE.getDefaultState()));
+                List.of(OreFeatureConfig.createTarget(stoneReplaceables, Blocks.BLACKSTONE.getDefaultState()),
+                        OreFeatureConfig.createTarget(deepslateReplaceables, Blocks.BLACKSTONE.getDefaultState()));
 
         register(context, MITHRIL_ORE_KEY, Feature.ORE, new OreFeatureConfig(overworldMithrilOres, 8));
     }
