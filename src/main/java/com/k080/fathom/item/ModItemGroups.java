@@ -22,6 +22,8 @@ public class ModItemGroups {
                         entries.add(ModItems.SCYTHE);
                         entries.add(ModItems.MIRAGE);
 
+                        entries.add(ModBlocks.BlOOD_CRUCIBLE);
+
                     }) .build());
 
     public static void registerItemGroups() {

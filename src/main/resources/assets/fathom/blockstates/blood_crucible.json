@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "ritual_stage=0": {
+      "model": "fathom:block/blood_crucible_idol"
+    },
+    "ritual_stage=1": {
+      "model": "fathom:block/blood_crucible_netherstar"
+    },
+    "ritual_stage=2": {
+      "model": "fathom:block/blood_crucible_soul"
+    }
+  }
+}

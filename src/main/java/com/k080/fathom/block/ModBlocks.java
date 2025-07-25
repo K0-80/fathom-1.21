@@ -1,6 +1,7 @@
 package com.k080.fathom.block;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.block.custom.BloodCrucibleBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -12,7 +13,13 @@ import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 
 public class ModBlocks {
-    
+
+    public static final Block BlOOD_CRUCIBLE =  registerBlock("blood_crucible",
+            new BloodCrucibleBlock(AbstractBlock.Settings.create().nonOpaque()
+                    .hardness(60.0f)
+                    .resistance(1200.0f)
+                    .dropsNothing()
+                    .sounds(BlockSoundGroup.DEEPSLATE)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

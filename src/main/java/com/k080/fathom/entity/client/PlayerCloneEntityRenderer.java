@@ -35,7 +35,6 @@ public class PlayerCloneEntityRenderer extends EntityRenderer<PlayerCloneEntity>
     @Override
     public void render(PlayerCloneEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider vertexConsumers, int light) {
         var skinTextures = DefaultSkinHelper.getSkinTextures(entity.getOwnerProfile());
-        DefaultSkinHelper.getSkinTextures(entity.getOwnerProfile());
         boolean isSlim = skinTextures.model() == SkinTextures.Model.SLIM;
 
         BipedEntityRenderer<PlayerCloneEntity, PlayerEntityModel<PlayerCloneEntity>> renderer = isSlim ? this.slimRenderer : this.wideRenderer;

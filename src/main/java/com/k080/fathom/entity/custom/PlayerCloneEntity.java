@@ -71,9 +71,11 @@ public class PlayerCloneEntity extends PathAwareEntity {
 
     public GameProfile getOwnerProfile() {
         if (this.getWorld().isClient()) {
-            return this.getDataTracker().get(OWNER_UUID)
-                    .map(uuid -> new GameProfile(uuid, "player_clone")) // Use a non-null placeholder name
-                    .orElse(new GameProfile(UUID.fromString("8667ba71-b85a-4004-af54-457a9734eed7"), "Steve")); // Default fallback
+            Optional<UUID> uuid = this.getDataTracker().get(OWNER_UUID);
+            String name = this.getDataTracker().get(PLAYER_MODEL);
+
+            return uuid.map(u -> new GameProfile(u, name))
+                    .orElse(new GameProfile(UUID.fromString("8667ba71-b85a-4004-af54-457a9734eed7"), "Steve"));
         }
         if (this.serverOwnerProfile == null) {
             return new GameProfile(UUID.fromString("8667ba71-b85a-4004-af54-457a9734eed7"), "Steve");
@@ -112,12 +114,15 @@ public class PlayerCloneEntity extends PathAwareEntity {
         this.owner = player;
         this.serverOwnerProfile = player.getGameProfile();
         this.getDataTracker().set(OWNER_UUID, Optional.of(player.getUuid()));
+        this.getDataTracker().set(PLAYER_MODEL, player.getGameProfile().getName());
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             this.equipStack(slot, player.getEquippedStack(slot).copy());
         }
         this.setHealth(player.getHealth());
     }
+
+
 
     void cleanupAndDiscard(boolean playEffects) {
         if (this.getWorld().isClient() || this.isRemoved()) {

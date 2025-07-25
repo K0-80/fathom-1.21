@@ -3,13 +3,17 @@ package com.k080.fathom.mixin;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantments;
+import com.k080.fathom.entity.custom.BloodCrucibleBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,13 +25,19 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -53,7 +63,8 @@ public abstract class LivingEntityMixin {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
                     player.getWorld().sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
 
-                    cir.setReturnValue(true);                }
+                    cir.setReturnValue(true);
+                }
             }
         }
     }
@@ -94,5 +105,75 @@ public abstract class LivingEntityMixin {
             }
         }
     }
+
+
+    @Inject(method = "onDeath", at = @At("HEAD"))
+    private void onDeathForCrucible(DamageSource source, CallbackInfo ci) {
+
+        LivingEntity killedEntity = (LivingEntity) (Object) this;
+        World world = killedEntity.getWorld();
+
+        if (world.isClient()) {
+            return;
+        }
+
+        Entity attacker = source.getAttacker();
+        if (!(attacker instanceof PlayerEntity killer)) {
+            return;
+        }
+
+        UUID petOwnerUuid = null;
+        if (killedEntity instanceof TameableEntity tameableEntity) {
+            petOwnerUuid = tameableEntity.getOwnerUuid();
+        }
+
+        if (petOwnerUuid == null) {
+            return;
+        }
+
+        if (!killer.getUuid().equals(petOwnerUuid)) {
+            return;
+        }
+
+        final int CHUNK_RADIUS = 2;
+        ServerWorld serverWorld = (ServerWorld) world;
+        int playerChunkX = killer.getChunkPos().x;
+        int playerChunkZ = killer.getChunkPos().z;
+
+        for (int cx = playerChunkX - CHUNK_RADIUS; cx <= playerChunkX + CHUNK_RADIUS; cx++) {
+            for (int cz = playerChunkZ - CHUNK_RADIUS; cz <= playerChunkZ + CHUNK_RADIUS; cz++) {
+                WorldChunk chunk = serverWorld.getChunkManager().getWorldChunk(cx, cz, false);
+                if (chunk == null) {
+                    continue;
+                }
+
+                for (BlockEntity blockEntity : chunk.getBlockEntities().values()) {
+                    if (blockEntity instanceof BloodCrucibleBlockEntity crucibleEntity) {
+                        if (crucibleEntity.getCurrentState() == BloodCrucibleBlockEntity.RitualState.AWAITING_SACRIFICE) {
+                            // paritlce arc
+                            Vec3d startPos = killedEntity.getPos();
+                            Vec3d endPos = crucibleEntity.getPos().toCenterPos().add(0, 0.3, 0);
+                            double distance = startPos.distanceTo(endPos);
+
+                            // wow mhm yes double i = 0 vec3d i understand this
+                            for (double i = 0; i < distance; i += 0.2) {
+                                double progress = i / distance;
+                                Vec3d particlePos = startPos.lerp(endPos, progress);
+                                // ah yes ofc i understand this (go to school kids)
+                                double arcHeight = Math.sin(progress * Math.PI) * 1.5;
+
+                                serverWorld.spawnParticles(ParticleTypes.SOUL,
+                                        particlePos.x, particlePos.y + arcHeight, particlePos.z,
+                                        1, 0.1, 0.1, 0.1, 0);
+                            }
+                            crucibleEntity.acceptSacrifice();
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
 
 }

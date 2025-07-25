@@ -1,24 +1,6 @@
 {
-  "item.fathom.mithril_ingot": "Mithril Ingot",
-  "item.fathom.raw_mithril": "Raw Mithril",
 
-  "block.fathom.mithril_block": "Mithril Block",
-  "block.fathom.raw_mithril_block": "Raw Mithril Block",
-  "block.fathom.mithril_ore": "Mithril Ore",
-  "block.fathom.deepslate_mithril_ore": "Deepslate Mithril ore",
-
-  "item.fathom.mithril_helmet" : "Mithril Helmet",
-  "item.fathom.mithril_chestplate" : "Mithril Chestplate",
-  "item.fathom.mithril_leggings" : "Mithril Leggings",
-  "item.fathom.mithril_boots" : "Mithril Boots",
-
-  "block.fathom.driftwood_log": "Driftwood Log",
-  "block.fathom.striped_driftwood_log": "Striped Driftwood Log",
-  "block.fathom.driftwood_wood": "Driftwood Wood",
-  "block.fathom.striped_driftwood_wood": "Striped Driftwood Wood",
-  "block.fathom.driftwood_plank": "Driftwood Plank",
-  "block.fathom.driftwood_sapling": "Driftwood Sapling",
-  "block.fathom.driftwood_leaves": "Driftwood Leaves",
+  "block.fathom.blood_crucible": "Blood Crucible",
 
   "itemgroup.fathom.fathom_items": "Fathom",
 
@@ -29,7 +11,6 @@
 
 
   "entity.fathom.skeleton_fish": "Skeleton Fish",
-
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
 
   "item.fathom.anchor": "Fathom",

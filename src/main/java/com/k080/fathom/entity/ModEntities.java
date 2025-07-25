@@ -1,12 +1,11 @@
 package com.k080.fathom.entity;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.entity.custom.AnchorProjectileEntity;
-import com.k080.fathom.entity.custom.MirageThrowEntity;
-import com.k080.fathom.entity.custom.PlayerCloneEntity;
-import com.k080.fathom.entity.custom.SkeletonFishEntity;
+import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.entity.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -37,7 +36,6 @@ public class ModEntities {
             EntityType.Builder.create(MirageThrowEntity::new, SpawnGroup.MISC)
                     .dimensions(0.25F, 0.25F)
                     .maxTrackingRange(8).build());
-
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);

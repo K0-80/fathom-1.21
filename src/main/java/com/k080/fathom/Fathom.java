@@ -3,6 +3,7 @@ package com.k080.fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModDataComponentTypes;
 import com.k080.fathom.effect.ModEffects;
+import com.k080.fathom.entity.ModBlockEntitys;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
@@ -30,6 +31,7 @@ public class Fathom implements ModInitializer {
 		ModBlocks.registerModBlocks();
 
 		ModEntities.registerModEntities();
+		ModBlockEntitys.registerModEntities();
 
 		ModEffects.registerEffects();
 
