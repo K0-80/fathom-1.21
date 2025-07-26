@@ -23,6 +23,7 @@ public class ModItemGroups {
                         entries.add(ModItems.MIRAGE);
 
                         entries.add(ModBlocks.BlOOD_CRUCIBLE);
+                        entries.add(ModBlocks.AMETHYST_RESONATOR);
 
                     }) .build());
 

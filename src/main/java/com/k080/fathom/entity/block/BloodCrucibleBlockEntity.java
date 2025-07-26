@@ -1,4 +1,4 @@
-package com.k080.fathom.entity.custom;
+package com.k080.fathom.entity.block;
 
 import com.k080.fathom.block.custom.BloodCrucibleBlock;
 import com.k080.fathom.entity.ModBlockEntitys;
@@ -25,13 +25,9 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.UUID;
 
 public class BloodCrucibleBlockEntity extends BlockEntity implements ImplementedInventory {
 

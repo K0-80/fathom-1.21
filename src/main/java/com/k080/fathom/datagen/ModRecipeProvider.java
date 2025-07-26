@@ -36,5 +36,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.STICK)
                 .criterion(hasItem(Items.HEART_OF_THE_SEA), conditionsFromItem(Items.HEART_OF_THE_SEA))
                 .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.ANCHOR));
+
+        //RESONATOR BLOCK
+        ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMETHYST_RESONATOR)
+                .pattern(" S ")
+                .pattern("SES")
+                .pattern(" S ")
+                .input('E', Items.ECHO_SHARD)
+                .input('S', Items.AMETHYST_SHARD)
+                .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
+                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModBlocks.AMETHYST_RESONATOR));
     }
 }

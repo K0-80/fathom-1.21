@@ -1,7 +1,7 @@
 package com.k080.fathom.block.custom;
 
 import com.k080.fathom.entity.ModBlockEntitys;
-import com.k080.fathom.entity.custom.BloodCrucibleBlockEntity;
+import com.k080.fathom.entity.block.BloodCrucibleBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
