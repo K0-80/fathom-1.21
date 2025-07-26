@@ -10,7 +10,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.Rarity;
 
 
 public class ModBlocks {
@@ -19,23 +19,32 @@ public class ModBlocks {
             new BloodCrucibleBlock(AbstractBlock.Settings.create()
                     .nonOpaque().hardness(60.0f).resistance(1200.0f).dropsNothing().sounds(BlockSoundGroup.DEEPSLATE)));
 
-    public static final Block AMETHYST_RESONATOR =  registerBlock("amethyst_resonator",
+    // rarity menuyally added at bottom
+    public static final Block AMETHYST_RESONATOR =  registerBlockWithoutItem("amethyst_resonator",
             new AmethystResonatorBlock(AbstractBlock.Settings.create()
                     .nonOpaque().hardness(9.0f).resistance(1200.0f).strength(1.5F).sounds(BlockSoundGroup.AMETHYST_BLOCK).requiresTool()));
 
 
+    // Helper for blocks with a standard item
     private static Block registerBlock(String name, Block block) {
-        registerBlockItem(name, block);
+        registerBlockItem(name, block, new Item.Settings());
         return Registry.register(Registries.BLOCK, Identifier.of(Fathom.MOD_ID, name), block);
     }
-    private static void registerBlockItem(String name, Block block) {
-        Registry.register(Registries.ITEM, Identifier.of(Fathom.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+
+    // Helper for blocks without auto item registiotn
+    private static Block registerBlockWithoutItem(String name, Block block) {
+        return Registry.register(Registries.BLOCK, Identifier.of(Fathom.MOD_ID, name), block);
+    }
+
+    // Helper to register a BlockItem with specific settings
+    private static Item registerBlockItem(String name, Block block, Item.Settings settings) {
+        return Registry.register(Registries.ITEM, Identifier.of(Fathom.MOD_ID, name),
+                new BlockItem(block, settings));
     }
 
     public static void registerModBlocks() {
         Fathom.LOGGER.info("Registering Mod Blocks for " + Fathom.MOD_ID);
 
-
+        registerBlockItem("amethyst_resonator", AMETHYST_RESONATOR, new Item.Settings().rarity(Rarity.RARE));
     }
 }

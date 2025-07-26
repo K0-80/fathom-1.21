@@ -39,11 +39,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         //RESONATOR BLOCK
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMETHYST_RESONATOR)
-                .pattern(" S ")
-                .pattern("SES")
-                .pattern(" S ")
-                .input('E', Items.ECHO_SHARD)
-                .input('S', Items.AMETHYST_SHARD)
+                .pattern("GSG")
+                .pattern("S S")
+                .pattern("GSG")
+                .input('G', Items.AMETHYST_SHARD)
+                .input('S', Items.ECHO_SHARD)
                 .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
                 .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModBlocks.AMETHYST_RESONATOR));
     }

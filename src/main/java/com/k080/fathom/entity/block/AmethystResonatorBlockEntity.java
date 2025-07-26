@@ -15,6 +15,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -39,10 +40,10 @@ public class AmethystResonatorBlockEntity extends BlockEntity {
     private List<BlockPos> sequence = new ArrayList<>();
     private List<BlockPos> validBuddingAmethysts = new ArrayList<>();
 
-    private static final int REQUIRED_AMETHYST_BLOCKS = 40; //40
-    private static final int REQUIRED_BUDDING_AMETHYSTS = 20; //20
+    private static final int REQUIRED_AMETHYST_BLOCKS = 64; //40
+    private static final int REQUIRED_BUDDING_AMETHYSTS = 15; //15
     private static final int SCAN_RADIUS = 10;
-    private static final int[] ROUND_SIZES = {0, 1, 2, 3, 5, 10}; // Index 0 is unused
+    private static final int[] ROUND_SIZES = {0, 1, 2, 3, 4, 5}; // Index 0 is unused
     //private static final int[] ROUND_SIZES = {0, 1, 1, 1, 1, 1}; //for testing
 
 
@@ -97,10 +98,9 @@ public class AmethystResonatorBlockEntity extends BlockEntity {
         if (scanAndValidateInitialStructure()) {
             this.eventActive = true;
             this.currentRound = 1;
-            player.sendMessage(Text.literal("The resonator hums to life!"), true);
             startNextRound();
         } else {
-            player.sendMessage(Text.literal("The resonator remains dormant."), true);
+            player.sendMessage(Text.literal("The resonator remains dormant.").formatted(Formatting.GRAY), true);
         }
     }
 
