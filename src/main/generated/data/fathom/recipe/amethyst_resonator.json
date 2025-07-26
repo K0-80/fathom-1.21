@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "S": {
+      "item": "minecraft:echo_shard"
+    }
+  },
+  "pattern": [
+    "GSG",
+    "S S",
+    "GSG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "fathom:amethyst_resonator"
+  }
+}

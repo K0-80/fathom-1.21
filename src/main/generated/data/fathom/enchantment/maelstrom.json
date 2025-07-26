@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.fathom.maelstrom"
+  },
+  "exclusive_set": "#fathom:anchor_exclusive",
+  "max_cost": {
+    "base": 30,
+    "per_level_above_first": 9
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 8,
+    "per_level_above_first": 9
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#fathom:anchor_enchantble",
+  "weight": 2
+}
