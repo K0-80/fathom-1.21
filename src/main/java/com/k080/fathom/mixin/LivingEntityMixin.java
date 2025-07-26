@@ -1,6 +1,6 @@
 package com.k080.fathom.mixin;
 
-import com.k080.fathom.component.ModDataComponentTypes;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.block.BloodCrucibleBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -81,8 +81,8 @@ public abstract class LivingEntityMixin {
                 //attacker.sendMessage(Text.literal(String.format("Rend Chance: %.2f%%", chance * 100)), false);
 
                 if (world.getRandom().nextFloat() < chance) {
-                    int currentSouls = stack.getOrDefault(ModDataComponentTypes.SOULS, 0);
-                    stack.set(ModDataComponentTypes.SOULS, Math.min(10, Math.max(0, currentSouls + 1)));
+                    int currentSouls = stack.getOrDefault(ModComponents.SOULS, 0);
+                    stack.set(ModComponents.SOULS, Math.min(10, Math.max(0, currentSouls + 1)));
 
                     target.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 40, 0));
                     world.playSound(null, target.getBlockPos(), SoundEvents.ENTITY_PUFFER_FISH_DEATH, SoundCategory.MASTER, 0.5f, 0.5f);

@@ -25,6 +25,12 @@ public class ModItemGroups {
                         entries.add(ModBlocks.BlOOD_CRUCIBLE);
                         entries.add(ModBlocks.AMETHYST_RESONATOR);
 
+                        entries.add(ModItems.PICTURE_BOOK);
+                        entries.add(ModItems.TORN_PAGE_1);
+                        entries.add(ModItems.TORN_PAGE_2);
+                        entries.add(ModItems.TORN_PAGE_3);
+                        entries.add(ModItems.TORN_PAGE_4);
+
                     }) .build());
 
     public static void registerItemGroups() {

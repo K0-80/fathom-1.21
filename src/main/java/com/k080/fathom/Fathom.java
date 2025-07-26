@@ -1,7 +1,7 @@
 package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
-import com.k080.fathom.component.ModDataComponentTypes;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.entity.ModBlockEntitys;
 import com.k080.fathom.entity.ModEntities;
@@ -11,7 +11,6 @@ import com.k080.fathom.item.ModItems;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.util.ModLootTableModifiers;
 import com.k080.fathom.util.ReportCommand;
-import com.k080.fathom.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -42,7 +41,7 @@ public class Fathom implements ModInitializer {
 
 		ModParticles.registerParticles();
 
-		ModDataComponentTypes.registerDataComponentTypes();
+		ModComponents.registerDataComponentTypes();
 
 		BlockBreakHandler.register();
 	}

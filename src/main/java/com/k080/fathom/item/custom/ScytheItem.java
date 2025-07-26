@@ -1,6 +1,6 @@
 package com.k080.fathom.item.custom;
 
-import com.k080.fathom.component.ModDataComponentTypes;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.particle.ModParticles;
@@ -8,9 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +21,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -31,7 +28,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,10 +135,10 @@ public class ScytheItem extends SwordItem {
     }
 
     private int getSouls(ItemStack stack) {
-        return stack.getOrDefault(ModDataComponentTypes.SOULS, 0);
+        return stack.getOrDefault(ModComponents.SOULS, 0);
     }
     private void setSouls(ItemStack stack, int souls) {
-        stack.set(ModDataComponentTypes.SOULS, Math.min(10, Math.max(0, souls)));
+        stack.set(ModComponents.SOULS, Math.min(10, Math.max(0, souls)));
     }
     private void addSouls(ItemStack stack, int amount) {
         int currentSouls = getSouls(stack);

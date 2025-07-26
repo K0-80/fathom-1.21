@@ -1,6 +1,6 @@
 package com.k080.fathom.entity.custom;
 
-import com.k080.fathom.component.ModDataComponentTypes;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.item.custom.Mirageitem;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Blocks;
@@ -145,9 +145,9 @@ public class PlayerCloneEntity extends PathAwareEntity {
             for (int i = 0; i < this.owner.getInventory().size(); ++i) {
                 ItemStack itemStack = this.owner.getInventory().getStack(i);
                 if (itemStack.getItem() instanceof Mirageitem) {
-                    UUID cloneUuid = itemStack.get(ModDataComponentTypes.CLONE_UUID);
+                    UUID cloneUuid = itemStack.get(ModComponents.CLONE_UUID);
                     if (this.getUuid().equals(cloneUuid)) {
-                        itemStack.remove(ModDataComponentTypes.CLONE_UUID);
+                        itemStack.remove(ModComponents.CLONE_UUID);
                         if (playEffects) {
                             this.owner.sendMessage(Text.literal("Your mirage has faded.").formatted(Formatting.GRAY), true);
                         }

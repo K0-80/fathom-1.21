@@ -1,7 +1,7 @@
 package com.k080.fathom.item.custom;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.component.ModDataComponentTypes;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.MirageThrowEntity;
@@ -53,7 +53,7 @@ public class Mirageitem extends SwordItem {
 
         if (!world.isClient()) {
             ServerWorld serverWorld = (ServerWorld) world;
-            UUID cloneUuid = stack.get(ModDataComponentTypes.CLONE_UUID);
+            UUID cloneUuid = stack.get(ModComponents.CLONE_UUID);
 
             if (cloneUuid != null) {
                 if (tetherLevel <= 0 ) {
@@ -65,7 +65,7 @@ public class Mirageitem extends SwordItem {
                         pClone.discard();
                         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
                     }
-                    stack.remove(ModDataComponentTypes.CLONE_UUID);
+                    stack.remove(ModComponents.CLONE_UUID);
 
                     user.getItemCooldownManager().set(this, tpToCloneCooldowon);
 
@@ -94,7 +94,7 @@ public class Mirageitem extends SwordItem {
                 clone.refreshPositionAndAngles(user.getX(), user.getY(), user.getZ(), user.getYaw(), user.getPitch());
                 world.spawnEntity(clone);
 
-                stack.set(ModDataComponentTypes.CLONE_UUID, clone.getUuid());
+                stack.set(ModComponents.CLONE_UUID, clone.getUuid());
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ILLUSIONER_MIRROR_MOVE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
                 handlePhaseShift(serverWorld, user, phaseShiftLevel, user.isSneaking());
@@ -110,7 +110,7 @@ public class Mirageitem extends SwordItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        UUID cloneUuid = stack.get(ModDataComponentTypes.CLONE_UUID);
+        UUID cloneUuid = stack.get(ModComponents.CLONE_UUID);
 
         if (cloneUuid != null) {
             tooltip.add(Text.literal("Clone Active").formatted(Formatting.GRAY));

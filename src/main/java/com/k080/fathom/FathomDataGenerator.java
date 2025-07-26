@@ -20,6 +20,7 @@ public class FathomDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModRegistryDataGenerator::new);
+		pack.addProvider(ModLanguageProvider::new);
 	}
 
 	@Override
