@@ -1,4 +1,3 @@
-// 1.21	2025-07-26T21:20:21.5147267	Fathom/Tags for minecraft:block
-8efaf64a4187660f8c5e361acebf731290d538d9 data\minecraft\tags\block\needs_diamond_tool.json
+// 1.21	2025-07-26T23:24:50.9713551	Fathom/Tags for minecraft:block
 4b2a3e3969ba3afdba92e175cd073ee86770db70 data\minecraft\tags\block\mineable\pickaxe.json
-caec21dcde4c7a4e49f31ad384f1e0765ddcf58d data\minecraft\tags\block\needs_iron_tool.json
+4b2a3e3969ba3afdba92e175cd073ee86770db70 data\minecraft\tags\block\needs_iron_tool.json

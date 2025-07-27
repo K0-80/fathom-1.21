@@ -23,9 +23,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.ANCHOR_BLOCK_ACTIVATED);
 
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
-                .add(ModBlocks.AMETHYST_RESONATOR);
-
-        getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(ModBlocks.AMETHYST_RESONATOR)
                 .add(ModBlocks.ANCHOR_BLOCK_ACTIVATED);
+
     }
 }

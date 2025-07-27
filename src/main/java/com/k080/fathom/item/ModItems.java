@@ -39,7 +39,6 @@ public class ModItems {
             new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 1.4f -4f))));
 
-
     public static final Item PICTURE_BOOK = registerItem("picture_book",
             new PictureBookItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE)
                     .component(ModComponents.UNLOCKED_PAGES, Set.of(BookPages.PAGE_1.id()))

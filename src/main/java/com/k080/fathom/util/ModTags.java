@@ -11,12 +11,6 @@ import net.minecraft.util.Identifier;
 public class ModTags {
     public static class Blocks  {
 
-        public static final  TagKey<Block> NEEDS_MITHRIL_TOOL = createTag("needs_mithril_tool");
-        public static final  TagKey<Block> INCORRECT_FOR_MITHRIL_TOOL = createTag("incorrect_for_mithril_tool");
-        
-        public static final TagKey<Block> DRIFTWOOD_TRANSFORMABLE_LOGS = createTag("driftwood_transformable_logs");
-
-        public static final  TagKey<Block> DRIFTWOOD_LOGS = createTag("driftwood_logs");
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Fathom.MOD_ID, name));

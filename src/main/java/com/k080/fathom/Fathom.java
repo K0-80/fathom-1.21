@@ -37,7 +37,7 @@ public class Fathom implements ModInitializer {
 
 //		ModWorldGeneration.generateModWorldGen();
 
-		ModLootTableModifiers.replaceLootTables();
+		ModLootTableModifiers.modifyLootTables();
 
 		ModParticles.registerParticles();
 

@@ -107,7 +107,7 @@ public class AnchorBlockEntity extends BlockEntity {
 
                 if (applyLongCooldownEffects) {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 0, false, false, true));
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 2, false, false, true));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 0, false, false, true));
                     player.sendMessage(Text.literal("A presence pulls you down...").formatted(Formatting.GRAY), true);
                 }
             }
