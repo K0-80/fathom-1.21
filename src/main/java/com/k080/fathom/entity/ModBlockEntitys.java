@@ -24,6 +24,10 @@ public class ModBlockEntitys {
             Identifier.of(Fathom.MOD_ID, "anchor_be"),
             BlockEntityType.Builder.create(AnchorBlockEntity::new, ModBlocks.ANCHOR_BLOCK_INACTIVE).build(null));
 
+//    public static final BlockEntityType<NomadicBrazierBlockEntity> NOMADIC_BRAZIER_BLOCK_ENTITY  = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+//            Identifier.of(Fathom.MOD_ID, "nomadic_brazier_be"),
+//            BlockEntityType.Builder.create(NomadicBrazierBlockEntity::new, ModBlocks.NOMADIC_BRAZIER).build(null));
+
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Block Entity's for " + Fathom.MOD_ID);
     }

@@ -23,23 +23,27 @@ public class ModEntities {
     public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "anchor"),
             EntityType.Builder.create(AnchorProjectileEntity::new, SpawnGroup.MONSTER)
-                    .dimensions(0.5F, 1F)
-                    .maxTrackingRange(8).build());
+                    .dimensions(0.5F, 1F).maxTrackingRange(8).build());
 
     public static final EntityType<PlayerCloneEntity> PLAYER_CLONE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "player_clone"),
             EntityType.Builder.create(PlayerCloneEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.7f, 1.9f).build());
+                    .dimensions(0.7f, 1.9f).maxTrackingRange(6).build());
 
     public static final EntityType<MirageThrowEntity> MIRAGE_THROW_ENTITY_ENTITY_TYPE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "mirage_throw"),
             EntityType.Builder.create(MirageThrowEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.25F, 0.25F)
-                    .maxTrackingRange(8).build());
+                    .dimensions(0.25F, 0.25F).maxTrackingRange(6).build());
+
+    public static final EntityType<SpiritEntity> SPIRIT  = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "spirit"),
+            EntityType.Builder.create(SpiritEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.5f, 0.5f).maxTrackingRange(8).trackingTickInterval(2).build());
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
         FabricDefaultAttributeRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntity.createPlayerCloneAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.SPIRIT, SpiritEntity.createSpiritAttributes());
     }
 }

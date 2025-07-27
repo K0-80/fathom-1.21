@@ -36,6 +36,9 @@ public class FathomModClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SkeletonFishModel.SKELETON_FISH, SkeletonFishModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);
 
+        EntityModelLayerRegistry.registerModelLayer(SpiritEntityModel.SPIRIT, SpiritEntityModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.SPIRIT, SpiritEntityRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
         EntityRendererRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, MirageThrowEntityRender::new);

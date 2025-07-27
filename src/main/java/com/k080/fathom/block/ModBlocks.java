@@ -32,6 +32,8 @@ public class ModBlocks {
     public static final Block ANCHOR_BLOCK_ACTIVATED = registerBlockWithoutItem("anchor_block_activated",
             new AnchorBlockActivated(AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).nonOpaque()));
 
+
+
     // Helper for blocks with a standard item
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block, new Item.Settings());

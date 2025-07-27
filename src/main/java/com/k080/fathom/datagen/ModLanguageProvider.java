@@ -1,6 +1,7 @@
 package com.k080.fathom.datagen;
 
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -48,6 +49,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         // Entities
         translationBuilder.add("entity.fathom.skeleton_fish", "Skeleton Fish");
         translationBuilder.add("item.fathom.skeleton_fish_bucket", "Bucket of Skeleton Fish");
+        translationBuilder.add(ModEntities.SPIRIT, "Spirit");
         translationBuilder.add("entity.fathom.player_clone", "Clone");
 
         // Anchor Item & Enchantments

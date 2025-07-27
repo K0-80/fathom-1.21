@@ -6,6 +6,8 @@ DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them! (i w
 
 
 
-Resonant Tuner Block: crafted with a Goat Horn at the center, surrounded by four Amethyst Shards and four Echo Shards.
-
+todo:
+make codex texture
+make wind ritual
+DNA samples
 
