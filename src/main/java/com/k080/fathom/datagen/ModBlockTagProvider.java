@@ -17,9 +17,15 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        //needs pickxaxe
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(ModBlocks.AMETHYST_RESONATOR);
+                .add(ModBlocks.AMETHYST_RESONATOR)
+                .add(ModBlocks.ANCHOR_BLOCK_ACTIVATED);
+
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.AMETHYST_RESONATOR);
+
+        getOrCreateTagBuilder(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(ModBlocks.ANCHOR_BLOCK_ACTIVATED);
     }
 }

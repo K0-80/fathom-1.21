@@ -2,6 +2,8 @@ package com.k080.fathom.block;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.custom.AmethystResonatorBlock;
+import com.k080.fathom.block.custom.AnchorBlock;
+import com.k080.fathom.block.custom.AnchorBlockActivated;
 import com.k080.fathom.block.custom.BloodCrucibleBlock;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -24,6 +26,11 @@ public class ModBlocks {
             new AmethystResonatorBlock(AbstractBlock.Settings.create()
                     .nonOpaque().hardness(9.0f).resistance(1200.0f).strength(1.5F).sounds(BlockSoundGroup.AMETHYST_BLOCK).requiresTool()));
 
+    public static final Block ANCHOR_BLOCK_INACTIVE = registerBlock("anchor_block_inactive",
+            new AnchorBlock(AbstractBlock.Settings.create().strength(-1.0f, 3600000.0f).nonOpaque()));
+
+    public static final Block ANCHOR_BLOCK_ACTIVATED = registerBlockWithoutItem("anchor_block_activated",
+            new AnchorBlockActivated(AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).nonOpaque()));
 
     // Helper for blocks with a standard item
     private static Block registerBlock(String name, Block block) {

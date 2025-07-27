@@ -3,6 +3,7 @@ package com.k080.fathom.entity;
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.entity.block.AmethystResonatorBlockEntity;
+import com.k080.fathom.entity.block.AnchorBlockEntity;
 import com.k080.fathom.entity.block.BloodCrucibleBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -18,6 +19,10 @@ public class ModBlockEntitys {
     public static final BlockEntityType<AmethystResonatorBlockEntity> AMETHYST_RESONATOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "amethyst_resonator_block_entity"),
             BlockEntityType.Builder.create(AmethystResonatorBlockEntity::new, ModBlocks.AMETHYST_RESONATOR).build(null));
+
+    public static final BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "anchor_be"),
+            BlockEntityType.Builder.create(AnchorBlockEntity::new, ModBlocks.ANCHOR_BLOCK_INACTIVE).build(null));
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Block Entity's for " + Fathom.MOD_ID);

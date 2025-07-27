@@ -8,6 +8,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -20,6 +21,9 @@ public class PictureBookScreen extends Screen {
     private static final Identifier BOOK_TEXTURE = Identifier.of(Fathom.MOD_ID, "textures/gui/book/book.png");
     private static final int BOOK_WIDTH = 256;
     private static final int BOOK_HEIGHT = 200;
+
+    private static final int ANIMATION_TOTAL_FRAMES = 22;
+    private static final int ANIMATION_FRAMETIME = 2;
 
     private final ItemStack bookStack;
     private List<BookPage> unlockedPages;
@@ -84,11 +88,38 @@ public class PictureBookScreen extends Screen {
         int x = (this.width - BOOK_WIDTH) / 2;
         int y = (this.height - BOOK_HEIGHT) / 2;
 
-        context.drawTexture(BOOK_TEXTURE, x, y, 0, 0, BOOK_WIDTH, BOOK_HEIGHT, BOOK_WIDTH, BOOK_HEIGHT);
+        long time = this.client.world.getTime();
+        int frameIndex = (int) ((time / ANIMATION_FRAMETIME) % ANIMATION_TOTAL_FRAMES);
+        int vOffset = frameIndex * BOOK_HEIGHT;
+        context.drawTexture(BOOK_TEXTURE, x, y, 0, vOffset, BOOK_WIDTH, BOOK_HEIGHT, BOOK_WIDTH, BOOK_HEIGHT * ANIMATION_TOTAL_FRAMES);
 
         if (!unlockedPages.isEmpty() && currentPage < unlockedPages.size()) {
             BookPage page = unlockedPages.get(currentPage);
-            context.drawTexture(page.texture(), x, y, 0, 0, BOOK_WIDTH, BOOK_HEIGHT, BOOK_WIDTH, BOOK_HEIGHT);
+
+            // Render image if present
+            page.getTexture().ifPresent(textureId -> {
+                context.drawTexture(textureId, x, y, 0, 0, BOOK_WIDTH, BOOK_HEIGHT, BOOK_WIDTH, BOOK_HEIGHT);
+            });
+
+            // Render text if present
+            page.getContent().ifPresent(textContent -> {
+                int textX = x + 20; // 20px left padding
+                int textY = y + 30; // 30px top padding
+                int maxWidth = BOOK_WIDTH - 40; // 20px padding on each side
+                int color = 0x000000; // Black text
+
+                List<OrderedText> wrappedLines = textRenderer.wrapLines(textContent, maxWidth);
+                for (int i = 0; i < wrappedLines.size(); i++) {
+                    OrderedText line = wrappedLines.get(i);
+                    int currentY = textY + (i * textRenderer.fontHeight);
+
+                    // Stop drawing if text would go into the bottom padding area
+                    if (currentY > y + BOOK_HEIGHT - 30 - textRenderer.fontHeight) {
+                        break;
+                    }
+                    context.drawText(textRenderer, line, textX, currentY, color, false);
+                }
+            });
         }
     }
 

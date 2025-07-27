@@ -30,6 +30,8 @@ public class FathomModClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BlOOD_CRUCIBLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AMETHYST_RESONATOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_ACTIVATED, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_INACTIVE, RenderLayer.getCutout());
 
         EntityModelLayerRegistry.registerModelLayer(SkeletonFishModel.SKELETON_FISH, SkeletonFishModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);

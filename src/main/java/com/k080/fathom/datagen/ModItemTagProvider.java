@@ -56,5 +56,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
                 .add(ModItems.ANCHOR)
                 .add(Items.TRIDENT);
+
     }
 }

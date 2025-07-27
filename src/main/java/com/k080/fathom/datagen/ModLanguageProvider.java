@@ -1,5 +1,6 @@
 package com.k080.fathom.datagen;
 
+import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -16,18 +17,15 @@ public class ModLanguageProvider extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         // Picture Book Items
         translationBuilder.add(ModItems.PICTURE_BOOK, "Ancient Codex");
-        translationBuilder.add(ModItems.TORN_PAGE_1, "Torn Page");
-        translationBuilder.add(ModItems.TORN_PAGE_2, "Soggy Page");
-        translationBuilder.add(ModItems.TORN_PAGE_3, "Scorched Page");
-        translationBuilder.add(ModItems.TORN_PAGE_4, "Glistering Page");
-        // torn page lore
+        translationBuilder.add(ModItems.TORN_PAGE_1, "Torn Page"); //starting lore
+        translationBuilder.add(ModItems.TORN_PAGE_2, "Soggy Page"); //anchor
+        translationBuilder.add(ModItems.TORN_PAGE_3, "Scorched Page"); //scythe
+        translationBuilder.add(ModItems.TORN_PAGE_4, "Glistering Page"); //mirage
+        translationBuilder.add(ModItems.TORN_PAGE_5, "Weightless Page"); //wind blade
+        // lore
         translationBuilder.add("item.fathom.picture_book.lore", "It seems to be missing many pages...");
-
-        translationBuilder.add("tooltip.fathom.torn_page.hint", "Right-click to add to a Codex in your inventory.");
-        translationBuilder.add("tooltip.fathom.torn_page.page_1", "Where the world touches the stars... the wind whispers...");
-        translationBuilder.add("tooltip.fathom.torn_page.page_2", "In sunken halls... hidden in a forgotten chest");
-        translationBuilder.add("tooltip.fathom.torn_page.page_3", "in the valley of the damned... what will you pay for power?");
-        translationBuilder.add("tooltip.fathom.torn_page.page_4", "...where stone sings in the hollow dark.");
+        translationBuilder.add("tooltip.fathom.torn_page.hint", "Right-click to add to a Codex");
+        translationBuilder.add("text.fathom.page_added", "Added %s to Codex");
 
         // Item Group
         translationBuilder.add("itemgroup.fathom.fathom_items", "Fathom");
@@ -35,6 +33,11 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         // Blocks
         translationBuilder.add("block.fathom.blood_crucible", "Blood Crucible");
         translationBuilder.add("block.fathom.amethyst_resonator", "Amethyst Resonator");
+        translationBuilder.add(ModBlocks.ANCHOR_BLOCK_INACTIVE, "Dormant Anchor");
+        translationBuilder.add(ModBlocks.ANCHOR_BLOCK_ACTIVATED, "Activated Anchor");
+
+        //Items
+        translationBuilder.add("item.fathom.guardian_heart", "Guardian's Heart");
 
         // Effects
         translationBuilder.add("effect.fathom.stunned", "Stunned");

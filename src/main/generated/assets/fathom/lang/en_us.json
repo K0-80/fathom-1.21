@@ -1,5 +1,7 @@
 {
   "block.fathom.amethyst_resonator": "Amethyst Resonator",
+  "block.fathom.anchor_block_activated": "Activated Anchor",
+  "block.fathom.anchor_block_inactive": "Dormant Anchor",
   "block.fathom.blood_crucible": "Blood Crucible",
   "effect.fathom.anchored": "Anchored",
   "effect.fathom.mithril_veil": "Mithril Veil",
@@ -21,6 +23,7 @@
   "entity.fathom.skeleton_fish": "Skeleton Fish",
   "item.fathom.anchor": "Fathom",
   "item.fathom.gauntlet": "Earthshaker Gauntlet",
+  "item.fathom.guardian_heart": "Guardian's Heart",
   "item.fathom.mirage": "Mirage",
   "item.fathom.picture_book": "Ancient Codex",
   "item.fathom.picture_book.lore": "It seems to be missing many pages...",
@@ -30,11 +33,9 @@
   "item.fathom.torn_page_2": "Soggy Page",
   "item.fathom.torn_page_3": "Scorched Page",
   "item.fathom.torn_page_4": "Glistering Page",
+  "item.fathom.torn_page_5": "Weightless Page",
   "item.fathom.wind_blade": "Zephyr",
   "itemgroup.fathom.fathom_items": "Fathom",
-  "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex in your inventory.",
-  "tooltip.fathom.torn_page.page_1": "Where the world touches the stars... the wind whispers...",
-  "tooltip.fathom.torn_page.page_2": "In sunken halls... hidden in a forgotten chest",
-  "tooltip.fathom.torn_page.page_3": "in the valley of the damned... what will ypu pay for power?",
-  "tooltip.fathom.torn_page.page_4": "...where stone sings in the hollow dark."
+  "text.fathom.page_added": "Added %s to Codex",
+  "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex"
 }

@@ -54,6 +54,9 @@ public class TornPageItem extends Item {
 
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
+                if (!world.isClient) {
+                    Text message = Text.translatable("text.fathom.page_added", pageStack.getName()).formatted(Formatting.GRAY);player.sendMessage(message, true);
+                }
                 if (!player.getAbilities().creativeMode) {
                     pageStack.decrement(1);
                 }
@@ -67,10 +70,6 @@ public class TornPageItem extends Item {
     }
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        Identifier pageId = stack.get(ModComponents.TORN_PAGE_ID);
-        if (pageId != null) {
-            tooltip.add(Text.translatable("tooltip.fathom.torn_page." + pageId.getPath()).formatted(Formatting.DARK_GRAY));
-        }
         tooltip.add(Text.translatable("tooltip.fathom.torn_page.hint").formatted(Formatting.GRAY));
         super.appendTooltip(stack, context, tooltip, type);
     }

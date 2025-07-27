@@ -30,6 +30,11 @@ public class ModItemGroups {
                         entries.add(ModItems.TORN_PAGE_2);
                         entries.add(ModItems.TORN_PAGE_3);
                         entries.add(ModItems.TORN_PAGE_4);
+                        entries.add(ModItems.TORN_PAGE_5);
+
+                        entries.add(ModBlocks.ANCHOR_BLOCK_INACTIVE);
+                        entries.add(ModItems.GUARDIAN_HEART);
+
 
                     }) .build());
 

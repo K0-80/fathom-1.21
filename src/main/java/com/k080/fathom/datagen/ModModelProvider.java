@@ -22,6 +22,10 @@ public class ModModelProvider extends FabricModelProvider    {
         itemModelGenerator.register(ModItems.TORN_PAGE_2, Models.GENERATED);
         itemModelGenerator.register(ModItems.TORN_PAGE_3, Models.GENERATED);
         itemModelGenerator.register(ModItems.TORN_PAGE_4, Models.GENERATED);
+        itemModelGenerator.register(ModItems.TORN_PAGE_5, Models.GENERATED);
+
+        itemModelGenerator.register(ModItems.GUARDIAN_HEART, Models.GENERATED);
+
 
     }
 }
