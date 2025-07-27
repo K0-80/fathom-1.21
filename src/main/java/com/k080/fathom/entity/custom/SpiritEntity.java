@@ -28,6 +28,7 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.entity.damage.DamageSource;
 
 public class SpiritEntity extends PathAwareEntity {
     private static final TrackedData<Integer> TICKS_ALIVE = DataTracker.registerData(SpiritEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -139,7 +140,7 @@ public class SpiritEntity extends PathAwareEntity {
             this.discard();
             return true;
         }
-        return super.damage(source, amount);
+        return false;
     }
 
     @Override
