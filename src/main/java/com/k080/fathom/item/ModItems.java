@@ -18,6 +18,8 @@ import java.util.Set;
 public class ModItems {
 
     public static final Item GUARDIAN_HEART = registerItem("guardian_heart", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item QTIP = registerItem("qtip", new QTipItem(new Item.Settings()));
+
 
     public static final Item SKELETON_FISH_BUCKET = registerItem("skeleton_fish_bucket",
             new EntityBucketItem(ModEntities.SKELETON_FISH, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH,

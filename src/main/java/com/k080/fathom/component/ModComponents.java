@@ -2,11 +2,13 @@ package com.k080.fathom.component;
 
 import com.k080.fathom.Fathom;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.util.Uuids;
 
 import java.util.Set;
 import java.util.UUID;
@@ -35,6 +37,18 @@ public class ModComponents {
                     .codec(Identifier.CODEC)
                     .packetCodec(Identifier.PACKET_CODEC));
 
+    public record SampledPlayerData(UUID uuid, String name) {
+        public static final Codec<SampledPlayerData> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        Uuids.CODEC.fieldOf("uuid").forGetter(SampledPlayerData::uuid),
+                        Codec.STRING.fieldOf("name").forGetter(SampledPlayerData::name)
+                ).apply(instance, SampledPlayerData::new)
+        );
+    }
+    public static final ComponentType<SampledPlayerData> SAMPLED_PLAYER_DATA =
+            register("sampled_player_data", builder -> builder
+                    .codec(SampledPlayerData.CODEC)
+                    .packetCodec(PacketCodecs.codec(SampledPlayerData.CODEC)));
 
 
 

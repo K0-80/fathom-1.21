@@ -28,6 +28,8 @@
   "item.fathom.mirage": "Mirage",
   "item.fathom.picture_book": "Ancient Codex",
   "item.fathom.picture_book.lore": "It seems to be missing many pages...",
+  "item.fathom.qtip": "Q-Tip",
+  "item.fathom.qtip.tooltip.sampled_player": "Sample from: %s",
   "item.fathom.scythe": "Hex",
   "item.fathom.skeleton_fish_bucket": "Bucket of Skeleton Fish",
   "item.fathom.torn_page_1": "Torn Page",

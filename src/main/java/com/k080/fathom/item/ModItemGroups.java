@@ -35,6 +35,8 @@ public class ModItemGroups {
                         entries.add(ModBlocks.ANCHOR_BLOCK_INACTIVE);
                         entries.add(ModItems.GUARDIAN_HEART);
 
+                        entries.add(ModItems.QTIP);
+
 
                     }) .build());
 

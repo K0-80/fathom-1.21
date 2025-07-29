@@ -1,10 +1,17 @@
 package com.k080.fathom.mixin;
 
+import com.k080.fathom.item.ModItems;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityDamageMixin {
+
 
 //    @Inject(method = "damage", at = @At("HEAD"))
 //    private void fathom$logPlayerDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -28,4 +36,21 @@ public abstract class LivingEntityDamageMixin {
 //            player.sendMessage(message, false);
 //        }
 //    }
+
+    @Inject(method = "damage", at = @At("HEAD"))
+    private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+
+        if (livingEntity instanceof SheepEntity sheepEntity) {
+            if (!sheepEntity.getWorld().isClient && source.getAttacker() instanceof PlayerEntity player) {
+                if (player.getMainHandStack().isOf(Items.STICK)) {
+                    sheepEntity.playSound(SoundEvents.BLOCK_WOOL_BREAK, 1.0f, 1.0f);
+                    if (!player.getAbilities().creativeMode) {
+                        player.getMainHandStack().decrement(1);
+                    }
+                    sheepEntity.dropStack(new ItemStack(ModItems.QTIP));
+                }
+            }
+        }
+    }
 }
