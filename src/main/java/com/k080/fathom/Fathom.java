@@ -2,6 +2,7 @@ package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.component.ModComponents;
+import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.entity.ModBlockEntitys;
 import com.k080.fathom.entity.ModEntities;
@@ -34,6 +35,8 @@ public class Fathom implements ModInitializer {
 		ModBlockEntitys.registerModEntities();
 
 		ModEffects.registerEffects();
+
+		ModDamageTypes.register();
 
 //		ModWorldGeneration.generateModWorldGen();
 

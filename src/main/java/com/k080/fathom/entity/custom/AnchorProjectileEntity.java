@@ -1,11 +1,13 @@
 package com.k080.fathom.entity.custom;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -15,6 +17,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -116,8 +119,8 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         if (owner != null && hitEntity.getUuid().equals(owner.getUuid())) {
             return;
         }
-
-        hitEntity.damage(this.getWorld().getDamageSources().create(DamageTypes.TRIDENT, this, this.getOwner()), 5F + ( 1.0f * this.getMomentumLevel()));
+        DamageSource damageSource = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageTypes.ANCHOR_THROW), this, owner);
+        hitEntity.damage(damageSource, 1F + ( 1.0f * this.getMomentumLevel()));
         hitEntity.setVelocity(Vec3d.ZERO);
 
         if (owner != null) {

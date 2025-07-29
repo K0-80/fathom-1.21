@@ -62,7 +62,6 @@ public class WindBladeItem extends SwordItem {
             this.aimLostTicks = 0;
             return TypedActionResult.consume(itemStack);
         }
-        user.getStackInHand(hand).damage(4, user, LivingEntity.getSlotForHand(hand));
         return TypedActionResult.fail(itemStack);
     }
 
@@ -126,7 +125,9 @@ public class WindBladeItem extends SwordItem {
 
                 if (!world.isClient) {
                     player.requestTeleport(teleportPos.getX(), teleportPos.getY() + yOffset, teleportPos.getZ());
+
                     player.getItemCooldownManager().set(this, COOLDOWN);
+                    stack.damage(2, player, PlayerEntity.getSlotForHand(player.getActiveHand()));// only takes durabilty on use or on hit
                     spawnDashParticles((ServerWorld) world, preTeleportPos, teleportPos);
 
                     if (galeForceLevel > 0) {
@@ -246,7 +247,7 @@ public class WindBladeItem extends SwordItem {
         double minDistanceSqToRay = gazeFuzziness * gazeFuzziness;
 
         for (Entity entity : player.getWorld().getOtherEntities(player, searchBox)) {
-            if (!(entity instanceof LivingEntity) || entity.isSpectator() || !entity.isAlive() || entity.isPlayer()) {
+            if (!(entity instanceof LivingEntity) || entity.isSpectator() || !entity.isAlive()) {
                 continue;
             }
 

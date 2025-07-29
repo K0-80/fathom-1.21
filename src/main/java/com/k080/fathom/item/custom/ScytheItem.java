@@ -1,6 +1,7 @@
 package com.k080.fathom.item.custom;
 
 import com.k080.fathom.component.ModComponents;
+import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.particle.ModParticles;
@@ -8,6 +9,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -54,6 +56,7 @@ public class ScytheItem extends SwordItem {
                 if (!user.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(user, world, stack, flowstateLevel);
                     user.getItemCooldownManager().set(this, 100); // 5 sec cooldown
+                    stack.damage(2, user, PlayerEntity.getSlotForHand(user.getActiveHand()));
                 }
                 return TypedActionResult.success(stack);
             }
@@ -90,6 +93,7 @@ public class ScytheItem extends SwordItem {
                 if (!player.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(player, world, stack,flowstateLevel);
                     player.getItemCooldownManager().set(this, 100);
+                    stack.damage(2, player, PlayerEntity.getSlotForHand(player.getActiveHand()));
                 }
             }
             // --- Rupture Ability ---
@@ -120,6 +124,7 @@ public class ScytheItem extends SwordItem {
                     }
                 }
                 player.stopUsingItem();
+                stack.damage(2, player, PlayerEntity.getSlotForHand(player.getActiveHand()));
             }
         }
     }
@@ -172,7 +177,8 @@ public class ScytheItem extends SwordItem {
             float damagePerSoul = sanguineLevel > 0 ? 1.0f : 2.0f;
             float totalDamage = missingSouls * damagePerSoul;
 
-            player.damage(world.getDamageSources().magic(), totalDamage);
+            DamageSource damageSource = new DamageSource(player.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageTypes.SCYTHE_COVENANT), player);
+            player.damage(damageSource, totalDamage);
 
             float sound = Math.max(0.5f, 1.2f - (totalDamage * 0.1f));
             world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.PLAYERS, 1.0f, 1.2f);

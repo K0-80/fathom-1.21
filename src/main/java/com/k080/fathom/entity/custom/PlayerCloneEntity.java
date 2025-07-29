@@ -1,6 +1,7 @@
 package com.k080.fathom.entity.custom;
 
 import com.k080.fathom.component.ModComponents;
+import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.item.custom.Mirageitem;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.Blocks;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -177,8 +179,11 @@ public class PlayerCloneEntity extends PathAwareEntity {
                     150, 4.0, 2.0, 4.0, 0.2);
 
             float damage = shatterLevel * 1f;
+            Optional<UUID> ownerUuid = this.getDataTracker().get(OWNER_UUID);
+            PlayerEntity attacker = ownerUuid.map(world::getPlayerByUuid).orElse(null);
+            DamageSource damageSource = new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageTypes.MIRAGE_SHATTER), attacker);
             world.getOtherEntities(this, this.getBoundingBox().expand(4.0), entity -> entity instanceof LivingEntity && entity != this.owner)
-                    .forEach(entity -> entity.damage(this.getDamageSources().magic(), damage));
+                    .forEach(entity -> entity.damage(damageSource, damage));
         }
     }
 

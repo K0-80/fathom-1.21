@@ -13,7 +13,7 @@ DNA samples
 
 - scythe dosnt do magic damage
 - shatter enchant dosnt do magic damage
-- windblade dosnt work on players
+- windblade dosnt work on players   FIXED
 - mirage needs rework
-- involnble during dash 
-- steal heart containers[vaultopen-1.21.5](../../../../vaultopen-1.21.5)
+- involnble during dash  weapon
+- steal heart containers weapon

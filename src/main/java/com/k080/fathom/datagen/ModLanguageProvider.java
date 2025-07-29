@@ -48,6 +48,11 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("effect.fathom.wind_glow", "Marked");
         translationBuilder.add("effect.fathom.anchored", "Anchored");
 
+        // Death Msg
+        translationBuilder.add("death.attack.scythe_covenant", "%1$s made a pact they couldn't afford");
+        translationBuilder.add("death.attack.mirage_shatter", "%1$s was shattered by %2$s's mirage");
+        translationBuilder.add("death.attack.anchor_throw", "%1$s was dragged into the depths by %2$s");
+
         // Entities
         translationBuilder.add("entity.fathom.skeleton_fish", "Skeleton Fish");
         translationBuilder.add("item.fathom.skeleton_fish_bucket", "Bucket of Skeleton Fish");
