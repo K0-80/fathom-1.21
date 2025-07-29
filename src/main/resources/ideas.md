@@ -9,11 +9,13 @@ DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them! (i w
 todo:
 make codex texture
 make wind ritual
-DNA samples
+DONE DNA samples
+clone device
+clone entity
 
-- scythe dosnt do magic damage
-- shatter enchant dosnt do magic damage
-- windblade dosnt work on players   FIXED
-- mirage needs rework
+FIXED scythe dosnt do magic damage
+FIXED shatter enchant dosnt do magic damage
+FIXED windblade dosnt work on players   
+- mirage needs rework (made cooldowns  longer, hopefully it helps)
 - involnble during dash  weapon
 - steal heart containers weapon

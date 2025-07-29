@@ -9,6 +9,7 @@ import com.k080.fathom.entity.custom.PlayerCloneEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
@@ -31,7 +32,7 @@ import java.util.UUID;
 public class Mirageitem extends SwordItem {
 
     int spawnCloneCooldown = 2 * 20;
-    int tpToCloneCooldowon = 5 * 20;
+    int tpToCloneCooldowon = 7 * 20;
     int throwTetherCooldown = 6 * 20;
 
     public Mirageitem(ToolMaterial toolMaterial, Settings settings) {
@@ -67,6 +68,7 @@ public class Mirageitem extends SwordItem {
                     }
                     stack.remove(ModComponents.CLONE_UUID);
 
+                    stack.damage(1, user, LivingEntity.getSlotForHand(hand));
                     user.getItemCooldownManager().set(this, tpToCloneCooldowon);
 
                 } else { //tether enchant function
@@ -84,6 +86,7 @@ public class Mirageitem extends SwordItem {
 
                     world.spawnEntity(mirageProjectile);
 
+                    stack.damage(1, user, LivingEntity.getSlotForHand(hand));
                     user.getItemCooldownManager().set(this, throwTetherCooldown);
                 }
 
@@ -99,6 +102,7 @@ public class Mirageitem extends SwordItem {
 
                 handlePhaseShift(serverWorld, user, phaseShiftLevel, user.isSneaking());
 
+                stack.damage(2, user, LivingEntity.getSlotForHand(hand));
                 user.getItemCooldownManager().set(this, spawnCloneCooldown);
             }
             return TypedActionResult.success(stack);

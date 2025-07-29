@@ -82,8 +82,5 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("enchantment.fathom.shatter", "Shatter");
         translationBuilder.add("enchantment.fathom.tether", "Tether");
         translationBuilder.add("enchantment.fathom.phase_shift", "Phase-shift");
-
-        // Gauntlet Item
-        translationBuilder.add("item.fathom.gauntlet", "Earthshaker Gauntlet");
     }
 }
