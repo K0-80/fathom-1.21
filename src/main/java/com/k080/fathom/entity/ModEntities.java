@@ -23,7 +23,7 @@ public class ModEntities {
     public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "anchor"),
             EntityType.Builder.create(AnchorProjectileEntity::new, SpawnGroup.MONSTER)
-                    .dimensions(0.5F, 1F).maxTrackingRange(8).build());
+                    .dimensions(0.7F, 0.5F).maxTrackingRange(8).build());
 
     public static final EntityType<PlayerCloneEntity> PLAYER_CLONE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "player_clone"),

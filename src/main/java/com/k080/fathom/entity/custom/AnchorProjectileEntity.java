@@ -15,6 +15,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
@@ -32,6 +33,11 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     private static final TrackedData<Integer> MAELSTROM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MOMENTUM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> RESONANCE_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+
+    private int maelstromTicks;
+    private int maelstromPulls;
+
+
     public AnchorProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -45,6 +51,19 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         builder.add(RESONANCE_LEVEL, 0);
     }
 
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("MaelstromTicks", this.maelstromTicks);
+        nbt.putInt("MaelstromPulls", this.maelstromPulls);
+    }
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.maelstromTicks = nbt.getInt("MaelstromTicks");
+        this.maelstromPulls = nbt.getInt("MaelstromPulls");
+    }
+
     public void setMaelstromLevel(int level) { this.getDataTracker().set(MAELSTROM_LEVEL, level); }
     public int getMaelstromLevel() { return this.getDataTracker().get(MAELSTROM_LEVEL); }
     public void setMomentumLevel(int level) { this.getDataTracker().set(MOMENTUM_LEVEL, level); }
@@ -54,6 +73,8 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     public boolean isProjectileOwner(Entity entity) {
         return this.isOwner(entity);
     }
+
+    private static final int MAELSTROM_PULL_DELAY = 20;
 
     @Override
     public void tick() {
@@ -82,14 +103,37 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         }
 
         if (this.inGround) {
+            if (getMaelstromLevel() > 0) {
 
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
+                if (this.maelstromPulls < getMaelstromLevel() && !isReturning()) {
+                    this.maelstromTicks++;
 
-            handleAreaOfEffect(null);
+                    if (this.maelstromTicks == 1) { // First tick in ground
+                        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
+                        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
+                    }
 
-            this.setReturning(true);
-            this.setNoClip(true);
+                    spawnWhirlpoolEffect();
+
+                    if (this.maelstromTicks > 0 && this.maelstromTicks % MAELSTROM_PULL_DELAY == 0) {
+                        performMaelstromPull();
+                        this.maelstromPulls++;
+                    }
+
+                    if (this.maelstromPulls >= getMaelstromLevel()) {
+                        this.setReturning(true);
+                        this.setNoClip(true);
+                    }
+                }
+            } else if (!isReturning()) { // No maelstrom
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
+
+                handleAreaOfEffect(null);
+
+                this.setReturning(true);
+                this.setNoClip(true);
+            }
         }
 
 
@@ -123,22 +167,22 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         hitEntity.damage(damageSource, 1F + ( 1.0f * this.getMomentumLevel()));
         hitEntity.setVelocity(Vec3d.ZERO);
 
-        if (owner != null) {
-            if (this.getMaelstromLevel() == 0) {
-                double maxEffectiveDistance = 10.0 + (this.getMomentumLevel() * 5);
-                double minStrength = 0.5 + (this.getMomentumLevel() * 0.05);
-                double maxStrength = 2.5 + (this.getMomentumLevel() * 0.25);
-
-                double distance = owner.distanceTo(hitEntity);
-                double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
-                double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
-
-                Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
-                Vec3d pullVelocity = pullDirection.multiply(pullStrength);
-
-                hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
-            }
-        }
+//        if (owner != null) {
+//            if (this.getMaelstromLevel() == 0) {
+//                double maxEffectiveDistance = 10.0 + (this.getMomentumLevel() * 5);
+//                double minStrength = 0.5 + (this.getMomentumLevel() * 0.05);
+//                double maxStrength = 2.5 + (this.getMomentumLevel() * 0.25);
+//
+//                double distance = owner.distanceTo(hitEntity);
+//                double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
+//                double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
+//
+//                Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
+//                Vec3d pullVelocity = pullDirection.multiply(pullStrength);
+//
+//                hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
+//            }
+//        }
 
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
@@ -151,18 +195,41 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         this.setReturning(true);
     }
 
-    private void handleAreaOfEffect(Entity excludedEntity) {
-        int maelstromLevel = this.getMaelstromLevel();
-        if (maelstromLevel > 0) {
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, this.getSoundCategory(), 0.5f, 0.3f);
-            float pullRadius = 1.5f + maelstromLevel / 2f;
-            float pullStrength = 0.3f * maelstromLevel;
-            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pullRadius), e -> e.isAlive() && !this.isOwner(e) && !e.equals(excludedEntity))) {
+    private void spawnWhirlpoolEffect() {
+        if (!this.getWorld().isClient) return;
+        if (this.getMaelstromLevel() <= 0) return;
+
+        float radius = 3f;
+        int particleCount = (int)(radius * 8);
+
+        for (int i = 0; i < particleCount; i++) {
+            double angle = (double)i / particleCount * Math.PI * 2.0 + this.age * 0.2;
+            double currentRadius = radius * (1.0 - ((double)(this.maelstromTicks % MAELSTROM_PULL_DELAY) / MAELSTROM_PULL_DELAY));
+
+            double xOffset = Math.cos(angle) * currentRadius;
+            double zOffset = Math.sin(angle) * currentRadius;
+            double y = this.getY() + 0.1;
+
+            this.getWorld().addParticle(ParticleTypes.SPLASH, this.getX() + xOffset, y, this.getZ() + zOffset, 0.0, 0.1, 0.0);
+            if (this.random.nextFloat() < 0.5f) {
+                this.getWorld().addParticle(ParticleTypes.BUBBLE_COLUMN_UP, this.getX() + xOffset, y, this.getZ() + zOffset, 0.0, 0.1, 0.0);
+            }
+        }
+    }
+
+    private void performMaelstromPull() {
+        if (this.getMaelstromLevel() <= 0) return;
+
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_SPLASH_HIGH_SPEED, this.getSoundCategory(), 0.3f, 0.3f);
+            float pullRadius =3f;
+            float pullStrength = 0.8f;
+            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pullRadius), e -> e.isAlive() && !this.isOwner(e))) {
                 Vec3d pullDirection = this.getPos().subtract(nearbyEntity.getPos()).normalize();
                 nearbyEntity.addVelocity(pullDirection.multiply(pullStrength));
             }
-        }
+    }
 
+    private void handleAreaOfEffect(Entity excludedEntity) {
         int resonanceLevel = this.getResonanceLevel();
         if (resonanceLevel > 0) {
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, this.getSoundCategory(), 0.6f, 1.8f);
@@ -197,13 +264,6 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected boolean tryPickup(PlayerEntity player) {
-        if (this.isOwner(player)) {
-            this.reduceCooldown(player);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, this.getSoundCategory(), 0.8f, 1.1f);
-            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, this.getSoundCategory(), 2.0f, 1.2f);
-            this.discard();
-            return true;
-        }
         return false;
     }
 

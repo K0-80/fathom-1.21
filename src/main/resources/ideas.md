@@ -12,6 +12,7 @@ make wind ritual
 DONE DNA samples
 clone device
 clone entity
+wirlpool enchant particle effect
 
 FIXED scythe dosnt do magic damage
 FIXED shatter enchant dosnt do magic damage
