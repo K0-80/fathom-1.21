@@ -3,6 +3,7 @@ package com.k080.fathom.mixin;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.block.BloodCrucibleBlockEntity;
+import com.k080.fathom.item.ModItems;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -20,6 +21,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
@@ -35,28 +37,30 @@ import java.util.UUID;
 public abstract class LivingEntityMixin {
 
     @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
-    private void applyCooldownToTotem(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+    private void replaceTotemWithShattered(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
 
-        if (entity instanceof PlayerEntity player) {  //totem now dose 60 sec cooldown instead of dispearing
-            boolean hasTotem = player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING)
-                    || player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING);
+        if (entity instanceof PlayerEntity player) {
+            Hand handUsed = null;
+            if (player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
+                handUsed = Hand.OFF_HAND;
+            } else if (player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
+                handUsed = Hand.MAIN_HAND;
+            }
 
-            if (hasTotem) {
-                if (player.getItemCooldownManager().isCoolingDown(Items.TOTEM_OF_UNDYING)) {
-                    cir.setReturnValue(false);
-                } else {
-                    player.getItemCooldownManager().set(Items.TOTEM_OF_UNDYING, 60 * 20);
+            if (handUsed != null) {
+                player.setHealth(1.0F);
+                player.clearStatusEffects();
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+                player.getWorld().sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
 
-                    player.setHealth(1.0F);
-                    player.clearStatusEffects();
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
-                    player.getWorld().sendEntityStatus(player, EntityStatuses.USE_TOTEM_OF_UNDYING);
+                ItemStack shatteredTotemStack = new ItemStack(ModItems.SHATTERED_TOTEM);
+                shatteredTotemStack.set(ModComponents.REPAIR_TIME, 0);
+                player.setStackInHand(handUsed, shatteredTotemStack);
 
-                    cir.setReturnValue(true);
-                }
+                cir.setReturnValue(true);
             }
         }
     }
@@ -97,6 +101,7 @@ public abstract class LivingEntityMixin {
             }
         }
     }
+
 
 
     @Inject(method = "onDeath", at = @At("HEAD"))
@@ -166,6 +171,4 @@ public abstract class LivingEntityMixin {
         }
 
     }
-
-
 }

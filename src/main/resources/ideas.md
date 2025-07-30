@@ -20,3 +20,6 @@ FIXED windblade dosnt work on players
 - mirage needs rework (made cooldowns  longer, hopefully it helps)
 - involnble during dash  weapon
 - steal heart containers weapon
+- Custom cooldown system for all modded items
+DONE - shatterd totem: for only with the life of another can you revive yourslf
+DONE - make only way to get totem a woodlen mantion 

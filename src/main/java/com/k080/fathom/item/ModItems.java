@@ -18,6 +18,7 @@ import java.util.Set;
 public class ModItems {
 
     public static final Item GUARDIAN_HEART = registerItem("guardian_heart", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item SHATTERED_TOTEM = registerItem("shattered_totem", new ShatteredTotemItem(new Item.Settings().rarity(Rarity.UNCOMMON)));
     public static final Item QTIP = registerItem("qtip", new QTipItem(new Item.Settings()));
 
 

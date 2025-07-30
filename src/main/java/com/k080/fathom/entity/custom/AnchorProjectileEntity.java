@@ -235,7 +235,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_EVOKER_PREPARE_SUMMON, this.getSoundCategory(), 0.6f, 1.8f);
             float pushRadius = 1.5f + resonanceLevel /2f;
             float pushStrength = 0.3f * resonanceLevel;
-            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pushRadius), LivingEntity::isAlive)) {Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
+            for (LivingEntity nearbyEntity : this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(pushRadius), entity -> entity.isAlive() && entity != excludedEntity)) {Vec3d pushDirection = nearbyEntity.getBoundingBox().getCenter().subtract(this.getPos()).normalize();
                 nearbyEntity.addVelocity(pushDirection.multiply(pushStrength));
                 nearbyEntity.fallDistance = 0.0f;
             }

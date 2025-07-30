@@ -50,7 +50,9 @@ public class ModComponents {
                     .codec(SampledPlayerData.CODEC)
                     .packetCodec(PacketCodecs.codec(SampledPlayerData.CODEC)));
 
-
+    public static final ComponentType<Integer> REPAIR_TIME = register("repair_time",
+            builder -> builder.codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT)
+    );
 
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Fathom.MOD_ID, name),

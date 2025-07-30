@@ -9,11 +9,9 @@ import net.minecraft.util.Identifier;
 
 public class ModLootTableModifiers {
 
-    private static final Identifier ELDER_GUARDIAN_ID = Identifier.of("minecraft", "entities/elder_guardian");
-
     public static void modifyLootTables() {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {
-            if (source.isBuiltin() && ELDER_GUARDIAN_ID.equals(key.getValue())) {
+            if (source.isBuiltin() && Identifier.of("minecraft", "entities/elder_guardian").equals(key.getValue())) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .conditionally(RandomChanceLootCondition.builder(0.5f))
                         .with(ItemEntry.builder(ModItems.GUARDIAN_HEART));

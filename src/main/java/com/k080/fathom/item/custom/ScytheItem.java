@@ -1,5 +1,6 @@
 package com.k080.fathom.item.custom;
 
+import com.google.common.collect.Iterables;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.effect.ModEffects;
@@ -47,20 +48,19 @@ public class ScytheItem extends SwordItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-
-        if (!world.isClient()) {
-            int flowstateLevel = getEnchantmentLevel(world, stack, ModEnchantments.FLOWSTATE);
+        int flowstateLevel = getEnchantmentLevel(world, stack, ModEnchantments.FLOWSTATE);
 
             // Flowstate II: Instant ability
             if (flowstateLevel >= 2) {
-                if (!user.getItemCooldownManager().isCoolingDown(this)) {
+                if (!world.isClient()) {
+                //if (!user.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(user, world, stack, flowstateLevel);
-                    user.getItemCooldownManager().set(this, 100); // 5 sec cooldown
+                //    user.getItemCooldownManager().set(this, 100); // 5 sec cooldown
                     stack.damage(2, user, PlayerEntity.getSlotForHand(user.getActiveHand()));
                 }
+                //}
                 return TypedActionResult.success(stack);
             }
-        }
 
         // Flowstate I or Rupture: Begin charging
         user.setCurrentHand(hand);
@@ -76,10 +76,10 @@ public class ScytheItem extends SwordItem {
         int chargeTime = 72000 - remainingUseTicks;
         int flowstateLevel = getEnchantmentLevel(world, stack, ModEnchantments.FLOWSTATE);
 
-        if (player.getItemCooldownManager().isCoolingDown(this)) {
-            player.stopUsingItem();
-            return;
-        }
+//        if (player.getItemCooldownManager().isCoolingDown(this)) {
+//            player.stopUsingItem();
+//            return;
+//        }
 
         if (chargeTime % 10 == 0 && world instanceof ServerWorld) {
             world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.4f, 1.25f + ((float) chargeTime /40));
@@ -90,11 +90,11 @@ public class ScytheItem extends SwordItem {
         if (flowstateLevel == 1) {
             if (chargeTime == 30) {
                 player.stopUsingItem();
-                if (!player.getItemCooldownManager().isCoolingDown(this)) {
+                //if (!player.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(player, world, stack,flowstateLevel);
-                    player.getItemCooldownManager().set(this, 100);
+                //    player.getItemCooldownManager().set(this, 100);
                     stack.damage(2, player, PlayerEntity.getSlotForHand(player.getActiveHand()));
-                }
+                //}
             }
             // --- Rupture Ability ---
         } else {
@@ -112,9 +112,9 @@ public class ScytheItem extends SwordItem {
 
                 float radius = 5.0f + extraSouls;
                 int effectDuration = (3 + extraSouls) * 20;
-                int cooldown = Math.max(0, (10 - (extraSouls * 2)) * 20); // cooldown = 10 seconds - 2 per extra soul
+                //int cooldown = Math.max(0, (10 - (extraSouls * 2)) * 20); // cooldown = 10 seconds - 2 per extra soul
 
-                player.getItemCooldownManager().set(this, cooldown);
+                //player.getItemCooldownManager().set(this, cooldown);
                 playRuptureActivationEffects(player, world, radius, extraSouls);
 
                 Box aoe = new Box(player.getPos(), player.getPos()).expand(radius);
@@ -208,8 +208,13 @@ public class ScytheItem extends SwordItem {
 
         playFlowstateActivationEffects(player, world, flowstateLevel);
 
-        for (int i = 0; i < player.getInventory().main.size(); i++) {
-            ItemStack inventoryStack = player.getInventory().getStack(i);
+        Iterable<ItemStack> fullInventory = Iterables.concat(
+                player.getInventory().main,
+                player.getInventory().armor,
+                player.getInventory().offHand
+        );
+
+        for (ItemStack inventoryStack : fullInventory) {
             if (inventoryStack.isEmpty()) {
                 continue;
             }
