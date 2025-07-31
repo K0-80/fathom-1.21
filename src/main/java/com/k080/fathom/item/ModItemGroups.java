@@ -36,6 +36,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GUARDIAN_HEART);
 
                         entries.add(ModItems.QTIP);
+                        entries.add(ModItems.VOODOO_DOLL);
                         entries.add(ModItems.SHATTERED_TOTEM);
 
 

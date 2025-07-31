@@ -41,9 +41,12 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
         //Items
         translationBuilder.add("item.fathom.guardian_heart", "Guardian's Heart");
-        translationBuilder.add(ModItems.QTIP, "Q-Tip");
         translationBuilder.add(ModItems.SHATTERED_TOTEM, "Shattered Totem of Undying");
+
+        translationBuilder.add(ModItems.QTIP, "Q-Tip");
         translationBuilder.add("item.fathom.qtip.tooltip.sampled_player", "Sample from: %s");
+        translationBuilder.add(ModItems.VOODOO_DOLL, "Voodoo Doll");
+        translationBuilder.add("item.fathom.voodoo_doll.tooltip.bound_to", "Bound to: %s");
 
         // Effects
         translationBuilder.add("effect.fathom.stunned", "Stunned");

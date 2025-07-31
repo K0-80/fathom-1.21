@@ -47,5 +47,6 @@ public class Fathom implements ModInitializer {
 		ModComponents.registerDataComponentTypes();
 
 		BlockBreakHandler.register();
+
 	}
 }

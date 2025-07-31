@@ -27,11 +27,11 @@ public class ShatteredTotemItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!world.isClient() && entity instanceof PlayerEntity player) {
-            if (world.getTime() % 20 == 0) {
+            if (world.getTime() % 200 == 0) {
                 int repairTime = stack.getOrDefault(ModComponents.REPAIR_TIME, 0);
 
                 if (repairTime < REPAIR_DURATION_TICKS) {
-                    repairTime+= 20;
+                    repairTime+= 200;
                     stack.set(ModComponents.REPAIR_TIME, repairTime);
                 } else {
                     player.getInventory().setStack(slot, new ItemStack(Items.TOTEM_OF_UNDYING));

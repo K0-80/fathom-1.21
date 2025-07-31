@@ -42,6 +42,8 @@
   "item.fathom.torn_page_3": "Scorched Page",
   "item.fathom.torn_page_4": "Glistering Page",
   "item.fathom.torn_page_5": "Weightless Page",
+  "item.fathom.voodoo_doll": "Voodoo Doll",
+  "item.fathom.voodoo_doll.tooltip.bound_to": "Bound to: %s",
   "item.fathom.wind_blade": "Zephyr",
   "itemgroup.fathom.fathom_items": "Fathom",
   "text.fathom.page_added": "Added %s to Codex",

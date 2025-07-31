@@ -1,5 +1,6 @@
 package com.k080.fathom.mixin;
 
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityDamageMixin {
 
 
-//    @Inject(method = "damage", at = @At("HEAD"))
+//    @Inject(method = "damage", at = @At("HEAD")) //show damage dealt in chat
 //    private void fathom$logPlayerDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
 //        Entity attacker = source.getAttacker();
 //        LivingEntity target = (LivingEntity) (Object) this;
@@ -37,7 +38,32 @@ public abstract class LivingEntityDamageMixin {
 //        }
 //    }
 
-    @Inject(method = "damage", at = @At("HEAD"))
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true) //voodoo doll damage cancle
+    private void fathom$preventVoodooDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity target = (LivingEntity) (Object) this;
+        Entity attacker = source.getAttacker();
+
+        if (target instanceof PlayerEntity targetPlayer && attacker instanceof PlayerEntity attackerPlayer) {
+            for (ItemStack stack : attackerPlayer.getInventory().main) {
+                if (stack.isOf(ModItems.VOODOO_DOLL)) {
+                    ModComponents.SampledPlayerData playerData = stack.get(ModComponents.SAMPLED_PLAYER_DATA);
+                    if (playerData != null && playerData.uuid().equals(targetPlayer.getUuid())) {
+                        cir.setReturnValue(false);
+                        return;
+                    }
+                }
+            }
+            ItemStack offhandStack = attackerPlayer.getOffHandStack();
+            if (offhandStack.isOf(ModItems.VOODOO_DOLL)) {
+                ModComponents.SampledPlayerData playerData = offhandStack.get(ModComponents.SAMPLED_PLAYER_DATA);
+                if (playerData != null && playerData.uuid().equals(targetPlayer.getUuid())) {
+                    cir.setReturnValue(false);
+                }
+            }
+        }
+    }
+
+    @Inject(method = "damage", at = @At("HEAD")) //hit sheep with stick for q tip
     private void onDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
 

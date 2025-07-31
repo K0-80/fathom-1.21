@@ -1,0 +1,24 @@
+{
+  "type": "fathom:crafting_voodoo_doll",
+  "category": "misc",
+  "pattern": [
+    " S ",
+    "SQS",
+    " I "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "Q": {
+      "item": "fathom:qtip"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "count" : 1,
+    "id": "fathom:voodoo_doll"
+  }
+}
