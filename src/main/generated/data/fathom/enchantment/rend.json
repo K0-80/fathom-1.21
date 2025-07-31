@@ -4,17 +4,17 @@
     "translate": "enchantment.fathom.rend"
   },
   "max_cost": {
-    "base": 35,
-    "per_level_above_first": 0
+    "base": 25,
+    "per_level_above_first": 8
   },
   "max_level": 5,
   "min_cost": {
-    "base": 15,
-    "per_level_above_first": 0
+    "base": 5,
+    "per_level_above_first": 8
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#fathom:scythe_enchantble",
-  "weight": 5
+  "weight": 8
 }

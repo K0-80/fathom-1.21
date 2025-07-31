@@ -5,12 +5,12 @@
   },
   "exclusive_set": "#fathom:anchor_exclusive",
   "max_cost": {
-    "base": 30,
+    "base": 45,
     "per_level_above_first": 9
   },
-  "max_level": 3,
+  "max_level": 1,
   "min_cost": {
-    "base": 8,
+    "base": 15,
     "per_level_above_first": 9
   },
   "slots": [

@@ -4,17 +4,17 @@
     "translate": "enchantment.fathom.phase_shift"
   },
   "max_cost": {
-    "base": 50,
-    "per_level_above_first": 0
+    "base": 48,
+    "per_level_above_first": 9
   },
-  "max_level": 3,
+  "max_level": 2,
   "min_cost": {
-    "base": 20,
-    "per_level_above_first": 0
+    "base": 18,
+    "per_level_above_first": 9
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#fathom:mirage_enchantble",
-  "weight": 3
+  "weight": 2
 }

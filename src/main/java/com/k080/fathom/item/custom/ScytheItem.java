@@ -53,12 +53,12 @@ public class ScytheItem extends SwordItem {
             // Flowstate II: Instant ability
             if (flowstateLevel >= 2) {
                 if (!world.isClient()) {
-                //if (!user.getItemCooldownManager().isCoolingDown(this)) {
+                if (!user.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(user, world, stack, flowstateLevel);
-                //    user.getItemCooldownManager().set(this, 100); // 5 sec cooldown
+                    user.getItemCooldownManager().set(this, 10); // to prevent wierd issues
                     stack.damage(2, user, PlayerEntity.getSlotForHand(user.getActiveHand()));
                 }
-                //}
+                }
                 return TypedActionResult.success(stack);
             }
 
@@ -76,10 +76,10 @@ public class ScytheItem extends SwordItem {
         int chargeTime = 72000 - remainingUseTicks;
         int flowstateLevel = getEnchantmentLevel(world, stack, ModEnchantments.FLOWSTATE);
 
-//        if (player.getItemCooldownManager().isCoolingDown(this)) {
-//            player.stopUsingItem();
-//            return;
-//        }
+        if (player.getItemCooldownManager().isCoolingDown(this)) {
+            player.stopUsingItem();
+            return;
+        }
 
         if (chargeTime % 10 == 0 && world instanceof ServerWorld) {
             world.playSound(null, user.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 0.4f, 1.25f + ((float) chargeTime /40));
@@ -90,11 +90,11 @@ public class ScytheItem extends SwordItem {
         if (flowstateLevel == 1) {
             if (chargeTime == 30) {
                 player.stopUsingItem();
-                //if (!player.getItemCooldownManager().isCoolingDown(this)) {
+                if (!player.getItemCooldownManager().isCoolingDown(this)) {
                     triggerFlowstateEffect(player, world, stack,flowstateLevel);
-                //    player.getItemCooldownManager().set(this, 100);
+                    player.getItemCooldownManager().set(this, 10);
                     stack.damage(2, player, PlayerEntity.getSlotForHand(player.getActiveHand()));
-                //}
+                }
             }
             // --- Rupture Ability ---
         } else {
@@ -114,7 +114,7 @@ public class ScytheItem extends SwordItem {
                 int effectDuration = (3 + extraSouls) * 20;
                 //int cooldown = Math.max(0, (10 - (extraSouls * 2)) * 20); // cooldown = 10 seconds - 2 per extra soul
 
-                //player.getItemCooldownManager().set(this, cooldown);
+                player.getItemCooldownManager().set(this, 10);
                 playRuptureActivationEffects(player, world, radius, extraSouls);
 
                 Box aoe = new Box(player.getPos(), player.getPos()).expand(radius);

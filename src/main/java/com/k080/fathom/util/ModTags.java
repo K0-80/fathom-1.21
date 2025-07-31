@@ -20,15 +20,13 @@ public class ModTags {
 
     public static class Items {
 
-        public static final  TagKey<Item> DRIFTWOOD_LOGS = createTag("driftwood_logs");
-
         public static final  TagKey<Item> IMPALING_NEW = createTag("impaling_new");
+        public static final  TagKey<Item> LOOTING_NEW = createTag("looting_new");
+
         public static final  TagKey<Item> ANCHOR_ENCHANTBLE = createTag("anchor_enchantble");
         public static final  TagKey<Item> WIND_BLADE_ENCHANTBLE = createTag("wind_blade_enchantble");
-        public static final  TagKey<Item> GAUNLET_ENCHANTBLE = createTag("gaunlet_enchantble");
         public static final  TagKey<Item> SCYTHE_ENCHANTBLE = createTag("scythe_enchantble");
         public static final  TagKey<Item> MIRAGE_ENCHANTBLE = createTag("mirage_enchantble");
-
 
         private static TagKey<Item> createTag(String name) {
             return TagKey.of(RegistryKeys.ITEM, Identifier.of(Fathom.MOD_ID, name));

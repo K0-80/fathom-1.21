@@ -1,9 +1,10 @@
-// 1.21	2025-07-31T14:26:25.8823994	Fathom/Tags for minecraft:item
+// 1.21	2025-07-31T18:54:50.2819951	Fathom/Tags for minecraft:item
+9f4fde227dc942a5def251be011b7518c9ff7e40 data\minecraft\tags\item\swords.json
 0085bd806bb15ee27745443af526ef9dd920bc71 data\fathom\tags\item\impaling_new.json
 2c0b653cc817457a812d8d0a55a16baf7cc7e1f2 data\fathom\tags\item\anchor_enchantble.json
-9b0c638e0a669daad1dcedc7c142b2ae37912fc4 data\minecraft\tags\item\enchantable\sword.json
 db98b471c15754cbb0f75f744cd498a7df689a88 data\fathom\tags\item\mirage_enchantble.json
 9b0c638e0a669daad1dcedc7c142b2ae37912fc4 data\fathom\tags\item\wind_blade_enchantble.json
+1c6a748c8a2a64295341024e3ceee4bca0d41951 data\fathom\tags\item\looting_new.json
 56ca728ad09bf520a38f186d8a64bfa5a9c9ccbc data\fathom\tags\item\scythe_enchantble.json
 7de32b65967916d47e49b75f22d66f17704a5d97 data\minecraft\tags\item\enchantable\vanishing.json
 7de32b65967916d47e49b75f22d66f17704a5d97 data\minecraft\tags\item\enchantable\durability.json

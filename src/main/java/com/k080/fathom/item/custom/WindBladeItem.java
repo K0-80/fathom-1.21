@@ -78,7 +78,7 @@ public class WindBladeItem extends SwordItem {
             if (aimLostTicks >= AIM_LOST_GRACE_PERIOD) {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
-                player.getItemCooldownManager().set(this, COOLDOWN);
+                player.getItemCooldownManager().set(this, 10);
                 player.stopUsingItem();
                 return;
             }
@@ -136,7 +136,7 @@ public class WindBladeItem extends SwordItem {
                 }
             } else {
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT, SoundCategory.PLAYERS, 0.5f, 1.2f);
-                player.getItemCooldownManager().set(this, COOLDOWN);
+                player.getItemCooldownManager().set(this, 10);
             }
             player.stopUsingItem();
         }

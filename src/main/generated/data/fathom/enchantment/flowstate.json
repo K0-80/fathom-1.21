@@ -4,17 +4,17 @@
     "translate": "enchantment.fathom.flowstate"
   },
   "max_cost": {
-    "base": 50,
+    "base": 40,
     "per_level_above_first": 10
   },
-  "max_level": 4,
+  "max_level": 2,
   "min_cost": {
-    "base": 20,
+    "base": 15,
     "per_level_above_first": 10
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#fathom:scythe_enchantble",
-  "weight": 1
+  "weight": 2
 }

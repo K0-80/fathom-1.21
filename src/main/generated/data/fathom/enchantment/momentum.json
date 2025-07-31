@@ -4,17 +4,17 @@
     "translate": "enchantment.fathom.momentum"
   },
   "max_cost": {
-    "base": 31,
-    "per_level_above_first": 8
+    "base": 21,
+    "per_level_above_first": 10
   },
   "max_level": 5,
   "min_cost": {
     "base": 1,
-    "per_level_above_first": 8
+    "per_level_above_first": 10
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#fathom:anchor_enchantble",
-  "weight": 5
+  "weight": 8
 }

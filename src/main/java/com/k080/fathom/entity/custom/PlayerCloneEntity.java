@@ -182,7 +182,7 @@ public class PlayerCloneEntity extends PathAwareEntity {
             Optional<UUID> ownerUuid = this.getDataTracker().get(OWNER_UUID);
             PlayerEntity attacker = ownerUuid.map(world::getPlayerByUuid).orElse(null);
             DamageSource damageSource = new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(ModDamageTypes.MIRAGE_SHATTER), attacker);
-            world.getOtherEntities(this, this.getBoundingBox().expand(4.0), entity -> entity instanceof LivingEntity && entity != this.owner)
+            world.getOtherEntities(this, this.getBoundingBox().expand(4.0), entity -> entity instanceof LivingEntity && entity != this.owner && !(entity instanceof PlayerCloneEntity))
                     .forEach(entity -> entity.damage(damageSource, damage));
         }
     }

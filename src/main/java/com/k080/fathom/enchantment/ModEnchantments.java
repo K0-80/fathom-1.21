@@ -43,119 +43,120 @@ public class ModEnchantments {
         var enchantments = registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT);
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
 
+        // --- Anchor Enchantments ---
         register(registerable, MAELSTROM, Enchantment.builder(Enchantment.definition(
                         items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
-                        2,
-                        3,
-                        Enchantment.leveledCost(8, 9),
-                        Enchantment.leveledCost(30, 9),
+                        2, // pretty rare
+                        1, // rare on books
+                        Enchantment.leveledCost(15, 9),
+                        Enchantment.leveledCost(45, 9),
                         4,
                         AttributeModifierSlot.HAND))
                 .exclusiveSet(enchantments.getOrThrow(ModTags.Enchantments.ANCHOR_EXCLUSIVE))
         );
         register(registerable, MOMENTUM, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
+                8, // average/common
                 5,
-                5,
-                Enchantment.leveledCost(1, 8),
-                Enchantment.leveledCost(31, 8),
+                Enchantment.leveledCost(1, 10),
+                Enchantment.leveledCost(21, 10),
                 2,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, RESONANCE, Enchantment.builder(Enchantment.definition(
                         items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
-                        2,
-                        3,
-                        Enchantment.leveledCost(8, 9),
-                        Enchantment.leveledCost(30, 9),
+                        2, // pretty rare
+                        1, // rare on books
+                        Enchantment.leveledCost(15, 9),
+                        Enchantment.leveledCost(45, 9),
                         4,
                         AttributeModifierSlot.HAND))
                 .exclusiveSet(enchantments.getOrThrow(ModTags.Enchantments.ANCHOR_EXCLUSIVE))
         );
 
-
+        // --- Wind Blade Enchantments ---
         register(registerable, ALACRITY, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.WIND_BLADE_ENCHANTBLE),
+                5, // rarer than sharpness
                 5,
-                3,
-                Enchantment.leveledCost(5, 7),
-                Enchantment.leveledCost(25, 7),
+                Enchantment.leveledCost(5, 8),
+                Enchantment.leveledCost(25, 8),
                 2,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, GALE_FORCE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.WIND_BLADE_ENCHANTBLE),
-                2,
-                3,
-                Enchantment.leveledCost(10, 10),
-                Enchantment.leveledCost(35, 10),
+                1, // very rare
+                1,
+                Enchantment.leveledCost(25, 10),
+                Enchantment.leveledCost(50, 10),
                 4,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, GAZE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.WIND_BLADE_ENCHANTBLE),
+                8, // average/common
                 5,
-                2,
-                Enchantment.leveledCost(1, 6),
-                Enchantment.leveledCost(16, 6),
+                Enchantment.leveledCost(1, 0),
+                Enchantment.leveledCost(21, 0),
                 1,
                 AttributeModifierSlot.HAND))
         );
 
-
+        // --- Scythe Enchantments ---
         register(registerable, REND, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
+                8, // average/common
                 5,
-                5,
-                Enchantment.leveledCost(15, 0),
-                Enchantment.leveledCost(35, 0),
+                Enchantment.leveledCost(5, 8),
+                Enchantment.leveledCost(25, 8),
                 2,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, SANGUINE_COVENANT, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
-                3,
+                1, // super rare
                 1,
-                Enchantment.leveledCost(20, 0),
-                Enchantment.leveledCost(50, 0),
+                Enchantment.leveledCost(25, 12),
+                Enchantment.leveledCost(75, 12),
                 4,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, FLOWSTATE, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.SCYTHE_ENCHANTBLE),
-                1,
-                4,
-                Enchantment.leveledCost(20, 10),
-                Enchantment.leveledCost(50, 10),
+                2, // decently rare
+                2,
+                Enchantment.leveledCost(15, 10),
+                Enchantment.leveledCost(40, 10),
                 2,
                 AttributeModifierSlot.HAND))
         );
 
-
+        // --- Mirage Enchantments ---
         register(registerable, SHATTER, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
+                8, // average/common
                 5,
-                5,
-                Enchantment.leveledCost(15, 0),
-                Enchantment.leveledCost(35, 0),
+                Enchantment.leveledCost(5, 8),
+                Enchantment.leveledCost(25, 8),
                 2,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, PHASE_SHIFT, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
-                3,
-                3,
-                Enchantment.leveledCost(20, 0),
-                Enchantment.leveledCost(50, 0),
+                2, // decently rare
+                2,
+                Enchantment.leveledCost(18, 9),
+                Enchantment.leveledCost(48, 9),
                 4,
                 AttributeModifierSlot.HAND))
         );
         register(registerable, TETHER, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.MIRAGE_ENCHANTBLE),
-                1,
-                4,
-                Enchantment.leveledCost(20, 10),
-                Enchantment.leveledCost(50, 10),
+                2, // decently rare
+                2,
+                Enchantment.leveledCost(15, 10),
+                Enchantment.leveledCost(40, 10),
                 2,
                 AttributeModifierSlot.HAND))
         );

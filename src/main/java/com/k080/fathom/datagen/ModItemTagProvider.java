@@ -29,6 +29,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
+        //for cusstom enchants
         getOrCreateTagBuilder(ModTags.Items.ANCHOR_ENCHANTBLE)
                 .add(ModItems.ANCHOR);
         getOrCreateTagBuilder(ModTags.Items.WIND_BLADE_ENCHANTBLE)
@@ -38,24 +39,21 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModTags.Items.MIRAGE_ENCHANTBLE)
                 .add(ModItems.MIRAGE);
 
+        //normal minecraft tags
         getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
-                .add(ModItems.ANCHOR)
-                .add(ModItems.WIND_BLADE)
-                .add(ModItems.SCYTHE)
-                .add(ModItems.MIRAGE);
-
-        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
-                .add(ModItems.WIND_BLADE);
-
+                .add(ModItems.ANCHOR, ModItems.WIND_BLADE, ModItems.SCYTHE, ModItems.MIRAGE);
         getOrCreateTagBuilder(ItemTags.VANISHING_ENCHANTABLE)
-                .add(ModItems.ANCHOR)
-                .add(ModItems.WIND_BLADE)
-                .add(ModItems.SCYTHE)
-                .add(ModItems.MIRAGE);
+                .add(ModItems.ANCHOR, ModItems.WIND_BLADE, ModItems.SCYTHE, ModItems.MIRAGE);
+
+        //all sword enchants
+        getOrCreateTagBuilder(ItemTags.SWORDS)
+                .add(ModItems.WIND_BLADE, ModItems.SCYTHE, ModItems.MIRAGE);
 
         getOrCreateTagBuilder(ModTags.Items.IMPALING_NEW)
-                .add(ModItems.ANCHOR)
-                .add(Items.TRIDENT);
-
+                .add(ModItems.ANCHOR, Items.TRIDENT);
+        getOrCreateTagBuilder(ModTags.Items.LOOTING_NEW)
+                .add(ModItems.ANCHOR, Items.TRIDENT,
+                        Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE,
+                        Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.NETHERITE_SWORD);
     }
 }

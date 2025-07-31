@@ -4,17 +4,17 @@
     "translate": "enchantment.fathom.sanguine_covenant"
   },
   "max_cost": {
-    "base": 50,
-    "per_level_above_first": 0
+    "base": 75,
+    "per_level_above_first": 12
   },
   "max_level": 1,
   "min_cost": {
-    "base": 20,
-    "per_level_above_first": 0
+    "base": 25,
+    "per_level_above_first": 12
   },
   "slots": [
     "hand"
   ],
   "supported_items": "#fathom:scythe_enchantble",
-  "weight": 3
+  "weight": 1
 }
