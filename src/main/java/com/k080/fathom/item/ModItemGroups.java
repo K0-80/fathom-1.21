@@ -39,6 +39,7 @@ public class ModItemGroups {
                         entries.add(ModItems.VOODOO_DOLL);
                         entries.add(ModItems.SHATTERED_TOTEM);
 
+                        entries.add(ModItems.MENDING_SLATE);
 
                     }) .build());
 

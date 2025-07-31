@@ -1,6 +1,7 @@
 package com.k080.fathom.datagen;
 
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
@@ -41,5 +42,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.ECHO_SHARD)
                 .criterion(hasItem(Items.AMETHYST_SHARD), conditionsFromItem(Items.AMETHYST_SHARD))
                 .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModBlocks.AMETHYST_RESONATOR));
+
+        //mending  slate
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.MENDING_SLATE, 4)
+                .pattern("GSG")
+                .pattern("SDS")
+                .pattern("GSG")
+                .input('S', Items.COBBLESTONE)
+                .input('G', Items.LAPIS_LAZULI)
+                .input('D', Items.DIAMOND)
+                .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
+                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.MENDING_SLATE));
     }
 }

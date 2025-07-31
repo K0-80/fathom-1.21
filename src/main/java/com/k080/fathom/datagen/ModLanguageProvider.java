@@ -27,8 +27,12 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("item.fathom.picture_book.lore", "It seems to be missing many pages...");
         translationBuilder.add("tooltip.fathom.torn_page.hint", "Right-click to add to a Codex");
         translationBuilder.add("text.fathom.page_added", "Added %s to Codex");
+
         translationBuilder.add("item.fathom.shattered_totem.tooltip.description", "Slowly repairs itself while in your inventory.");
         translationBuilder.add("item.fathom.shattered_totem.repaired", "Totem Repaired");
+
+        translationBuilder.add("tooltip.fathom.mending_slate.description", "Slowly mends a damaged item.");
+        translationBuilder.add("tooltip.fathom.mending_slate.status", "%s durability remaining on repair slate");
 
         // Item Group
         translationBuilder.add("itemgroup.fathom.fathom_items", "Fathom");
@@ -42,6 +46,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         //Items
         translationBuilder.add("item.fathom.guardian_heart", "Guardian's Heart");
         translationBuilder.add(ModItems.SHATTERED_TOTEM, "Shattered Totem of Undying");
+        translationBuilder.add(ModItems.MENDING_SLATE, "Mending Slate");
 
         translationBuilder.add(ModItems.QTIP, "Q-Tip");
         translationBuilder.add("item.fathom.qtip.tooltip.sampled_player", "Sample from: %s");

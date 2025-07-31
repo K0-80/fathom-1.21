@@ -2,6 +2,7 @@ package com.k080.fathom.client;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.*;
 import com.k080.fathom.item.ModItems;
@@ -9,12 +10,15 @@ import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,5 +61,13 @@ public class FathomModClient implements ClientModInitializer {
                     float timeUsed = chargeTime - entity.getItemUseTimeLeft();
                     return timeUsed / chargeTime;
                 });
+
+        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+            ModComponents.MendingTarget component = stack.get(ModComponents.MENDING_TARGET);
+            if (component != null) {
+                lines.add(1, Text.translatable("tooltip.fathom.mending_slate.status", component.remainingRepair())
+                        .formatted(Formatting.GRAY));
+            }
+        });
     }
 }

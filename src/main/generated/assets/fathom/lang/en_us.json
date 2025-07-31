@@ -27,6 +27,7 @@
   "entity.fathom.spirit": "Spirit",
   "item.fathom.anchor": "Fathom",
   "item.fathom.guardian_heart": "Guardian's Heart",
+  "item.fathom.mending_slate": "Mending Slate",
   "item.fathom.mirage": "Mirage",
   "item.fathom.picture_book": "Ancient Codex",
   "item.fathom.picture_book.lore": "It seems to be missing many pages...",
@@ -47,5 +48,7 @@
   "item.fathom.wind_blade": "Zephyr",
   "itemgroup.fathom.fathom_items": "Fathom",
   "text.fathom.page_added": "Added %s to Codex",
+  "tooltip.fathom.mending_slate.description": "Slowly mends a damaged item.",
+  "tooltip.fathom.mending_slate.status": "%s durability remaining on repair slate",
   "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex"
 }

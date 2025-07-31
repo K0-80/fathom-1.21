@@ -27,6 +27,7 @@ public class ModModelProvider extends FabricModelProvider    {
         itemModelGenerator.register(ModItems.GUARDIAN_HEART, Models.GENERATED);
         itemModelGenerator.register(ModItems.SHATTERED_TOTEM, Models.GENERATED);
         itemModelGenerator.register(ModItems.QTIP, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MENDING_SLATE, Models.GENERATED);
 
 
     }

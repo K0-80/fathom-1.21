@@ -19,14 +19,18 @@ import java.util.function.UnaryOperator;
 
 public class ModComponents {
 
+    //hex
     public static final ComponentType<Integer> SOULS =
             register("souls", builder -> builder.codec(Codec.INT));
 
+
+//mirrage
     public static final ComponentType<UUID> CLONE_UUID =
             register("clone_uuid", builder -> builder
                     .codec(Codec.STRING.xmap(UUID::fromString, UUID::toString))
                     .packetCodec(PacketCodecs.STRING.xmap(UUID::fromString, UUID::toString)));
 
+    //guide book thing
     public static final ComponentType<Set<Identifier>> UNLOCKED_PAGES =
             register("unlocked_pages", builder -> builder
                     .codec(Identifier.CODEC.listOf().xmap(HashSet::new, ArrayList::new))
@@ -37,6 +41,8 @@ public class ModComponents {
                     .codec(Identifier.CODEC)
                     .packetCodec(Identifier.PACKET_CODEC));
 
+
+//dna sample
     public record SampledPlayerData(UUID uuid, String name) {
         public static final Codec<SampledPlayerData> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
@@ -50,9 +56,28 @@ public class ModComponents {
                     .codec(SampledPlayerData.CODEC)
                     .packetCodec(PacketCodecs.codec(SampledPlayerData.CODEC)));
 
+
+    // shatterded totem
     public static final ComponentType<Integer> REPAIR_TIME = register("repair_time",
             builder -> builder.codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT)
     );
+
+//mending slate
+public record MendingTarget(int remainingRepair, long lastUpdateTick) {
+    public static final Codec<MendingTarget> CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                    Codec.INT.fieldOf("remaining_repair").forGetter(MendingTarget::remainingRepair),
+                    Codec.LONG.fieldOf("last_update_tick").forGetter(MendingTarget::lastUpdateTick)
+            ).apply(instance, MendingTarget::new)
+    );
+}
+    public static final ComponentType<MendingTarget> MENDING_TARGET = register("mending_target", builder -> builder
+            .codec(MendingTarget.CODEC)
+            .packetCodec(PacketCodecs.codec(MendingTarget.CODEC))
+            .cache()
+    );
+
+
 
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Fathom.MOD_ID, name),

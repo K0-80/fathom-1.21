@@ -24,5 +24,15 @@ FIXED windblade dosnt work on players
 - Custom cooldown system for all modded items
 DONE - shatterd totem: for only with the life of another can you revive yourslf
 DONE - make only way to get totem a woodlen mantion
-- voodoo doll item crafted with dna sample, voodoo doll in ur inventory = you cant damage the person its linked to
+DONE - voodoo doll item crafted with dna sample, voodoo doll in ur inventory = you cant damage the person its linked to
+- repair anvils with iron ingot
 - 
+- mending slate: use on any durabilty item to slowly repair it overtime. crafted with amthest shards and something
+- charge up mending slate by geting xp while having it in inventory (it dosnt use up the xp, player sitll gets xp)
+
+
+
+
+
+- allow xp to be picked up into bottles of enchanting by having bottles in ur inventory while geting xp
+- bottles of enchanting should refund xp bottles
