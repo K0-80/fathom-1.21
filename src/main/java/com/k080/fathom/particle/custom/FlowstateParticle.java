@@ -5,9 +5,11 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.util.math.MathHelper;
 
-public class FlowstateParticle extends ExplosionLargeParticle {
+public class FlowstateParticle extends SpriteBillboardParticle {
+    private final SpriteProvider spriteProvider;
     public FlowstateParticle(ClientWorld world, double x, double y, double z, double d, SpriteProvider spriteProvider) {
-        super(world, x, y, z, d, spriteProvider);
+        super(world, x, y, z);
+        this.spriteProvider = spriteProvider;
         this.maxAge = 11;
         this.scale = 4.5f;
         this.gravityStrength = 0;
@@ -25,6 +27,12 @@ public class FlowstateParticle extends ExplosionLargeParticle {
     public float getSize(float tickDelta) {
         float d = (this.age + tickDelta) / (this.maxAge);
         return this.scale * MathHelper.clamp(d, 0, 1);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.setSpriteForAge(this.spriteProvider);
     }
 
     @Override

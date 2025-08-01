@@ -249,7 +249,7 @@ public class ScytheItem extends SwordItem {
             }
             world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, 0.5f, 2.0f);
             world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.PLAYERS, 2.0f, 0.5f);
-            serverWorld.spawnParticles(ModParticles.FLOWSTATE_PARTICLE, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0);
+            serverWorld.spawnParticles(ModParticles.FLOWSTATE_PARTICLE, player.getX(), player.getY(), player.getZ(), 1, 0, 0, 0, 0);
         }
     }
 
@@ -261,7 +261,7 @@ public class ScytheItem extends SwordItem {
         world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.PLAYERS, 2.0f, 0.5f);
 
         if (world instanceof ServerWorld serverWorld) {
-            serverWorld.spawnParticles(ModParticles.RAPTURE_PARTICLE, player.getX(), player.getY() + 1, player.getZ(), 1, 0, 0, 0, 0);
+            serverWorld.spawnParticles(ModParticles.RAPTURE_PARTICLE, player.getX(), player.getY() + 1, player.getZ(), 6, 0, 0, 0, 0);
         }
     }
 }

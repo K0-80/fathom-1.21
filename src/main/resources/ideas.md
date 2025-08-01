@@ -27,3 +27,13 @@ wirlpool enchant particle effect
 
 - mirage sitll dosnt show skin
 - update  mod to 1.21.5
+
+add gambeling :)))
+- false totem: 50% chance to deleate items 50% chance to keep inventory
+
+
+
+
+https://modrinth.com/mod/aileron - elytra rework mod, nerfs elytra
+https://modrinth.com/mod/postmortal-particles/gallery - better totem particles mod
+https://modrinth.com/mod/celestisynth - cool looking weapons mod

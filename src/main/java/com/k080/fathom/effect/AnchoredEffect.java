@@ -62,8 +62,11 @@ public class AnchoredEffect extends StatusEffect {
 
             cooldownManager.set(Items.ENDER_PEARL, duration);
             cooldownManager.set(Items.CHORUS_FRUIT, duration);
+            cooldownManager.set(Items.WIND_CHARGE, duration);
+
             cooldownManager.set(ModItems.WIND_BLADE, duration);
             cooldownManager.set(ModItems.ANCHOR, duration);
+            cooldownManager.set(ModItems.MIRAGE, duration);
 
             for (Item item : Registries.ITEM) {
                 if (item instanceof BoatItem) {

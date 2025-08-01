@@ -2,6 +2,7 @@ package com.k080.fathom.client;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.client.hud.SoulJarHud;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.*;
@@ -36,6 +37,8 @@ public class FathomModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AMETHYST_RESONATOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_ACTIVATED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_INACTIVE, RenderLayer.getCutout());
+
+        HudRenderCallback.EVENT.register(new SoulJarHud());
 
         EntityModelLayerRegistry.registerModelLayer(SkeletonFishModel.SKELETON_FISH, SkeletonFishModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);

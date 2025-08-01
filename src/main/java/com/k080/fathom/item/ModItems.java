@@ -31,23 +31,23 @@ public class ModItems {
                     new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1)));
 
     public static final Item ANCHOR = registerItem("anchor",
-            new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+            new AnchorItem(ModToolMaterials.ANCHOR, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.ANCHOR, 10, 1f -4f))));
 
     public static final Item WIND_BLADE = registerItem("wind_blade",
-            new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+            new WindBladeItem(ModToolMaterials.WINDBLADE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.WINDBLADE, 7, 1.6f -4f))));
 
     public static final Item SCYTHE = registerItem("scythe",
-            new ScytheItem(ModToolMaterials.SCYTHE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+            new ScytheItem(ModToolMaterials.SCYTHE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SCYTHE, 9, 1.2f -4f))));
 
     public static final Item MIRAGE = registerItem("mirage",
-            new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)
+            new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 1.4f -4f))));
 
     public static final Item PICTURE_BOOK = registerItem("picture_book",
-            new PictureBookItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE)
+            new PictureBookItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE).fireproof()
                     .component(ModComponents.UNLOCKED_PAGES, Set.of(BookPages.PAGE_1.id()))
             )
     );
