@@ -32,8 +32,21 @@ add gambeling :)))
 - false totem: 50% chance to deleate items 50% chance to keep inventory
 
 
+creaking eye: + movement speed when not being looked at -movement speed when looked at
+abilty: domain expantion to trap people (unbreakble at night) user can walk through
+custom particles syetem 
+
 
 
 https://modrinth.com/mod/aileron - elytra rework mod, nerfs elytra
 https://modrinth.com/mod/postmortal-particles/gallery - better totem particles mod
 https://modrinth.com/mod/celestisynth - cool looking weapons mod
+
+
+    private static final Identifier SPEED_MODIFIER_ID = Identifier.of(Fathom.MOD_ID, "creaking_staff_speed_bonus");
+    private static final Identifier SLOWNESS_MODIFIER_ID = Identifier.of(Fathom.MOD_ID, "creaking_staff_slowness_penalty");
+
+    private static final EntityAttributeModifier SPEED_MODIFIER = new EntityAttributeModifier(
+            SPEED_MODIFIER_ID,  0.20, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+    private static final EntityAttributeModifier SLOWNESS_MODIFIER = new EntityAttributeModifier(
+            SLOWNESS_MODIFIER_ID, -0.15, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);

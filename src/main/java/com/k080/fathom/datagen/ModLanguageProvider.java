@@ -93,5 +93,10 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("enchantment.fathom.shatter", "Shatter");
         translationBuilder.add("enchantment.fathom.tether", "Tether");
         translationBuilder.add("enchantment.fathom.phase_shift", "Phase-shift");
+
+        // CREAKING STAFF Item & Enchantments
+        translationBuilder.add("item.fathom.creaking_staff", "Creaking Staff");
+        translationBuilder.add("tooltip.fathom.creaking_staff.charged", "Dreadful // Right click to unleash");
+        translationBuilder.add("tooltip.fathom.creaking_staff.uncharged", "Lacking Dread // Charge by being watched ");
     }
 }

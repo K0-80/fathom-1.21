@@ -62,8 +62,8 @@ public class ModComponents {
             builder -> builder.codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT)
     );
 
-//mending slate
-public record MendingTarget(int remainingRepair, long lastUpdateTick) {
+    //mending slate
+    public record MendingTarget(int remainingRepair, long lastUpdateTick) {
     public static final Codec<MendingTarget> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.INT.fieldOf("remaining_repair").forGetter(MendingTarget::remainingRepair),
@@ -77,6 +77,11 @@ public record MendingTarget(int remainingRepair, long lastUpdateTick) {
             .cache()
     );
 
+    //creaking staff
+    public static final ComponentType<Boolean> IS_CHARGED = register("is_charged",
+            builder -> builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
+    public static final ComponentType<Boolean> IS_WATCHED = register("is_watched",
+            builder -> builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
 
 
     private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {

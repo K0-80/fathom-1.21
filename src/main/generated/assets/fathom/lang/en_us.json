@@ -26,6 +26,7 @@
   "entity.fathom.skeleton_fish": "Skeleton Fish",
   "entity.fathom.spirit": "Spirit",
   "item.fathom.anchor": "Fathom",
+  "item.fathom.creaking_staff": "Creaking Staff",
   "item.fathom.guardian_heart": "Guardian's Heart",
   "item.fathom.mending_slate": "Mending Slate",
   "item.fathom.mirage": "Mirage",
@@ -48,6 +49,8 @@
   "item.fathom.wind_blade": "Zephyr",
   "itemgroup.fathom.fathom_items": "Fathom",
   "text.fathom.page_added": "Added %s to Codex",
+  "tooltip.fathom.creaking_staff.charged": "Dreadful // Right click to unleash",
+  "tooltip.fathom.creaking_staff.uncharged": "Lacking Dread // charge by being watched ",
   "tooltip.fathom.mending_slate.description": "Slowly mends a damaged item.",
   "tooltip.fathom.mending_slate.status": "%s durability remaining on repair slate",
   "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex"

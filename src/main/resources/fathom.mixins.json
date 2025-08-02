@@ -14,5 +14,9 @@
   },
   "overwrites": {
     "requireAnnotations": true
-  }
+  },
+  "client": [
+    "HeldItemRendererMixin",
+    "InGameHudMixin"
+  ]
 }

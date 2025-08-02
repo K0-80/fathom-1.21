@@ -1,0 +1,11 @@
+{
+	"parent": "fathom:item/creaking_staff_activated",
+	"overrides": [
+		{
+			"predicate": {
+				"fathom:watched": 1
+			},
+			"model": "fathom:item/creaking_staff_deactivated"
+		}
+	]
+}

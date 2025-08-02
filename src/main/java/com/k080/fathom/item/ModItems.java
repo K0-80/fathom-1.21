@@ -46,6 +46,10 @@ public class ModItems {
             new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 1.4f -4f))));
 
+    public static final Item CREAKING_STAFF = registerItem("creaking_staff",
+            new CreakingStaffItem(ModToolMaterials.CREAKING_SWORD, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.CREAKING_SWORD, 1, 1f -4f))));
+
     public static final Item PICTURE_BOOK = registerItem("picture_book",
             new PictureBookItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE).fireproof()
                     .component(ModComponents.UNLOCKED_PAGES, Set.of(BookPages.PAGE_1.id()))

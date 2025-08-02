@@ -13,7 +13,7 @@ public class SoulJarHud implements HudRenderCallback {
     private static final Identifier SOUL_JAR_HUD_TEXTURE = Identifier.of("fathom", "textures/gui/soul_jar_hud.png");
 
     @Override
-    public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
+    public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) { //tbh its a blood jar but whatever
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.player.isSpectator()) {
             return;
