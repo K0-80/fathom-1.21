@@ -39,26 +39,18 @@ public class CreakingStaffItem extends ToolItem {
         stack.set(ModComponents.IS_WATCHED, isBeingWatched);
 
         if (isBeingWatched) {
-            if (player.hasStatusEffect(StatusEffects.SPEED)) {
-                player.removeStatusEffect(StatusEffects.SPEED);
-            }
             if (!player.hasStatusEffect(StatusEffects.SLOWNESS)) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, 0, true, false, true));
             }
 
             boolean isCharged = stack.getOrDefault(ModComponents.IS_CHARGED, false);
-            if (!isCharged) {
-                // 1 in 1000 chance per tick
+            if (!isCharged) {                // 1 in 1000 chance per tick
                 if (world.random.nextInt(1000) == 0) {
                     stack.set(ModComponents.IS_CHARGED, true);
-                    // The animation will play once here, serving as a good visual cue.
                 }
             }
 
         } else {
-            if (player.hasStatusEffect(StatusEffects.SLOWNESS)) {
-                player.removeStatusEffect(StatusEffects.SLOWNESS);
-            }
             if (!player.hasStatusEffect(StatusEffects.SPEED)) {
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 40, 0, true, false, true));
             }
@@ -75,7 +67,7 @@ public class CreakingStaffItem extends ToolItem {
     }
 
     private boolean canSee(PlayerEntity observer, PlayerEntity target) {
-        if (observer.squaredDistanceTo(target) > 4096.0D) { // 64 blocks max range
+        if (observer.squaredDistanceTo(target) > 1024.0D) { // 64 blocks max range
             return false;
         }
 
