@@ -43,6 +43,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModBlocks.ANCHOR_BLOCK_INACTIVE, "Dormant Anchor");
         translationBuilder.add(ModBlocks.ANCHOR_BLOCK_ACTIVATED, "Activated Anchor");
 
+
         //Items
         translationBuilder.add("item.fathom.guardian_heart", "Guardian's Heart");
         translationBuilder.add(ModItems.SHATTERED_TOTEM, "Shattered Totem of Undying");
@@ -95,7 +96,8 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("enchantment.fathom.phase_shift", "Phase-shift");
 
         // CREAKING STAFF Item & Enchantments
-        translationBuilder.add("item.fathom.creaking_staff", "Creaking Staff");
+        translationBuilder.add("item.fathom.creaking_staff", "Ashwood");
+        translationBuilder.add(ModBlocks.CREAKING_VINE, "Creaking Vine");
         translationBuilder.add("tooltip.fathom.creaking_staff.charged", "Dreadful // Right click to unleash");
         translationBuilder.add("tooltip.fathom.creaking_staff.uncharged", "Lacking Dread // Charge by being watched ");
     }

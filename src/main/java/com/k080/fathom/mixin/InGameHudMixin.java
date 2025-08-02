@@ -28,7 +28,7 @@ public abstract class InGameHudMixin {
         ItemStack mainHandStack = this.client.player.getMainHandStack();
         ItemStack offHandStack = this.client.player.getOffHandStack();
         return mainHandStack.getItem() instanceof ScytheItem || offHandStack.getItem() instanceof ScytheItem ||
-                mainHandStack.getItem() instanceof CreakingStaffItem || offHandStack.getItem() instanceof CreakingStaffItem;
+                 offHandStack.getItem() instanceof CreakingStaffItem;
     }
 
     @Inject(method = "renderExperienceLevel", at = @At("HEAD"), cancellable = true)

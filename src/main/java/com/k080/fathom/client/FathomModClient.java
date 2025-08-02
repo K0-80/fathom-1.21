@@ -24,6 +24,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
+
 
 
 public class FathomModClient implements ClientModInitializer {
@@ -37,6 +39,8 @@ public class FathomModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AMETHYST_RESONATOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_ACTIVATED, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ANCHOR_BLOCK_INACTIVE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CREAKING_VINE, RenderLayer.getCutout());
+
 
         HudRenderCallback.EVENT.register(new SoulJarHud());
         HudRenderCallback.EVENT.register(new CreakingStaffHud());
@@ -50,6 +54,7 @@ public class FathomModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
         EntityRendererRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, MirageThrowEntityRender::new);
+        EntityRendererRegistry.register(ModEntities.CREAKING_VINE_SPREADER, EmptyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.MARKED_PARTICLE, MarkedParticle.Factory::new);

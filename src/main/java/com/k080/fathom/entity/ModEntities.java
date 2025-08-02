@@ -6,6 +6,7 @@ import com.k080.fathom.entity.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -39,6 +40,11 @@ public class ModEntities {
             Identifier.of(Fathom.MOD_ID, "spirit"),
             EntityType.Builder.create(SpiritEntity::new, SpawnGroup.MISC)
                     .dimensions(0.5f, 0.5f).maxTrackingRange(8).trackingTickInterval(2).build());
+
+    public static final EntityType<Entity> CREAKING_VINE_SPREADER  = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "creaking_vine_spreader"),
+            EntityType.Builder.create(CreakingVineSpreaderEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.1F, 0.1F).maxTrackingRange(6).build());
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);

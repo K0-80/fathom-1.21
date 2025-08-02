@@ -1,5 +1,6 @@
 package com.k080.fathom.datagen;
 
+import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -11,6 +12,9 @@ public class ModModelProvider extends FabricModelProvider    {
     }
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+
+        blockStateModelGenerator.registerWallPlant(ModBlocks.CREAKING_VINE);
+
     }
 
     @Override

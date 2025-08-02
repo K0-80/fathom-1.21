@@ -1,11 +1,9 @@
 package com.k080.fathom.block;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.block.custom.AmethystResonatorBlock;
-import com.k080.fathom.block.custom.AnchorBlock;
-import com.k080.fathom.block.custom.AnchorBlockActivated;
-import com.k080.fathom.block.custom.BloodCrucibleBlock;
+import com.k080.fathom.block.custom.*;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -31,6 +29,17 @@ public class ModBlocks {
 
     public static final Block ANCHOR_BLOCK_ACTIVATED = registerBlockWithoutItem("anchor_block_activated",
             new AnchorBlockActivated(AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).nonOpaque()));
+
+
+    public static final Block CREAKING_VINE = registerBlock("creaking_vine",
+            new CreakingVineBlock(AbstractBlock.Settings.copy(Blocks.GLOW_LICHEN)
+                    .luminance(state -> 5)
+                    .mapColor(MapColor.ORANGE)
+                    .noCollision()
+                    .strength(1f)
+                    .sounds(BlockSoundGroup.CAVE_VINES)
+                    .pistonBehavior(PistonBehavior.DESTROY)
+                    .ticksRandomly()));
 
 
 
