@@ -41,15 +41,16 @@ public class ModEntities {
             EntityType.Builder.create(SpiritEntity::new, SpawnGroup.MISC)
                     .dimensions(0.5f, 0.5f).maxTrackingRange(8).trackingTickInterval(2).build());
 
-    public static final EntityType<Entity> CREAKING_VINE_SPREADER  = Registry.register(Registries.ENTITY_TYPE,
-            Identifier.of(Fathom.MOD_ID, "creaking_vine_spreader"),
-            EntityType.Builder.create(CreakingVineSpreaderEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.1F, 0.1F).maxTrackingRange(6).build());
+    public static final EntityType<CreakingEyeEntity> CREAKING_EYE  = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "creaking_eye"),
+            EntityType.Builder.create(CreakingEyeEntity::new, SpawnGroup.MISC)
+                    .dimensions(1.5f, 1.5f).maxTrackingRange(8).trackingTickInterval(2).build());
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
         FabricDefaultAttributeRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntity.createPlayerCloneAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.SPIRIT, SpiritEntity.createSpiritAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.CREAKING_EYE, CreakingEyeEntity.createCreakingEyeAttributes());
     }
 }

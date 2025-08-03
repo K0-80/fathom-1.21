@@ -25,6 +25,7 @@ public class ModItemGroups {
 
                         entries.add(ModBlocks.BlOOD_CRUCIBLE);
                         entries.add(ModBlocks.AMETHYST_RESONATOR);
+                        entries.add(ModBlocks.CREAKING_VINE);
 
                         entries.add(ModItems.PICTURE_BOOK);
                         entries.add(ModItems.TORN_PAGE_1);

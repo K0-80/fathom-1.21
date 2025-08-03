@@ -70,6 +70,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("item.fathom.skeleton_fish_bucket", "Bucket of Skeleton Fish");
         translationBuilder.add(ModEntities.SPIRIT, "Spirit");
         translationBuilder.add("entity.fathom.player_clone", "Clone");
+        translationBuilder.add(ModEntities.CREAKING_EYE, "Creaking Eye");
 
         // Anchor Item & Enchantments
         translationBuilder.add("item.fathom.anchor", "Fathom");
@@ -99,6 +100,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("item.fathom.creaking_staff", "Ashwood");
         translationBuilder.add(ModBlocks.CREAKING_VINE, "Creaking Vine");
         translationBuilder.add("tooltip.fathom.creaking_staff.charged", "Dreadful // Right click to unleash");
-        translationBuilder.add("tooltip.fathom.creaking_staff.uncharged", "Lacking Dread // Charge by being watched ");
+        translationBuilder.add("tooltip.fathom.creaking_staff.uncharged", "Lacking Dread // Charge by being watched");
+        translationBuilder.add("actionbar.fathom.creaking_eye.watched", "You are being Watched.");
     }
 }

@@ -51,10 +51,12 @@ public class FathomModClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(SpiritEntityModel.SPIRIT, SpiritEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SPIRIT, SpiritEntityRenderer::new);
 
+        EntityRendererRegistry.register(ModEntities.CREAKING_EYE, CreakingEyeRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(CreakingEyeModel.MODEL_LAYER, CreakingEyeModel::getTexturedModelData);
+
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
         EntityRendererRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, MirageThrowEntityRender::new);
-        EntityRendererRegistry.register(ModEntities.CREAKING_VINE_SPREADER, EmptyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.MARKED_PARTICLE, MarkedParticle.Factory::new);

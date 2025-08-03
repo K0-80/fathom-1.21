@@ -1,8 +1,9 @@
 package com.k080.fathom.item.custom;
 
+import com.k080.fathom.Fathom;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.entity.ModEntities;
-import com.k080.fathom.entity.custom.CreakingVineSpreaderEntity;
+import com.k080.fathom.entity.custom.CreakingEyeEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -22,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -76,20 +76,29 @@ public class CreakingStaffItem extends ToolItem {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
-        if (world.isClient()) {
+        if (hand != Hand.OFF_HAND) {
             return TypedActionResult.pass(stack);
         }
-
+        ///give @s fathom:creaking_staff[fathom:is_charged=true, fathom:is_watched=true]
         boolean isCharged = stack.getOrDefault(ModComponents.IS_CHARGED, false);
 
         if (isCharged) {
-            stack.set(ModComponents.IS_CHARGED, false); // Consume charge
+            if (!world.isClient) {
+                stack.set(ModComponents.IS_CHARGED, false);
 
-            BlockPos playerPos = user.getBlockPos();
-            CreakingVineSpreaderEntity spreader = new CreakingVineSpreaderEntity(ModEntities.CREAKING_VINE_SPREADER, world, playerPos);
-            world.spawnEntity(spreader);
+                CreakingEyeEntity creakingEye = new CreakingEyeEntity(ModEntities.CREAKING_EYE, world);
+                creakingEye.setPos(user.getX(), user.getEyeY() + 2.0, user.getZ());
 
-            return TypedActionResult.success(stack);
+                if (world.isNight()) {
+                    creakingEye.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 20 * 60, 8, false, false, false));
+                }
+
+                world.spawnEntity(creakingEye);
+                world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_WARDEN_EMERGE, SoundCategory.PLAYERS, 1.0f, 1.0f);
+            }
+
+            user.getItemCooldownManager().set(this, 20);
+            return TypedActionResult.success(stack, world.isClient());
         }
 
         return TypedActionResult.pass(stack);

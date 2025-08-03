@@ -14,14 +14,13 @@ import net.minecraft.util.Identifier;
 
 public class CreakingStaffHud implements HudRenderCallback {
     private static final Identifier CREAKING_STAFF_HUD_TEXTURE = Identifier.of(Fathom.MOD_ID, "textures/gui/creaking_staff_hud.png");
-
     @Override
     public void onHudRender(DrawContext drawContext, RenderTickCounter tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null && client.options.getPerspective().isFirstPerson()) {
+        if (client.player != null) {
             PlayerEntity player = client.player;
 
-            // Check if the Soul Jar HUD should render. If so, don't render this one.
+            //souljar will render first
             ItemStack mainHandStack = player.getMainHandStack();
             ItemStack offhandStack = player.getOffHandStack();
             if (mainHandStack.getItem() instanceof ScytheItem || offhandStack.getItem() instanceof ScytheItem) {

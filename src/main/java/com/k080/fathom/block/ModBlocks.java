@@ -33,7 +33,7 @@ public class ModBlocks {
 
     public static final Block CREAKING_VINE = registerBlock("creaking_vine",
             new CreakingVineBlock(AbstractBlock.Settings.copy(Blocks.GLOW_LICHEN)
-                    .luminance(state -> 5)
+                    .luminance(state -> 0)
                     .mapColor(MapColor.ORANGE)
                     .noCollision()
                     .strength(1f)
