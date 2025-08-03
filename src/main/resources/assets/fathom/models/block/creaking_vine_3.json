@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "fathom:block/creaking_vine",
-    "creaking_vine": "fathom:block/creaking_vine"
+    "particle": "fathom:block/creaking_vine_3",
+    "creaking_vine": "fathom:block/creaking_vine_3"
   },
   "elements": [
     {   "from": [ 0, 0, 0.1 ],
