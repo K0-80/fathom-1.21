@@ -1,0 +1,8 @@
+{
+  "asset_id": "fathom:guise",
+  "decal": false,
+  "description": {
+    "translate": "trim_pattern.fathom.guise"
+  },
+  "template_item": "fathom:guise_armor_trim_smithing_template"
+}

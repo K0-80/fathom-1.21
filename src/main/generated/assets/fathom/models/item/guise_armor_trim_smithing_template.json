@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "fathom:item/guise_armor_trim_smithing_template"
+  }
+}
