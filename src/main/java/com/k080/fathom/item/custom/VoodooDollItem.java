@@ -10,7 +10,7 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 import java.util.Optional;
 
-public class VoodooDollItem extends Item {
+public class VoodooDollItem extends Item{
     public VoodooDollItem(Settings settings) {
         super(settings);
     }

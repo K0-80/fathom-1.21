@@ -4,7 +4,8 @@
 	"parent": "mirage",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "fathom:item/mirage"
+		"2": "fathom:item/mirage",
+		"particle": "fathom:item/mirage_e"
 	},
 	"elements": [
 		{
@@ -381,6 +382,11 @@
 		"head": {
 			"rotation": [0, 0, 45],
 			"scale": [0.8, 0.8, 0.8]
+		},
+		"fixed": {
+			"rotation": [90, 45, 90],
+			"translation": [3, 2.75, 0],
+			"scale": [0.6, 0.6, 0.6]
 		}
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "program": "fathom:rendertype_emissive",
+  "samplers": [
+    { "name": "Sampler0" }
+  ]
+}
