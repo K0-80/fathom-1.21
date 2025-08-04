@@ -1,11 +1,12 @@
-// 1.21	2025-08-02T23:06:19.0498716	Fathom/
+// 1.21	2025-08-04T01:43:25.2685425	Fathom/
 5d6c835a7cc6271b371836b475456aa2d98f06bd data\fathom\enchantment\sanguine_covenant.json
 1e9dcad80526d2d87becc6147331ed444d7d4c9a data\fathom\enchantment\shatter.json
 5e8b863d7943bc7292d501920f1bb2a8d8bfe7f6 data\fathom\enchantment\gaze.json
 0a42dd0e08422d18d31026a03e86faf88f2a0f30 data\fathom\enchantment\resonance.json
+f9b16692692d65630bf94ea5107998cf44583cc0 data\fathom\trim_pattern\guise.json
 5f94031861891e5eb3b32065f190b29d49e22ce5 data\fathom\enchantment\tether.json
-1fb41b90d298355e471e5b12df14b02856f619d2 data\fathom\enchantment\momentum.json
 95c813d6864d042498aa9be7daa3e080161932e6 data\fathom\enchantment\maelstrom.json
+1fb41b90d298355e471e5b12df14b02856f619d2 data\fathom\enchantment\momentum.json
 cd7c9b946f0095ebb61d6fb1ce2ba195da7fea83 data\fathom\enchantment\alacrity.json
 928189fccc4bafe9f08d3862399c84f65d72167d data\fathom\enchantment\flowstate.json
 ee5e399587edbc9a7b5453895f12f4b471da7bfb data\fathom\enchantment\rend.json

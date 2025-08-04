@@ -43,11 +43,12 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add(ModBlocks.ANCHOR_BLOCK_INACTIVE, "Dormant Anchor");
         translationBuilder.add(ModBlocks.ANCHOR_BLOCK_ACTIVATED, "Activated Anchor");
 
-
         //Items
         translationBuilder.add("item.fathom.guardian_heart", "Guardian's Heart");
         translationBuilder.add(ModItems.SHATTERED_TOTEM, "Shattered Totem of Undying");
         translationBuilder.add(ModItems.MENDING_SLATE, "Mending Slate");
+        translationBuilder.add(ModItems.GUISE_SMITHING_TEMPLATE, "Smithing Template");
+        translationBuilder.add("trim_pattern.fathom.guise", "Guise Armour Trim");
 
         translationBuilder.add(ModItems.QTIP, "Q-Tip");
         translationBuilder.add("item.fathom.qtip.tooltip.sampled_player", "Sample from: %s");

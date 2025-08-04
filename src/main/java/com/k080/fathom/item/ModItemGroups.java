@@ -17,6 +17,8 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.fathom.fathom_items"))
                     .entries((displayContext, entries) -> {
 
+                        entries.add(ModItems.GUISE_SMITHING_TEMPLATE);
+
                         entries.add(ModItems.ANCHOR);
                         entries.add(ModItems.WIND_BLADE);
                         entries.add(ModItems.SCYTHE);

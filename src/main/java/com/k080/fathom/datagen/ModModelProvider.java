@@ -31,6 +31,8 @@ public class ModModelProvider extends FabricModelProvider    {
         itemModelGenerator.register(ModItems.QTIP, Models.GENERATED);
         itemModelGenerator.register(ModItems.MENDING_SLATE, Models.GENERATED);
 
+        itemModelGenerator.register(ModItems.GUISE_SMITHING_TEMPLATE, Models.GENERATED);
+
 
     }
 }

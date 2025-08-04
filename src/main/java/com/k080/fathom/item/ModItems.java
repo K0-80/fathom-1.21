@@ -7,15 +7,22 @@ import com.k080.fathom.item.book.BookPages;
 import com.k080.fathom.item.custom.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.Util;
 
 import java.util.Set;
 
 public class ModItems {
+
+    public static final Item GUISE_SMITHING_TEMPLATE = registerItem("guise_armor_trim_smithing_template",
+            SmithingTemplateItem.of(Identifier.of(Fathom.MOD_ID, "guise"), FeatureFlags.VANILLA));
 
     public static final Item GUARDIAN_HEART = registerItem("guardian_heart", new Item(new Item.Settings().rarity(Rarity.UNCOMMON)));
     public static final Item SHATTERED_TOTEM = registerItem("shattered_totem", new ShatteredTotemItem(

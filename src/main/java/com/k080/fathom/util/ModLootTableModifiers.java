@@ -19,5 +19,15 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(poolBuilder);
             }
         });
+
+        LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {
+            if (source.isBuiltin() && Identifier.of("minecraft", "entities/phantom").equals(key.getValue())) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .conditionally(RandomChanceLootCondition.builder(0.01f))
+                        .with(ItemEntry.builder(ModItems.GUISE_SMITHING_TEMPLATE));
+
+                tableBuilder.pool(poolBuilder);
+            }
+        });
     }
 }

@@ -1,13 +1,12 @@
-// 1.21	2025-08-02T23:06:19.0488646	Fathom/Model Definitions
-9cd418ff9322e76db79d370f08c8d9078a2872ff assets\fathom\models\item\qtip.json
-eeff1263ec362badd7298d684934df08b00e02e3 assets\fathom\models\item\torn_page_5.json
-1ac2bd0b976a846f7d5819d1a3827f4e19012cdb assets\fathom\models\item\torn_page_2.json
-09694f32b4b657174b311cedc54d34f3dc4475f6 assets\fathom\models\item\torn_page_3.json
-f84fd56ef933c1b4b28f247f567a431a64b73d43 assets\fathom\models\item\creaking_vine.json
-8ca3f409bf0c4c3a4ab4aca0574d8a303ac31752 assets\fathom\models\item\torn_page_4.json
+// 1.21	2025-08-04T01:43:25.2675279	Fathom/Model Definitions
 370408f667bf16a16cf09cf42d3a5b80d51126d1 assets\fathom\models\item\shattered_totem.json
 3a843bc2878ba0a433c73510245cc3e3306c4ad6 assets\fathom\models\item\guardian_heart.json
+8ca3f409bf0c4c3a4ab4aca0574d8a303ac31752 assets\fathom\models\item\torn_page_4.json
+9cd418ff9322e76db79d370f08c8d9078a2872ff assets\fathom\models\item\qtip.json
+d79d34c039e6729a3d150bd864ece57c5ad27e7b assets\fathom\models\item\guise_armor_trim_smithing_template.json
+eeff1263ec362badd7298d684934df08b00e02e3 assets\fathom\models\item\torn_page_5.json
+1ac2bd0b976a846f7d5819d1a3827f4e19012cdb assets\fathom\models\item\torn_page_2.json
 26f668d6cd86cfc9e12a64e518026f5e9fdc1066 assets\fathom\models\item\torn_page_1.json
 1b6db4f993472329599c65539f5d8e8b4773d546 assets\fathom\models\item\mending_slate.json
+09694f32b4b657174b311cedc54d34f3dc4475f6 assets\fathom\models\item\torn_page_3.json
 6a669c84ff859eafb48cf7f5b829260b97f235d9 assets\fathom\models\item\skeleton_fish_bucket.json
-d735c76177f6668d88a9aafb74a8238578089ad3 assets\fathom\blockstates\creaking_vine.json

@@ -1,5 +1,9 @@
-// 1.21	2025-08-02T23:06:19.0477978	Fathom/Recipes
+// 1.21	2025-08-04T01:43:25.266519	Fathom/Recipes
+ad3e88715a65bccf0af5c21ab1045ad34348e902 data\fathom\advancement\recipes\misc\guise.json
 4e04615fd5785f5e1dcd99f7208ceb96c4740a6e data\fathom\advancement\recipes\building_blocks\amethyst_resonator.json
 5bcc811c43e79747258dac3e1371cf08f20af95e data\fathom\recipe\mending_slate.json
 54d01db3568fc50597e866b5c112685d345419a1 data\fathom\advancement\recipes\misc\mending_slate.json
+96310a3e121a17efb72ae429fae8724c981e227e data\fathom\recipe\guise.json
+8b1d47b01c03f96e0ba4cebefebf3f092c40e98b data\fathom\recipe\guise_armor_trim_smithing_template.json
+8264fd64f813180be130393c1ce94160409ab468 data\fathom\advancement\recipes\misc\guise_armor_trim_smithing_template.json
 4d3a1ed09d3fdfc0d93e00ef1dd0061e891c86ab data\fathom\recipe\amethyst_resonator.json

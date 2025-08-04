@@ -1,5 +1,6 @@
 package com.k080.fathom.datagen;
 
+import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -10,6 +11,7 @@ import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,17 +23,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter recipeExporter) {
 
-
-//        //ANCHOR WEAPON
-//        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ModItems.ANCHOR)
-//                .pattern("IID")
-//                .pattern(" HI")
-//                .pattern("D I")
-//                .input('H', Items.HEART_OF_THE_SEA)
-//                .input('I', Items.IRON_INGOT)
-//                .input('D', Items.STICK)
-//                .criterion(hasItem(Items.HEART_OF_THE_SEA), conditionsFromItem(Items.HEART_OF_THE_SEA))
-//                .offerTo(recipeExporter, RecipeProvider.getRecipeName(ModItems.ANCHOR));
+        //guise armour trim
+        offerSmithingTemplateCopyingRecipe(recipeExporter, ModItems.GUISE_SMITHING_TEMPLATE, Items.PHANTOM_MEMBRANE);
+        offerSmithingTrimRecipe(recipeExporter, ModItems.GUISE_SMITHING_TEMPLATE, Identifier.of(Fathom.MOD_ID, "guise"));
 
         //RESONATOR BLOCK
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AMETHYST_RESONATOR)

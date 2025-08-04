@@ -31,6 +31,7 @@
   "item.fathom.anchor": "Fathom",
   "item.fathom.creaking_staff": "Ashwood",
   "item.fathom.guardian_heart": "Guardian's Heart",
+  "item.fathom.guise_armor_trim_smithing_template": "Smithing Template",
   "item.fathom.mending_slate": "Mending Slate",
   "item.fathom.mirage": "Mirage",
   "item.fathom.picture_book": "Ancient Codex",
@@ -56,5 +57,6 @@
   "tooltip.fathom.creaking_staff.uncharged": "Lacking Dread // Charge by being watched",
   "tooltip.fathom.mending_slate.description": "Slowly mends a damaged item.",
   "tooltip.fathom.mending_slate.status": "%s durability remaining on repair slate",
-  "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex"
+  "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex",
+  "trim_pattern.fathom.guise": "Guise Armour Trim"
 }

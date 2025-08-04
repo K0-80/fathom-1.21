@@ -167,22 +167,22 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         hitEntity.damage(damageSource, 1F + ( 1.0f * this.getMomentumLevel()));
         hitEntity.setVelocity(Vec3d.ZERO);
 
-//        if (owner != null) {
-//            if (this.getMaelstromLevel() == 0) {
-//                double maxEffectiveDistance = 10.0 + (this.getMomentumLevel() * 5);
-//                double minStrength = 0.5 + (this.getMomentumLevel() * 0.05);
-//                double maxStrength = 2.5 + (this.getMomentumLevel() * 0.25);
-//
-//                double distance = owner.distanceTo(hitEntity);
-//                double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
-//                double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
-//
-//                Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
-//                Vec3d pullVelocity = pullDirection.multiply(pullStrength);
-//
-//                hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
-//            }
-//        }
+        if (owner != null) {
+            if (this.getMaelstromLevel() == 0) {
+                double maxEffectiveDistance = 10.0 + (this.getMomentumLevel() * 5);
+                double minStrength = 0.5 + (this.getMomentumLevel() * 0.05);
+                double maxStrength = 2.5 + (this.getMomentumLevel() * 0.25);
+
+                double distance = owner.distanceTo(hitEntity);
+                double progress = MathHelper.clamp(distance / maxEffectiveDistance, 0.0, 1.0);
+                double pullStrength = MathHelper.lerp(progress, minStrength, maxStrength);
+
+                Vec3d pullDirection = owner.getEyePos().subtract(hitEntity.getPos()).normalize();
+                Vec3d pullVelocity = pullDirection.multiply(pullStrength);
+
+                hitEntity.addVelocity(pullVelocity.x, pullVelocity.y + 0.1, pullVelocity.z);
+            }
+        }
 
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);

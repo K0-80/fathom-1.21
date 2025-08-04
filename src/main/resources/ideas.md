@@ -27,6 +27,7 @@ clone entity
 
 add gambeling :)))
 - false totem: 50% chance to deleate items 50% chance to keep inventory
+- custom animation for charging hex and windblade
 
 
 https://modrinth.com/mod/aileron - elytra rework mod, nerfs elytra

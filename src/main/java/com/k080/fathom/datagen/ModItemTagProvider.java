@@ -29,6 +29,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
+        getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
+                .add(ModItems.GUISE_SMITHING_TEMPLATE);
+
         //for cusstom enchants
         getOrCreateTagBuilder(ModTags.Items.ANCHOR_ENCHANTBLE)
                 .add(ModItems.ANCHOR);
