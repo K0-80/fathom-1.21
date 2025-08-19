@@ -52,5 +52,6 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntity.createPlayerCloneAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.SPIRIT, SpiritEntity.createSpiritAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.CREAKING_EYE, CreakingEyeEntity.createCreakingEyeAttributes());
+
     }
 }

@@ -7,15 +7,12 @@ import com.k080.fathom.item.book.BookPages;
 import com.k080.fathom.item.custom.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
-import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.Util;
 
 import java.util.Set;
 

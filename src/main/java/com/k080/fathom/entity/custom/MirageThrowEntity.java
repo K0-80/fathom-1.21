@@ -5,6 +5,7 @@ import com.k080.fathom.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -171,5 +172,10 @@ public class MirageThrowEntity extends PersistentProjectileEntity {
     @Override
     protected SoundEvent getHitSound() {
         return SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK;
+    }
+
+    @Override
+    protected boolean tryPickup(PlayerEntity player) {
+        return false;
     }
 }
