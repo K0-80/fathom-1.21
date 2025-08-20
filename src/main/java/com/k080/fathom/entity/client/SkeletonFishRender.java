@@ -1,6 +1,7 @@
 package com.k080.fathom.entity.client;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.entity.client.model.SkeletonFishModel;
 import com.k080.fathom.entity.custom.SkeletonFishEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

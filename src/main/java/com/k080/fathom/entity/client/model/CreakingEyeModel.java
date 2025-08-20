@@ -1,4 +1,4 @@
-package com.k080.fathom.entity.client;
+package com.k080.fathom.entity.client.model;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.entity.custom.CreakingEyeEntity;

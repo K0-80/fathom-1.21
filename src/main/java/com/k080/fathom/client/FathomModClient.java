@@ -7,6 +7,8 @@ import com.k080.fathom.client.hud.SoulJarHud;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.*;
+import com.k080.fathom.entity.client.feature.AmethystShardsFeatureRenderer;
+import com.k080.fathom.entity.client.model.*;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.*;
@@ -17,6 +19,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -42,7 +45,6 @@ public class FathomModClient implements ClientModInitializer {
         HudRenderCallback.EVENT.register(new SoulJarHud());
         HudRenderCallback.EVENT.register(new CreakingStaffHud());
 
-
         EntityModelLayerRegistry.registerModelLayer(SkeletonFishModel.SKELETON_FISH, SkeletonFishModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishRender:: new);
 
@@ -52,10 +54,18 @@ public class FathomModClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.CREAKING_EYE, CreakingEyeRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(CreakingEyeModel.MODEL_LAYER, CreakingEyeModel::getTexturedModelData);
 
-
         EntityRendererRegistry.register(ModEntities.ANCHOR_PROJECTILE, AnchorProjectileRenderer::new);
-        EntityRendererRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, MirageThrowEntityRender::new);
+        EntityRendererRegistry.register(ModEntities.MIRAGE_MODEL, MirageModelEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(ForwardMirageModel.LAYER, ForwardMirageModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(BackwardMirageModel.LAYER, BackwardMirageModel::getTexturedModelData);
+        EntityRendererRegistry.register(ModEntities.AMETHYST_SHARD_PROJECTILE, AmethystShardProjectileEntityRenderer::new);
+//        EntityRendererRegistry.register(ModEntities.MIRAGE_THROW_ENTITY_ENTITY_TYPE, MirageThrowEntityRender::new);
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if (entityRenderer instanceof PlayerEntityRenderer) {
+                registrationHelper.register(new AmethystShardsFeatureRenderer((PlayerEntityRenderer)entityRenderer, context.getItemRenderer()));
+            }
+        });
 
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.WIND_PARTICLE, WindParticle.Factory::new);

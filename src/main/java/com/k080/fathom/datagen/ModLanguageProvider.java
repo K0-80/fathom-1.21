@@ -60,6 +60,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("effect.fathom.mithril_veil", "Mithril Veil");
         translationBuilder.add("effect.fathom.wind_glow", "Marked");
         translationBuilder.add("effect.fathom.anchored", "Anchored");
+        translationBuilder.add("effect.fathom.no_gravity", "Anti Gravity");
 
         // Death Msg
         translationBuilder.add("death.attack.scythe_covenant", "%1$s made a pact they couldn't afford");
@@ -93,6 +94,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
         // Mirage Item & Enchantments
         translationBuilder.add("item.fathom.mirage", "Mirage");
+        translationBuilder.add("item.fathom.mirageitem.tooltip.shards", "Shards: §f%s/5");
         translationBuilder.add("enchantment.fathom.shatter", "Shatter");
         translationBuilder.add("enchantment.fathom.tether", "Tether");
         translationBuilder.add("enchantment.fathom.phase_shift", "Phase-shift");

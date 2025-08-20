@@ -14,7 +14,7 @@ import net.minecraft.util.math.RotationAxis;
 
 public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEntity> {
     private final ItemRenderer itemRenderer;
-    private static final ItemStack ANCHOR_STACK = new ItemStack(ModItems.ANCHOR); // Make sure ModItems.ANCHOR is your AnchorItem instance
+    private static final ItemStack ANCHOR_STACK = new ItemStack(ModItems.ANCHOR);
 
     public AnchorProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);

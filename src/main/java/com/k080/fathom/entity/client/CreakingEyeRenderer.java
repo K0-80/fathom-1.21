@@ -1,6 +1,7 @@
 package com.k080.fathom.entity.client;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.entity.client.model.CreakingEyeModel;
 import com.k080.fathom.entity.custom.CreakingEyeEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

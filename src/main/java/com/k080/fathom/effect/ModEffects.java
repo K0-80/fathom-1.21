@@ -16,6 +16,9 @@ public class ModEffects {
             new WindGlowEffect (StatusEffectCategory.NEUTRAL, 0x10cda5));
     public static final RegistryEntry<StatusEffect> ANCHORED = registerStatusEffect("anchored",
             new AnchoredEffect (StatusEffectCategory.HARMFUL, 0x393253));
+    public static final RegistryEntry<StatusEffect> NO_GRAVITY = registerStatusEffect("no_gravity",
+            new NoGravityEffect (StatusEffectCategory.NEUTRAL, 0xDADADA));
+
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Fathom.MOD_ID, name), statusEffect);

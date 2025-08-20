@@ -1,6 +1,7 @@
 package com.k080.fathom.entity.client;
 
 import com.k080.fathom.Fathom;
+import com.k080.fathom.entity.client.model.SpiritEntityModel;
 import com.k080.fathom.entity.custom.SpiritEntity;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.entity.EntityRendererFactory;

@@ -49,7 +49,7 @@ public class ModItems {
 
     public static final Item MIRAGE = registerItem("mirage",
             new Mirageitem(ModToolMaterials.MIRAGE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
-                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 1.4f -4f))));
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.MIRAGE, 6, 2f -4f))));
 
     public static final Item CREAKING_STAFF = registerItem("creaking_staff",
             new CreakingStaffItem(ModToolMaterials.CREAKING_SWORD, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()

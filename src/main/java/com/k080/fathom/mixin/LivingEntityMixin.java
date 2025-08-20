@@ -1,6 +1,7 @@
 package com.k080.fathom.mixin;
 
 import com.k080.fathom.component.ModComponents;
+import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.block.BloodCrucibleBlockEntity;
 import com.k080.fathom.item.ModItems;
@@ -101,8 +102,6 @@ public abstract class LivingEntityMixin {
             }
         }
     }
-
-
 
     @Inject(method = "onDeath", at = @At("HEAD"))
     private void onDeathForCrucible(DamageSource source, CallbackInfo ci) {

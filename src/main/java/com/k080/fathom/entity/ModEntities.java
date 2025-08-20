@@ -23,18 +23,24 @@ public class ModEntities {
 
     public static final EntityType<AnchorProjectileEntity> ANCHOR_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "anchor"),
-            EntityType.Builder.create(AnchorProjectileEntity::new, SpawnGroup.MONSTER)
+            EntityType.Builder.create(AnchorProjectileEntity::new, SpawnGroup.MISC)
                     .dimensions(0.7F, 0.5F).maxTrackingRange(8).build());
 
-    public static final EntityType<PlayerCloneEntity> PLAYER_CLONE = Registry.register(Registries.ENTITY_TYPE,
-            Identifier.of(Fathom.MOD_ID, "player_clone"),
-            EntityType.Builder.create(PlayerCloneEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.7f, 1.9f).maxTrackingRange(6).build());
+    public static final EntityType<MirageModelEntity> MIRAGE_MODEL = Registry.register(
+            Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "mirage_model"),
+            EntityType.Builder.create(MirageModelEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.6f, 1.8f).build());
 
-    public static final EntityType<MirageThrowEntity> MIRAGE_THROW_ENTITY_ENTITY_TYPE = Registry.register(Registries.ENTITY_TYPE,
-            Identifier.of(Fathom.MOD_ID, "mirage_throw"),
-            EntityType.Builder.create(MirageThrowEntity::new, SpawnGroup.MISC)
-                    .dimensions(0.25F, 0.25F).maxTrackingRange(6).build());
+    public static final EntityType<AmethystShardProjectileEntity> AMETHYST_SHARD_PROJECTILE = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "amethyst_shard_projectile"),
+            EntityType.Builder.<AmethystShardProjectileEntity>create(AmethystShardProjectileEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10).build());
+
+//    public static final EntityType<MirageThrowEntity> MIRAGE_THROW_ENTITY_ENTITY_TYPE = Registry.register(Registries.ENTITY_TYPE,
+//            Identifier.of(Fathom.MOD_ID, "mirage_throw"),
+//            EntityType.Builder.create(MirageThrowEntity::new, SpawnGroup.MISC)
+//                    .dimensions(0.25F, 0.25F).maxTrackingRange(6).build());
 
     public static final EntityType<SpiritEntity> SPIRIT  = Registry.register(Registries.ENTITY_TYPE,
             Identifier.of(Fathom.MOD_ID, "spirit"),
@@ -49,7 +55,6 @@ public class ModEntities {
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
         FabricDefaultAttributeRegistry.register(ModEntities.SKELETON_FISH, SkeletonFishEntity.createSkeletonFishAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntities.PLAYER_CLONE, PlayerCloneEntity.createPlayerCloneAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.SPIRIT, SpiritEntity.createSpiritAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.CREAKING_EYE, CreakingEyeEntity.createCreakingEyeAttributes());
 

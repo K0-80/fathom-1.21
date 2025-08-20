@@ -25,10 +25,8 @@ public class ModComponents {
 
 
 //mirrage
-    public static final ComponentType<UUID> CLONE_UUID =
-            register("clone_uuid", builder -> builder
-                    .codec(Codec.STRING.xmap(UUID::fromString, UUID::toString))
-                    .packetCodec(PacketCodecs.STRING.xmap(UUID::fromString, UUID::toString)));
+public static final ComponentType<Integer> SHARDS =
+        register("shards", builder -> builder.codec(Codec.INT));
 
     //guide book thing
     public static final ComponentType<Set<Identifier>> UNLOCKED_PAGES =

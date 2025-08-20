@@ -3,10 +3,12 @@
   "package": "com.k080.fathom.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EntityMixin",
     "ItemEntityMixin",
     "ItemStackMixin",
     "LivingEntityDamageMixin",
     "LivingEntityMixin",
+    "PlayerEntityDamageMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {
