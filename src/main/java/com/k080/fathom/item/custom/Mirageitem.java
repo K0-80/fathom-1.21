@@ -22,6 +22,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
@@ -120,32 +121,36 @@ public class Mirageitem extends SwordItem {
     }
 
     private void spawnShardVolley(PlayerEntity player, World world, int count) {
-        float radius = 1.0f;
+        float radius = 2.0f;
+        float forwardSpeed = 1.2f;
+        float convergenceStrength = 0.03f;
+
         Vec3d forward = player.getRotationVector();
         Vec3d spawnCenter = player.getEyePos().add(forward.multiply(1.5));
 
         Vec3d right = new Vec3d(-forward.z, 0, forward.x).normalize();
         if (right.lengthSquared() < 1.0E-4) {
-            right = new Vec3d(1, 0, 0);
+            right = player.getRotationVector(player.getPitch(), player.getYaw() - 90.0f).withAxis(Direction.Axis.Y, 0).normalize();
         }
-        Vec3d up = right.crossProduct(forward).normalize();
+        Vec3d up = forward.crossProduct(right);
 
         for (int i = 0; i < count; i++) {
-            double angle = 1 * Math.PI * i / count;
-
+            if (count <= 0) break;
+            double divisor = (count > 1) ? (count - 1) : 1.0;
+            double angle = Math.PI * i / divisor;
             double xOffset = Math.cos(angle) * radius;
             double yOffset = Math.sin(angle) * radius;
             Vec3d offset = right.multiply(xOffset).add(up.multiply(yOffset));
             Vec3d spawnPos = spawnCenter.add(offset);
+            AmethystShardProjectileEntity projectile = new AmethystShardProjectileEntity(world, player);
+            projectile.setPosition(spawnPos);
+            projectile.setDamage(5);
+            Vec3d forwardVelocity = forward.multiply(forwardSpeed);
+            Vec3d inwardVelocity = offset.normalize().multiply(-1.0).multiply(convergenceStrength);
 
-//            AmethystShardProjectileEntity projectile = new AmethystShardProjectileEntity(world, player);
-//            projectile.setPosition(spawnPos);
-//            projectile.setDamage(2.0);
-//
-//            Vec3d outwardVelocity = offset.normalize().multiply(0.7);
-//            projectile.setVelocity(outwardVelocity);
-//
-//            world.spawnEntity(projectile);
+            projectile.setVelocity(forwardVelocity.add(inwardVelocity));
+
+            world.spawnEntity(projectile);
         }
     }
 
