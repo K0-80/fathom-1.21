@@ -28,7 +28,7 @@ public class AmethystShardProjectileEntity extends PersistentProjectileEntity {
     private static final List<Vector3f> PARTICLE_COLORS = List.of(
             new Vector3f(0.6f, 0.4f, 0.8f),  // Purple
             new Vector3f(0.7f, 0.5f, 0.9f),  // Lighter Purple
-            new Vector3f(0.85f, 0.7f, 1.0f) // Light Magenta/Pinkish hue
+            new Vector3f(0.85f, 0.7f, 1.0f) // Light Magenta
     );
 
     public AmethystShardProjectileEntity(EntityType<? extends AmethystShardProjectileEntity> entityType, World world) {
@@ -42,13 +42,13 @@ public class AmethystShardProjectileEntity extends PersistentProjectileEntity {
     }
 
     private void spawnTrailParticles() {
-        int particleCount = 2; // Number of particles to spawn each tick
+        int particleCount = 3;
 
         for (int i = 0; i < particleCount; i++) {
             Vector3f color = PARTICLE_COLORS.get(this.random.nextInt(PARTICLE_COLORS.size()));
             float size = 0.4f + this.random.nextFloat() * 0.4f;
             DustParticleEffect particleEffect = new DustParticleEffect(color, size);
-            this.getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+            this.getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.05, 0.05, 0.05);
         }
     }
 
