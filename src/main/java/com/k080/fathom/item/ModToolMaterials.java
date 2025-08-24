@@ -15,7 +15,8 @@ public enum ModToolMaterials implements ToolMaterial {
     WINDBLADE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 8.0F, -1F, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
     SCYTHE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
     MIRAGE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
-    CREAKING_SWORD(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT));
+    CREAKING_SWORD(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT)),
+    TWLIGHT_BLADE(BlockTags.INCORRECT_FOR_IRON_TOOL, 750, 1.0F, -1, 15, () -> Ingredient.ofItems(Items.IRON_INGOT));
 
     private final TagKey<Block> inverseTag;
     private final int itemDurability;

@@ -28,6 +28,12 @@ public class ModComponents {
 public static final ComponentType<Integer> SHARDS =
         register("shards", builder -> builder.codec(Codec.INT));
 
+//twilight
+public static final ComponentType<Integer> UMBRA_CHARGE  =
+        register("umbra_charge", builder -> builder.codec(Codec.INT));
+    public static final ComponentType<Integer> LUX_CHARGE  =
+            register("lux_charge", builder -> builder.codec(Codec.INT));
+
     //guide book thing
     public static final ComponentType<Set<Identifier>> UNLOCKED_PAGES =
             register("unlocked_pages", builder -> builder

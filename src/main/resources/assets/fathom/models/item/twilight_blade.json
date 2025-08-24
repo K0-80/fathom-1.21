@@ -1,0 +1,17 @@
+{
+  "parent": "fathom:item/twilight_blade/umbra",
+  "overrides": [
+    {
+      "predicate": {
+        "fathom:light_state": 0.5
+      },
+      "model": "fathom:item/twilight_blade/twilight"
+    },
+    {
+      "predicate": {
+        "fathom:light_state": 1.0
+      },
+      "model": "fathom:item/twilight_blade/lux"
+    }
+  ]
+}

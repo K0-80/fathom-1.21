@@ -24,6 +24,11 @@ public class FlowstateParticle extends SpriteBillboardParticle {
     }
 
     @Override
+    public int getBrightness(float tickDelta) {
+        return 15728880;
+    }
+
+    @Override
     public float getSize(float tickDelta) {
         float d = (this.age + tickDelta) / (this.maxAge);
         return this.scale * MathHelper.clamp(d, 0, 1);

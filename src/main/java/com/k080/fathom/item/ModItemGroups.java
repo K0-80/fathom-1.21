@@ -24,6 +24,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SCYTHE);
                         entries.add(ModItems.MIRAGE);
                         entries.add(ModItems.CREAKING_STAFF);
+                        entries.add(ModItems.TWILIGHT_BLADE);
 
                         entries.add(ModBlocks.BlOOD_CRUCIBLE);
                         entries.add(ModBlocks.AMETHYST_RESONATOR);

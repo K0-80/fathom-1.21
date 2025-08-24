@@ -23,6 +23,11 @@ public class MarkedParticle extends SpriteBillboardParticle {
     }
 
     @Override
+    public int getBrightness(float tickDelta) {
+        return 15728880;
+    }
+
+    @Override
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }

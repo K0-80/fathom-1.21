@@ -105,5 +105,11 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("tooltip.fathom.creaking_staff.charged", "Dreadful // Right click to unleash");
         translationBuilder.add("tooltip.fathom.creaking_staff.uncharged", "Lacking Dread // Charge by being watched");
         translationBuilder.add("actionbar.fathom.creaking_eye.watched", "You are being Watched.");
+
+        //TWLIGHT BLADE AND STUFF
+        translationBuilder.add(ModItems.TWILIGHT_BLADE, "Twilight Blade");
+        translationBuilder.add("tooltip.fathom.umbra_charge", "Umbra Charge: %s / 100");
+        translationBuilder.add("tooltip.fathom.lux_charge", "Lux  Charge: %s / 100");
+
     }
 }

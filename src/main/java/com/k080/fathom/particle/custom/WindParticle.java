@@ -6,12 +6,14 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
 
+
 @Environment(EnvType.CLIENT)
 public class WindParticle extends SpriteBillboardParticle {
 
     private static final float ACCELERATION_SCALE = 0.05F;
     private static final float WIND_STRENGTH = 1.5F;
-    private static final int MAX_LIFETIME = 300;
+    private static final int MAX_LIFETIME = 3 * 20;
+    private static final int FADE_DURATION = 60;
     private final float baseAngle;
     private final float rollSpeed;
     private float currentRoll;
@@ -32,7 +34,13 @@ public class WindParticle extends SpriteBillboardParticle {
 
     @Override
     public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
+        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+
+    @Override
+    public int getBrightness(float tickDelta) {
+        return 15728880;
     }
 
     @Override
@@ -45,6 +53,12 @@ public class WindParticle extends SpriteBillboardParticle {
             this.markDead();
             return;
         }
+
+        if (this.age > this.maxAge - FADE_DURATION) {
+            float fadeProgress = (float)(this.age - (this.maxAge - FADE_DURATION)) / (float)FADE_DURATION;
+            this.alpha = 1.0f - fadeProgress;
+        }
+
         float lifeProgress = (float) this.age / (float) this.maxAge;
         float easedProgress = (float) Math.pow(lifeProgress, 1.25);
 

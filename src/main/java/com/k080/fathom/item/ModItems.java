@@ -55,6 +55,10 @@ public class ModItems {
             new CreakingStaffItem(ModToolMaterials.CREAKING_SWORD, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
                     .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.CREAKING_SWORD, 1, 1f -4f))));
 
+    public static final Item TWILIGHT_BLADE  = registerItem("twilight_blade",
+            new TwilightBladeItem(ModToolMaterials.TWLIGHT_BLADE, new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.TWLIGHT_BLADE, 8, 1.6f -4f))));
+
     public static final Item PICTURE_BOOK = registerItem("picture_book",
             new PictureBookItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE).fireproof()
                     .component(ModComponents.UNLOCKED_PAGES, Set.of(BookPages.PAGE_1.id()))

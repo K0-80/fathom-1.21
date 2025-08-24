@@ -110,7 +110,7 @@ public class Mirageitem extends SwordItem {
 
                 for (LivingEntity entity : entitiesInRadius) {
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, duration, amplifier, false, true, true));
-                    entity.addStatusEffect(new StatusEffectInstance(ModEffects.NO_GRAVITY, duration, amplifier, false, false, true  ));
+                    entity.addStatusEffect(new StatusEffectInstance(ModEffects.NO_GRAVITY, duration, amplifier, false, true, true  ));
                     spawnDustParticlesOnEntity(serverWorld, entity);
                 }
 

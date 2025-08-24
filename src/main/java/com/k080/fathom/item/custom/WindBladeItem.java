@@ -180,7 +180,6 @@ public class WindBladeItem extends SwordItem {
 
         float radius = 1.0f + level;
         Vec3d playerPos = player.getPos();
-        ((ServerWorld)world).spawnParticles(ParticleTypes.GUST, player.getX(), player.getY(), player.getZ(), 1, radius / 2, 0.5, radius / 2, 0.0);
 
         Box areaOfEffect = new Box(playerPos, playerPos).expand(radius);
         for (LivingEntity entity : world.getEntitiesByClass(LivingEntity.class, areaOfEffect, e -> e != player && e != teleportTarget && e.isAlive())) {
@@ -198,40 +197,68 @@ public class WindBladeItem extends SwordItem {
     }
 
     private void spawnDashParticles(ServerWorld world, Vec3d start, Vec3d end) {
-        final double spiralRadius = 0.5;
-        final double totalRotations = 10;
-        final double particlesPerBlock = 3.0;
+        Vec3d startBody = start.add(0, 1.0, 0);
+        Vec3d endBody = end.add(0, 1.0, 0);
 
-        world.spawnParticles(ModParticles.WIND_PARTICLE,
-                start.x, start.y, start.z, 25, 1.2, 1.2, 1.2, 0.15);
-
-        Vec3d direction = end.subtract(start);
+        Vec3d direction = endBody.subtract(startBody);
         double distance = direction.length();
-        if (distance < 0.1) {
+
+        if (distance < 1.5) {
             return;
         }
-        direction = direction.normalize();
-        int particleCount = (int) (distance * particlesPerBlock);
-        Vec3d perpendicular = direction.crossProduct(new Vec3d(0, 1, 0));
-        if (perpendicular.lengthSquared() < 1.0E-6) {
-            perpendicular = direction.crossProduct(new Vec3d(0, 0, 1));
-        }
-        perpendicular = perpendicular.normalize();
-        Vec3d perpendicular2 = direction.crossProduct(perpendicular).normalize();
 
-        for (int i = 0; i < particleCount; i++) {
-            double t = (double) i / (particleCount - 1);
-            double currentDistance = t * distance;
-            double angle = t * totalRotations * 2 * Math.PI;
-            Vec3d linePos = start.add(direction.multiply(currentDistance));
-            Vec3d offset = perpendicular.multiply(Math.cos(angle) * spiralRadius)
-                    .add(perpendicular2.multiply(Math.sin(angle) * spiralRadius));
-            Vec3d particlePos = linePos.add(offset);
-            world.spawnParticles(ModParticles.WIND_PARTICLE, particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0);
-        }
+        Vec3d normalizedDirection = direction.normalize();
 
-        world.spawnParticles(ModParticles.WIND_PARTICLE,
-                end.x, end.y, end.z, 25, 1.2, 1.2, 1.2, 0.15);
+        final int numLines = 3;
+        final int numSegments = (int) Math.max(3, distance / 1.5);
+        final double maxOffset = 1.2;
+        final double particlesPerBlock = 4.0;
+
+        Vec3d perp1 = normalizedDirection.crossProduct(new Vec3d(0, 1, 0));
+        if (perp1.lengthSquared() < 1.0E-6) {
+            perp1 = normalizedDirection.crossProduct(new Vec3d(1, 0, 0));
+        }
+        perp1 = perp1.normalize();
+        Vec3d perp2 = normalizedDirection.crossProduct(perp1).normalize();
+
+        for (int line = 0; line < numLines; line++) {
+            java.util.List<Vec3d> points = new java.util.ArrayList<>();
+            points.add(startBody);
+
+            double segmentLength = distance / numSegments;
+            for (int i = 1; i < numSegments; i++) {
+                Vec3d pointOnLine = startBody.add(normalizedDirection.multiply(i * segmentLength));
+
+                double randomAngle = world.getRandom().nextDouble() * 2 * Math.PI;
+                double randomRadius = world.getRandom().nextDouble() * maxOffset;
+                Vec3d offset = perp1.multiply(Math.cos(randomAngle) * randomRadius)
+                        .add(perp2.multiply(Math.sin(randomAngle) * randomRadius));
+
+                points.add(pointOnLine.add(offset));
+            }
+            points.add(endBody);
+
+            for (int i = 0; i < points.size() - 1; i++) {
+                Vec3d p1 = points.get(i);
+                Vec3d p2 = points.get(i + 1);
+
+                Vec3d segmentVec = p2.subtract(p1);
+                double segmentDist = segmentVec.length();
+                int particleCount = (int) (segmentDist * particlesPerBlock);
+
+                if (particleCount <= 0) {
+                    continue;
+                }
+
+                for (int j = 0; j < particleCount; j++) {
+                    double t = (double) j / particleCount;
+                    Vec3d particlePos = p1.lerp(p2, t);
+                    world.spawnParticles(ModParticles.WIND_PARTICLE,
+                            particlePos.x, particlePos.y, particlePos.z,
+                            1, 0, 0, 0, 0);
+                }
+            }
+        }
     }
 
     private Optional<EntityHitResult> raycastForEntity(PlayerEntity player, ItemStack stack) {

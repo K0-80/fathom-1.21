@@ -50,6 +50,7 @@
   "item.fathom.torn_page_3": "Scorched Page",
   "item.fathom.torn_page_4": "Glistering Page",
   "item.fathom.torn_page_5": "Weightless Page",
+  "item.fathom.twilight_blade": "Twilight Blade",
   "item.fathom.voodoo_doll": "Voodoo Doll",
   "item.fathom.voodoo_doll.tooltip.bound_to": "Bound to: %s",
   "item.fathom.wind_blade": "Zephyr",
@@ -57,8 +58,10 @@
   "text.fathom.page_added": "Added %s to Codex",
   "tooltip.fathom.creaking_staff.charged": "Dreadful // Right click to unleash",
   "tooltip.fathom.creaking_staff.uncharged": "Lacking Dread // Charge by being watched",
+  "tooltip.fathom.lux_charge": "Lux  Charge: %s / 100",
   "tooltip.fathom.mending_slate.description": "Slowly mends a damaged item.",
   "tooltip.fathom.mending_slate.status": "%s durability remaining on repair slate",
   "tooltip.fathom.torn_page.hint": "Right-click to add to a Codex",
+  "tooltip.fathom.umbra_charge": "Umbra Charge: %s / 100",
   "trim_pattern.fathom.guise": "Guise Armour Trim"
 }

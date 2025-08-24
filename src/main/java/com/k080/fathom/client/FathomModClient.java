@@ -12,6 +12,7 @@ import com.k080.fathom.entity.client.model.*;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.*;
+import com.k080.fathom.util.ModModelPredicateProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -35,6 +36,7 @@ public class FathomModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        ModModelPredicateProvider.registerModModels();
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BlOOD_CRUCIBLE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.AMETHYST_RESONATOR, RenderLayer.getCutout());

@@ -31,6 +31,12 @@ public class RaptureParticle extends SpriteBillboardParticle {
         this.randomRotation = new Quaternionf().rotateY((float)(this.random.nextFloat() * Math.PI * 2.0F)).rotateX((float)(this.random.nextFloat() * Math.PI * 2.0F));
     }
 
+
+    @Override
+    public int getBrightness(float tickDelta) {
+        return 15728880;
+    }
+
     @Override
     public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         Vec3d vec3d = camera.getPos();
