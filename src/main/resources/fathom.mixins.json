@@ -19,7 +19,6 @@
   },
   "client": [
     "ArmorFeatureRendererMixin",
-    "HeldItemRendererMixin",
     "InGameHudMixin"
   ]
 }

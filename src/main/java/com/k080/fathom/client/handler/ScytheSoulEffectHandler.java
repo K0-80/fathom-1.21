@@ -31,7 +31,7 @@ public class ScytheSoulEffectHandler {
         int souls = mainHandStack.getOrDefault(ModComponents.SOULS, 0);
         if (souls <= 0) return;
 
-        float spawnChance = souls / 45f;
+        float spawnChance = souls / 35f;
 
         if (random.nextFloat() < spawnChance) {
             TrailManager.addTrail(createSoulTrail(player));
@@ -44,6 +44,10 @@ public class ScytheSoulEffectHandler {
         double offsetY = random.nextDouble() * player.getHeight() * 0.9;
         double offsetZ = (random.nextDouble() - 0.5) * player.getWidth();
         Vec3d randomOffset = new Vec3d(offsetX, offsetY, offsetZ);
-        return new TrailManager.Trail(player, randomOffset, color, 0.12f, 35, 10);
-    }//35
+
+        float baseWidth = 0.08f + random.nextFloat() * 0.07f;
+        int maxLength = 6 + random.nextInt(7);
+
+        return new TrailManager.Trail(player, randomOffset, color, baseWidth, 35, maxLength);
+    }
 }

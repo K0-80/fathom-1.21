@@ -12,6 +12,7 @@ import com.k080.fathom.entity.client.*;
 import com.k080.fathom.entity.client.feature.AmethystShardsFeatureRenderer;
 import com.k080.fathom.entity.client.model.*;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.networking.ModMessages;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.*;
 import com.k080.fathom.util.ModModelPredicateProvider;
@@ -43,6 +44,8 @@ public class FathomModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        EntityRendererRegistry.register(ModEntities.SHOCKWAVE_BLOCK, ShockwaveBlockEntityRenderer::new);
+        ModMessages.registerS2CPackets();
 
         WorldRenderEvents.AFTER_ENTITIES.register(TrailManager::render);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

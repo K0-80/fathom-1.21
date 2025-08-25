@@ -17,71 +17,71 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class TrailManager {
 
     private static final List<Trail> trails = new CopyOnWriteArrayList<>();
+    private static final float TRAIL_SEGMENT_LENGTH = 0.075f;
+    private static final int TRAIL_SIDES = 6;
 
-    private static final List<Vector3f> ICOSPHERE_VERTICES;
-    private static final List<Integer> ICOSPHERE_INDICES;
+    private static class Icosphere {
+        private static final List<Vector3f> VERTICES;
+        private static final List<Integer> INDICES;
 
-    static {
-        List<Vector3f> vertices = new ArrayList<>();
-        List<Integer> indices = new ArrayList<>();
-        int subdivisions = 2;
-        float t = (1.0f + (float) Math.sqrt(5.0)) / 2.0f;
-        vertices.add(new Vector3f(-1, t, 0).normalize());
-        vertices.add(new Vector3f(1, t, 0).normalize());
-        vertices.add(new Vector3f(-1, -t, 0).normalize());
-        vertices.add(new Vector3f(1, -t, 0).normalize());
-        vertices.add(new Vector3f(0, -1, t).normalize());
-        vertices.add(new Vector3f(0, 1, t).normalize());
-        vertices.add(new Vector3f(0, -1, -t).normalize());
-        vertices.add(new Vector3f(0, 1, -t).normalize());
-        vertices.add(new Vector3f(t, 0, -1).normalize());
-        vertices.add(new Vector3f(t, 0, 1).normalize());
-        vertices.add(new Vector3f(-t, 0, -1).normalize());
-        vertices.add(new Vector3f(-t, 0, 1).normalize());
-        int[] baseIndices = {0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1};
-        for (int i = 0; i < baseIndices.length; i++) indices.add(baseIndices[i]);
-        Map<Long, Integer> midpointCache = new HashMap<>();
-        for (int i = 0; i < subdivisions; i++) {
-            List<Integer> newIndices = new ArrayList<>();
-            for (int j = 0; j < indices.size(); j += 3) {
-                int i1 = indices.get(j);
-                int i2 = indices.get(j + 1);
-                int i3 = indices.get(j + 2);
-                int m12 = getMidpoint(i1, i2, vertices, midpointCache);
-                int m23 = getMidpoint(i2, i3, vertices, midpointCache);
-                int m31 = getMidpoint(i3, i1, vertices, midpointCache);
-                newIndices.add(i1);
-                newIndices.add(m12);
-                newIndices.add(m31);
-                newIndices.add(i2);
-                newIndices.add(m23);
-                newIndices.add(m12);
-                newIndices.add(i3);
-                newIndices.add(m31);
-                newIndices.add(m23);
-                newIndices.add(m12);
-                newIndices.add(m23);
-                newIndices.add(m31);
+        static {
+            List<Vector3f> vertices = new ArrayList<>();
+            List<Integer> indices = new ArrayList<>();
+            int subdivisions = 2;
+            float t = (1.0f + (float) Math.sqrt(5.0)) / 2.0f;
+
+            vertices.add(new Vector3f(-1, t, 0).normalize());
+            vertices.add(new Vector3f(1, t, 0).normalize());
+            vertices.add(new Vector3f(-1, -t, 0).normalize());
+            vertices.add(new Vector3f(1, -t, 0).normalize());
+            vertices.add(new Vector3f(0, -1, t).normalize());
+            vertices.add(new Vector3f(0, 1, t).normalize());
+            vertices.add(new Vector3f(0, -1, -t).normalize());
+            vertices.add(new Vector3f(0, 1, -t).normalize());
+            vertices.add(new Vector3f(t, 0, -1).normalize());
+            vertices.add(new Vector3f(t, 0, 1).normalize());
+            vertices.add(new Vector3f(-t, 0, -1).normalize());
+            vertices.add(new Vector3f(-t, 0, 1).normalize());
+
+            int[] baseIndices = {0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1};
+            for (int index : baseIndices) {
+                indices.add(index);
             }
-            indices = newIndices;
+
+            Map<Long, Integer> midpointCache = new HashMap<>();
+            for (int i = 0; i < subdivisions; i++) {
+                List<Integer> newIndices = new ArrayList<>();
+                for (int j = 0; j < indices.size(); j += 3) {
+                    int i1 = indices.get(j);
+                    int i2 = indices.get(j + 1);
+                    int i3 = indices.get(j + 2);
+                    int m12 = getMidpoint(i1, i2, vertices, midpointCache);
+                    int m23 = getMidpoint(i2, i3, vertices, midpointCache);
+                    int m31 = getMidpoint(i3, i1, vertices, midpointCache);
+                    newIndices.addAll(Arrays.asList(i1, m12, m31, i2, m23, m12, i3, m31, m23, m12, m23, m31));
+                }
+                indices = newIndices;
+            }
+            VERTICES = vertices;
+            INDICES = indices;
         }
-        ICOSPHERE_VERTICES = vertices;
-        ICOSPHERE_INDICES = indices;
+
+        private static int getMidpoint(int p1, int p2, List<Vector3f> vertices, Map<Long, Integer> cache) {
+            long smaller = Math.min(p1, p2);
+            long greater = Math.max(p1, p2);
+            long key = (smaller << 32) + greater;
+            return cache.computeIfAbsent(key, k -> {
+                Vector3f v1 = vertices.get(p1);
+                Vector3f v2 = vertices.get(p2);
+                Vector3f middle = new Vector3f((v1.x + v2.x) / 2f, (v1.y + v2.y) / 2f, (v1.z + v2.z) / 2f).normalize();
+                int index = vertices.size();
+                vertices.add(middle);
+                return index;
+            });
+        }
     }
 
-    private static int getMidpoint(int p1, int p2, List<Vector3f> vertices, Map<Long, Integer> cache) {
-        long smaller = Math.min(p1, p2);
-        long greater = Math.max(p1, p2);
-        long key = (smaller << 32) + greater;
-        if (cache.containsKey(key)) return cache.get(key);
-        Vector3f v1 = vertices.get(p1);
-        Vector3f v2 = vertices.get(p2);
-        Vector3f middle = new Vector3f((v1.x + v2.x) / 2f, (v1.y + v2.y) / 2f, (v1.z + v2.z) / 2f).normalize();
-        int index = vertices.size();
-        vertices.add(middle);
-        cache.put(key, index);
-        return index;
-    }
+
 
     public static void addTrail(Trail trail) {
         trails.add(trail);
@@ -118,29 +118,48 @@ public class TrailManager {
     }
 
     private static void renderTrail(Trail trail, Matrix4f positionMatrix, VertexConsumer buffer) {
-        List<Vec3d> originalPoints = trail.getPoints();
-        if (originalPoints.size() < 2) return;
+        if (trail.getAlpha() <= 0.01f) {
+            return;
+        }
+
+        List<Vec3d> points = subdividePoints(trail.getPoints());
+        if (points.size() < 2) {
+            return;
+        }
+
+        renderTrailBody(trail, points, positionMatrix, buffer);
+        renderTrailHead(trail, points, positionMatrix, buffer);
+    }
+
+    private static List<Vec3d> subdividePoints(List<Vec3d> originalPoints) {
+        if (originalPoints.size() < 2) {
+            return new ArrayList<>(originalPoints);
+        }
+
         List<Vec3d> points = new ArrayList<>();
         points.add(originalPoints.get(0));
-        float segmentLength = 0.075f;
+
         for (int i = 0; i < originalPoints.size() - 1; i++) {
             Vec3d start = originalPoints.get(i);
             Vec3d end = originalPoints.get(i + 1);
             double dist = start.distanceTo(end);
-            if (dist > segmentLength) {
-                int segments = (int) Math.ceil(dist / segmentLength);
-                for (int j = 1; j <= segments; j++) points.add(start.lerp(end, (double) j / segments));
+
+            if (dist > TRAIL_SEGMENT_LENGTH) {
+                int segments = (int) Math.ceil(dist / TRAIL_SEGMENT_LENGTH);
+                for (int j = 1; j <= segments; j++) {
+                    points.add(start.lerp(end, (double) j / segments));
+                }
             } else {
                 points.add(end);
             }
         }
-        if (points.size() < 2) return;
+        return points;
+    }
 
-        float alpha = trail.getAlpha();
-        if (alpha <= 0.01f) return;
-
-        int sides = 6;
+    private static void renderTrailBody(Trail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
         List<List<Vec3d>> ringVertices = new ArrayList<>();
+        float alpha = trail.getAlpha();
+
         for (int i = 0; i < points.size(); i++) {
             float segmentProgress = (float) i / (points.size() - 1);
             float radius = trail.getWidth(segmentProgress) / 2.0f;
@@ -158,11 +177,11 @@ public class TrailManager {
             if (side.lengthSquared() < 1e-6) {
                 side = direction.crossProduct(new Vec3d(1, 0, 0)).normalize();
             }
-            Vec3d up = direction.crossProduct(side).normalize();
+            Vec3d up = side.crossProduct(direction).normalize();
 
             List<Vec3d> currentRing = new ArrayList<>();
-            for (int j = 0; j < sides; j++) {
-                double angle = (double) j / sides * 2.0 * Math.PI;
+            for (int j = 0; j < TRAIL_SIDES; j++) {
+                double angle = (double) j / TRAIL_SIDES * 2.0 * Math.PI;
                 Vec3d offset = side.multiply(Math.cos(angle)).add(up.multiply(Math.sin(angle))).multiply(radius);
                 currentRing.add(currentPoint.add(offset));
             }
@@ -173,8 +192,8 @@ public class TrailManager {
             List<Vec3d> prevRing = ringVertices.get(i);
             List<Vec3d> currentRing = ringVertices.get(i + 1);
 
-            for (int j = 0; j < sides; j++) {
-                int next_j = (j + 1) % sides;
+            for (int j = 0; j < TRAIL_SIDES; j++) {
+                int next_j = (j + 1) % TRAIL_SIDES;
                 Vec3d v1 = prevRing.get(j);
                 Vec3d v2 = currentRing.get(j);
                 Vec3d v3 = currentRing.get(next_j);
@@ -189,23 +208,46 @@ public class TrailManager {
                 buffer.vertex(positionMatrix, (float) v1.x, (float) v1.y, (float) v1.z).color(trail.color.x(), trail.color.y(), trail.color.z(), alpha);
             }
         }
+    }
 
+    private static void renderTrailHead(Trail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
         Vec3d headCenter = points.get(points.size() - 1);
-        float headRadius = (trail.getWidth(1.0f) / 2.0f) * 1.0f;
-        if (headRadius < 0.01f) return;
+        float headRadius = trail.getWidth(1.0f) / 2.0f;
+        if (headRadius < 0.01f) {
+            return;
+        }
 
-        for (int i = 0; i < ICOSPHERE_INDICES.size(); i += 3) {
-            Vector3f v1 = ICOSPHERE_VERTICES.get(ICOSPHERE_INDICES.get(i));
-            Vector3f v2 = ICOSPHERE_VERTICES.get(ICOSPHERE_INDICES.get(i + 1));
-            Vector3f v3 = ICOSPHERE_VERTICES.get(ICOSPHERE_INDICES.get(i + 2));
+        float alpha = trail.getAlpha();
+        Vector3f color = trail.color;
 
-            buffer.vertex(positionMatrix, (float) (headCenter.x + v1.x * headRadius), (float) (headCenter.y + v1.y * headRadius), (float) (headCenter.z + v1.z * headRadius)).color(trail.color.x(), trail.color.y(), trail.color.z(), alpha);
-            buffer.vertex(positionMatrix, (float) (headCenter.x + v2.x * headRadius), (float) (headCenter.y + v2.y * headRadius), (float) (headCenter.z + v2.z * headRadius)).color(trail.color.x(), trail.color.y(), trail.color.z(), alpha);
-            buffer.vertex(positionMatrix, (float) (headCenter.x + v3.x * headRadius), (float) (headCenter.y + v3.y * headRadius), (float) (headCenter.z + v3.z * headRadius)).color(trail.color.x(), trail.color.y(), trail.color.z(), alpha);
+        for (int i = 0; i < Icosphere.INDICES.size(); i += 3) {
+            Vector3f v1 = Icosphere.VERTICES.get(Icosphere.INDICES.get(i));
+            Vector3f v2 = Icosphere.VERTICES.get(Icosphere.INDICES.get(i + 1));
+            Vector3f v3 = Icosphere.VERTICES.get(Icosphere.INDICES.get(i + 2));
+
+            buffer.vertex(positionMatrix, (float) (headCenter.x + v1.x * headRadius), (float) (headCenter.y + v1.y * headRadius), (float) (headCenter.z + v1.z * headRadius)).color(color.x(), color.y(), color.z(), alpha);
+            buffer.vertex(positionMatrix, (float) (headCenter.x + v2.x * headRadius), (float) (headCenter.y + v2.y * headRadius), (float) (headCenter.z + v2.z * headRadius)).color(color.x(), color.y(), color.z(), alpha);
+            buffer.vertex(positionMatrix, (float) (headCenter.x + v3.x * headRadius), (float) (headCenter.y + v3.y * headRadius), (float) (headCenter.z + v3.z * headRadius)).color(color.x(), color.y(), color.z(), alpha);
         }
     }
 
     public static class Trail {
+
+        private static final double MIN_RADIUS = 1.1;
+        private static final double MAX_RADIUS = 1.9;
+        private static final double MIN_ANGLE_VELOCITY = 0.1;
+        private static final double MAX_ANGLE_VELOCITY = 0.2;
+        private static final double VERTICAL_DRIFT_FACTOR = 0.05;
+        private static final double RADIUS_SHRINK_RATE = -0.02;
+        private static final double MIN_ORBIT_RADIUS = 0.3;
+        private static final double MIN_OSCILLATION_FREQUENCY = 0.3;
+        private static final double MAX_OSCILLATION_FREQUENCY = 0.5;
+        private static final double MIN_OSCILLATION_AMPLITUDE = 0.1;
+        private static final double MAX_OSCILLATION_AMPLITUDE = 0.2;
+        private static final double ATTRACTION_STRENGTH = 0.15;
+        private static final float FADE_IN_TICKS = 5.0f;
+        private static final int FADE_OUT_SIZE_THRESHOLD = 20;
+        private static final int SHRINK_RATE_ON_DEATH = 2;
 
         private final List<Vec3d> points = new LinkedList<>();
         public final Vector3f color;
@@ -237,44 +279,37 @@ public class TrailManager {
             this.baseWidth = baseWidth;
             this.lifetime = lifetime;
             this.maxLength = maxLength;
-
             this.centerPoint = anchor.getPos().add(this.anchorOffset);
 
             Random random = new Random();
-            this.radius = 1.1 + random.nextDouble() * 0.8;
+            this.radius = random.nextDouble(MIN_RADIUS, MAX_RADIUS);
             this.angle = random.nextDouble() * Math.PI * 2;
-            this.angleVelocity = (random.nextBoolean() ? 1 : -1) * (0.1 + random.nextDouble() * 0.1);
-            this.verticalDrift = (random.nextDouble() - 0.5) * 0.05;
-            this.radiusChange = -0.02;
-
-            this.oscillationFrequency = 0.3 + random.nextDouble() * 0.2;
-            this.oscillationAmplitude = 0.1 + random.nextDouble() * 0.1;
+            this.angleVelocity = (random.nextBoolean() ? 1 : -1) * random.nextDouble(MIN_ANGLE_VELOCITY, MAX_ANGLE_VELOCITY);
+            this.verticalDrift = (random.nextDouble() - 0.5) * VERTICAL_DRIFT_FACTOR * 2;
+            this.radiusChange = RADIUS_SHRINK_RATE;
+            this.oscillationFrequency = random.nextDouble(MIN_OSCILLATION_FREQUENCY, MAX_OSCILLATION_FREQUENCY);
+            this.oscillationAmplitude = random.nextDouble(MIN_OSCILLATION_AMPLITUDE, MAX_OSCILLATION_AMPLITUDE);
             this.oscillationAxis = new Vec3d(random.nextDouble() - 0.5, random.nextDouble() - 0.5, random.nextDouble() - 0.5).normalize();
+        }
+
+        public void kill() {
+            this.age = this.lifetime;
         }
 
         public void tick() {
             age++;
-
             boolean isAliveAndActive = anchorEntity != null && anchorEntity.isAlive() && age < lifetime;
 
-            Vec3d targetPoint;
-            if (anchorEntity != null && anchorEntity.isAlive()) {
-                targetPoint = anchorEntity.getPos().add(this.anchorOffset);
-            } else {
-                targetPoint = this.centerPoint;
-            }
-
-            double attractionStrength = 0.15;
-            this.centerPoint = this.centerPoint.lerp(targetPoint, attractionStrength);
+            Vec3d targetPoint = (anchorEntity != null && anchorEntity.isAlive()) ? anchorEntity.getPos().add(this.anchorOffset) : this.centerPoint;
+            this.centerPoint = this.centerPoint.lerp(targetPoint, ATTRACTION_STRENGTH);
 
             angle += angleVelocity;
             radius += radiusChange;
-            radius = Math.max(0.3, radius);
+            radius = Math.max(MIN_ORBIT_RADIUS, radius);
 
             double x = centerPoint.x + Math.cos(angle) * radius;
             double z = centerPoint.z + Math.sin(angle) * radius;
             double y = centerPoint.y + (age * verticalDrift);
-
             Vec3d orbitalPosition = new Vec3d(x, y, z);
 
             oscillationAngle += oscillationFrequency;
@@ -288,10 +323,7 @@ public class TrailManager {
                     points.remove(0);
                 }
             } else {
-                if (!points.isEmpty()) {
-                    points.remove(0);
-                }
-                if (!points.isEmpty()) {
+                for (int i = 0; i < SHRINK_RATE_ON_DEATH && !points.isEmpty(); i++) {
                     points.remove(0);
                 }
             }
@@ -306,20 +338,16 @@ public class TrailManager {
         }
 
         public float getWidth(float segmentProgress) {
-            return baseWidth * MathHelper.sin(segmentProgress * ((float)Math.PI / 2.0f));
+            return baseWidth * MathHelper.sin(segmentProgress * ((float) Math.PI / 2.0f));
         }
 
         public float getAlpha() {
-            float alpha = Math.min(1.0f, (float) age / 5.0f);
+            float alpha = Math.min(1.0f, age / FADE_IN_TICKS);
 
-            boolean isShortening = (anchorEntity != null && !anchorEntity.isAlive()) || age >= lifetime;
-
-            if (isShortening) {
-                final int FADE_OUT_SIZE_THRESHOLD = 20;
-                if (points.size() < FADE_OUT_SIZE_THRESHOLD) {
-                    float lengthBasedFade = (float) points.size() / (float) FADE_OUT_SIZE_THRESHOLD;
-                    alpha = Math.min(alpha, lengthBasedFade);
-                }
+            boolean isShortening = (anchorEntity == null || !anchorEntity.isAlive()) || age >= lifetime;
+            if (isShortening && points.size() < FADE_OUT_SIZE_THRESHOLD) {
+                float lengthBasedFade = (float) points.size() / FADE_OUT_SIZE_THRESHOLD;
+                alpha = Math.min(alpha, lengthBasedFade);
             }
 
             return MathHelper.clamp(alpha, 0.0f, 1.0f);

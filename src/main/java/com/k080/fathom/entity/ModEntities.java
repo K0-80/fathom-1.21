@@ -2,6 +2,7 @@ package com.k080.fathom.entity;
 
 import com.k080.fathom.Fathom;
 import com.k080.fathom.block.ModBlocks;
+import com.k080.fathom.entity.client.ShockwaveBlockEntity;
 import com.k080.fathom.entity.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -51,6 +52,13 @@ public class ModEntities {
             Identifier.of(Fathom.MOD_ID, "creaking_eye"),
             EntityType.Builder.create(CreakingEyeEntity::new, SpawnGroup.MISC)
                     .dimensions(1.5f, 1.5f).maxTrackingRange(8).trackingTickInterval(2).build());
+
+
+    public static final EntityType<ShockwaveBlockEntity> SHOCKWAVE_BLOCK = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Fathom.MOD_ID, "shockwave_block"),
+            EntityType.Builder.create(ShockwaveBlockEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.1f, 0.1f).disableSaving().makeFireImmune().build()
+    );
 
     public static void registerModEntities() {
         Fathom.LOGGER.info("Registering Entity's for " + Fathom.MOD_ID);
