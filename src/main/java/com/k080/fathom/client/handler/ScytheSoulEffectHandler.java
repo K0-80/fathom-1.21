@@ -1,11 +1,9 @@
 package com.k080.fathom.client.handler;
 
-import com.k080.fathom.client.rendering.Trail;
-import com.k080.fathom.client.rendering.TrailManager;
+import com.k080.fathom.client.renderer.TrailManager;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.item.custom.ScytheItem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -36,16 +34,16 @@ public class ScytheSoulEffectHandler {
         float spawnChance = souls / 45f;
 
         if (random.nextFloat() < spawnChance) {
-            TrailManager.addTrail(createSoulTrail((ClientPlayerEntity) player));
+            TrailManager.addTrail(createSoulTrail(player));
         }
     }
 
-    private static Trail createSoulTrail(ClientPlayerEntity player) {
+    private static TrailManager.Trail createSoulTrail(PlayerEntity player) {
         Vector3f color = new Vector3f(0.6f, 0.0f, 0.1f);
         double offsetX = (random.nextDouble() - 0.5) * player.getWidth();
         double offsetY = random.nextDouble() * player.getHeight() * 0.9;
         double offsetZ = (random.nextDouble() - 0.5) * player.getWidth();
         Vec3d randomOffset = new Vec3d(offsetX, offsetY, offsetZ);
-        return new Trail(player, randomOffset, color, 0.12f, 35, 10);
-    }
+        return new TrailManager.Trail(player, randomOffset, color, 0.12f, 35, 10);
+    }//35
 }

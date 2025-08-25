@@ -5,8 +5,7 @@ import com.k080.fathom.block.ModBlocks;
 import com.k080.fathom.client.handler.ScytheSoulEffectHandler;
 import com.k080.fathom.client.hud.CreakingStaffHud;
 import com.k080.fathom.client.hud.SoulJarHud;
-import com.k080.fathom.client.rendering.Trail;
-import com.k080.fathom.client.rendering.TrailManager;
+import com.k080.fathom.client.renderer.TrailManager;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.client.*;
@@ -20,21 +19,18 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import org.joml.Vector3f;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,12 +43,12 @@ public class FathomModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+
         WorldRenderEvents.AFTER_ENTITIES.register(TrailManager::render);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             TrailManager.tick();
-            ScytheSoulEffectHandler.tick(client); // Call the new handler
+            ScytheSoulEffectHandler.tick(client);
         });
-
 
         ModModelPredicateProvider.registerModModels();
 

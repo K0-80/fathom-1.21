@@ -1,8 +1,13 @@
-package com.k080.fathom.client.rendering;
+package com.k080.fathom.client.renderer;
 
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.function.Function;
 
 public class FathomRenderLayers extends RenderLayer {
 
@@ -10,6 +15,7 @@ public class FathomRenderLayers extends RenderLayer {
         super(name, vertexFormat, drawMode, expectedBufferSize, hasCrumbling, translucent, startAction, endAction);
     }
 
+    //trial particle
     private static final RenderLayer TRAIL = RenderLayer.of("fathom_trail",
             VertexFormats.POSITION_COLOR,
             VertexFormat.DrawMode.TRIANGLES,
@@ -24,8 +30,8 @@ public class FathomRenderLayers extends RenderLayer {
                     .layering(POLYGON_OFFSET_LAYERING)
                     .build(false)
     );
-
     public static RenderLayer getTrailLayer() {
         return TRAIL;
     }
+
 }

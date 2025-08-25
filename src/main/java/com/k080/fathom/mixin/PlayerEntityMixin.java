@@ -23,7 +23,6 @@ public class PlayerEntityMixin {
             for (int i = 0; i < killerInventory.size(); i++) {
                 ItemStack stack = killerInventory.getStack(i);
                 if (stack.isOf(ModItems.SHATTERED_TOTEM)) {
-                    // Found a shattered totem, repair it and stop searching.
                     ShatteredTotemItem.repairTotem(killer, i);
                     break;
                 }

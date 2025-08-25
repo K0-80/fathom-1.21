@@ -26,20 +26,16 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
+import net.minecraft.util.*;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
-public class ScytheItem extends SwordItem {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("fathom");
+public class ScytheItem extends SwordItem  {
+
 
     public ScytheItem(ToolMaterial toolMaterial, Settings settings) {
         super(toolMaterial, settings);

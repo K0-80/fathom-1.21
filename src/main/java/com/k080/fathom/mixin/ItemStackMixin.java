@@ -22,7 +22,6 @@ public abstract class ItemStackMixin {
         ModComponents.MendingTarget component = self.get(ModComponents.MENDING_TARGET);
 
         if (component != null) {
-            // Remove component if repair is done or item is fully repaired
             if (component.remainingRepair() <= 0 || !self.isDamaged()) {
                 self.remove(ModComponents.MENDING_TARGET);
                 return;
@@ -32,19 +31,14 @@ public abstract class ItemStackMixin {
             long lastUpdateTime = component.lastUpdateTick();
             long ticksSinceLastUpdate = currentTime - lastUpdateTime;
 
-            // Check if at least one second (20 ticks) has passed
             if (ticksSinceLastUpdate >= 20) {
-                // Calculate how many 1-second repair cycles have passed.
                 long repairCycles = ticksSinceLastUpdate / 20;
 
-                // Determine the actual amount to repair. It can't be more than what's needed or what's available.
                 int repairAmount = (int) Math.min(repairCycles, Math.min(component.remainingRepair(), self.getDamage()));
 
                 if (repairAmount > 0) {
-                    // Apply the repair
                     self.setDamage(self.getDamage() - repairAmount);
 
-                    // Update the component with new values
                     int newRemainingRepair = component.remainingRepair() - repairAmount;
                     long newLastUpdateTick = lastUpdateTime + (repairCycles * 20);
                     self.set(ModComponents.MENDING_TARGET, new ModComponents.MendingTarget(newRemainingRepair, newLastUpdateTick));

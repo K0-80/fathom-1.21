@@ -18,16 +18,14 @@ public abstract class PlayerEntityDamageMixin {
     private void fathom_onDamageLoseShard(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         if (source.getAttacker() != null && !player.getWorld().isClient()) {
-            // Check offhand first
             if (callOnDamaged(player.getOffHandStack(), player)) {
-                return; // A shard was lost from the offhand, so we're done.
+                return;
             }
 
-            // If no shard was lost from offhand, check the main hotbar
             PlayerInventory inventory = player.getInventory();
-            for (int i = 0; i < 9; i++) { // Iterate through hotbar slots 0-8
+            for (int i = 0; i < 9; i++) {
                 if (callOnDamaged(inventory.getStack(i), player)) {
-                    break; // A shard was lost, stop checking the rest of the hotbar.
+                    break;
                 }
             }
         }
