@@ -25,9 +25,9 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     private static final TrackedData<Boolean> IS_RETURNING = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> IS_STUCK = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-    private static final TrackedData<Integer> MAELSTROM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> MOMENTUM_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> RESONANCE_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> HEAVE_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> UNDERTOW_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> CRUSHING_DEPTH_LEVEL = DataTracker.registerData(AnchorProjectileEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     private static final ItemStack DEFAULT_STACK = new ItemStack(ModItems.ANCHOR);
     private static final double GRAVITY = 0.02D;  //0.03D old
@@ -51,9 +51,9 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         super.initDataTracker(builder);
         builder.add(IS_RETURNING, false);
         builder.add(IS_STUCK, false);
-        builder.add(MAELSTROM_LEVEL, 0);
-        builder.add(MOMENTUM_LEVEL, 0);
-        builder.add(RESONANCE_LEVEL, 0);
+        builder.add(HEAVE_LEVEL, 0);
+        builder.add(UNDERTOW_LEVEL, 0);
+        builder.add(CRUSHING_DEPTH_LEVEL, 0);
     }
 
     public boolean isReturning() { return this.getDataTracker().get(IS_RETURNING); }
@@ -62,12 +62,12 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     public boolean isStuck() { return this.getDataTracker().get(IS_STUCK); }
     public void setStuck(boolean stuck) { this.getDataTracker().set(IS_STUCK, stuck); }
 
-    public void setMaelstromLevel(int level) { this.getDataTracker().set(MAELSTROM_LEVEL, level); }
-    public void setMomentumLevel(int level) { this.getDataTracker().set(MOMENTUM_LEVEL, level); }
-    public void setResonanceLevel(int level) { this.getDataTracker().set(RESONANCE_LEVEL, level); }
-    public int getMaelstromLevel() { return this.getDataTracker().get(MAELSTROM_LEVEL); }
-    public int getMomentumLevel() { return this.getDataTracker().get(MOMENTUM_LEVEL); }
-    public int getResonanceLevel() { return this.getDataTracker().get(RESONANCE_LEVEL); }
+    public void setHeaveLevel(int level) { this.getDataTracker().set(HEAVE_LEVEL, level); }
+    public void setUndertowLevel(int level) { this.getDataTracker().set(UNDERTOW_LEVEL, level); }
+    public void setCrushingDepthLevel(int level) { this.getDataTracker().set(CRUSHING_DEPTH_LEVEL, level); }
+    public int getHeaveLevel() { return this.getDataTracker().get(HEAVE_LEVEL); }
+    public int getUndertowLevel() { return this.getDataTracker().get(UNDERTOW_LEVEL); }
+    public int getCrushingDepthLevel() { return this.getDataTracker().get(CRUSHING_DEPTH_LEVEL); }
 
     @Override
     public void tick() {
@@ -172,11 +172,22 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
 
     private void playImpactSounds() {
+        Entity owner = this.getOwner();
+        if (owner instanceof PlayerEntity player && !this.getWorld().isClient()) {
+            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.4f, 0.5f);
+            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.8f, 0.7f);
+        }
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
     }
 
     private void playEntityHitSounds() {
+        Entity owner = this.getOwner();
+        if (owner instanceof PlayerEntity player && !this.getWorld().isClient()) {
+            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
+            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
+            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
+        }
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);

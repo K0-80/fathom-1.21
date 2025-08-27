@@ -76,9 +76,9 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
         // Anchor Item & Enchantments
         translationBuilder.add("item.fathom.anchor", "Fathom");
-        translationBuilder.add("enchantment.fathom.maelstrom", "Maelstrom");
-        translationBuilder.add("enchantment.fathom.resonance", "Resonance");
-        translationBuilder.add("enchantment.fathom.momentum", "Momentum");
+        translationBuilder.add("enchantment.fathom.heave", "Heave");
+        translationBuilder.add("enchantment.fathom.crushing_depth", "Crushing Depth");
+        translationBuilder.add("enchantment.fathom.undertow", "Undertow");
 
         // Wind Blade Item & Enchantments
         translationBuilder.add("item.fathom.wind_blade", "Zephyr");

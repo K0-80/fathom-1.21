@@ -11,12 +11,12 @@ import net.minecraft.registry.Registerable;
 
 public class ModEnchantments {
 
-    public static final RegistryKey<Enchantment> MAELSTROM =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "maelstrom"));
-    public static final RegistryKey<Enchantment> MOMENTUM =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "momentum"));
-    public static final RegistryKey<Enchantment> RESONANCE =
-            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "resonance"));
+    public static final RegistryKey<Enchantment> HEAVE =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "heave"));
+    public static final RegistryKey<Enchantment> UNDERTOW =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "undertow"));
+    public static final RegistryKey<Enchantment> CRUSHING_DEPTH =
+            RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "crushing_depth"));
 
     public static final RegistryKey<Enchantment> ALACRITY =
             RegistryKey.of(RegistryKeys.ENCHANTMENT, Identifier.of(Fathom.MOD_ID, "alacrity"));
@@ -44,26 +44,26 @@ public class ModEnchantments {
         var items = registerable.getRegistryLookup(RegistryKeys.ITEM);
 
         // --- Anchor Enchantments ---
-        register(registerable, MAELSTROM, Enchantment.builder(Enchantment.definition(
+        register(registerable, HEAVE, Enchantment.builder(Enchantment.definition(
                         items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
-                        2, // pretty rare
-                        1, // rare on books
+                        2,
+                        5,
                         Enchantment.leveledCost(15, 9),
                         Enchantment.leveledCost(45, 9),
                         4,
                         AttributeModifierSlot.HAND))
                 .exclusiveSet(enchantments.getOrThrow(ModTags.Enchantments.ANCHOR_EXCLUSIVE))
         );
-        register(registerable, MOMENTUM, Enchantment.builder(Enchantment.definition(
+        register(registerable, CRUSHING_DEPTH, Enchantment.builder(Enchantment.definition(
                 items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
-                8, // average/common
-                5,
+                6,
+                3,
                 Enchantment.leveledCost(1, 10),
                 Enchantment.leveledCost(21, 10),
                 2,
                 AttributeModifierSlot.HAND))
         );
-        register(registerable, RESONANCE, Enchantment.builder(Enchantment.definition(
+        register(registerable, UNDERTOW, Enchantment.builder(Enchantment.definition(
                         items.getOrThrow(ModTags.Items.ANCHOR_ENCHANTBLE),
                         2, // pretty rare
                         1, // rare on books

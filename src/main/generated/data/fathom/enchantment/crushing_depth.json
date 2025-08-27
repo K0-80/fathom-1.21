@@ -1,13 +1,13 @@
 {
   "anvil_cost": 2,
   "description": {
-    "translate": "enchantment.fathom.momentum"
+    "translate": "enchantment.fathom.crushing_depth"
   },
   "max_cost": {
     "base": 21,
     "per_level_above_first": 10
   },
-  "max_level": 5,
+  "max_level": 3,
   "min_cost": {
     "base": 1,
     "per_level_above_first": 10
@@ -16,5 +16,5 @@
     "hand"
   ],
   "supported_items": "#fathom:anchor_enchantble",
-  "weight": 8
+  "weight": 6
 }

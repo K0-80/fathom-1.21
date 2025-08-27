@@ -1,14 +1,14 @@
 {
   "anvil_cost": 4,
   "description": {
-    "translate": "enchantment.fathom.resonance"
+    "translate": "enchantment.fathom.heave"
   },
   "exclusive_set": "#fathom:anchor_exclusive",
   "max_cost": {
     "base": 45,
     "per_level_above_first": 9
   },
-  "max_level": 1,
+  "max_level": 5,
   "min_cost": {
     "base": 15,
     "per_level_above_first": 9

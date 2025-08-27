@@ -22,9 +22,9 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,27 +55,58 @@ public class AnchorItem extends ToolItem {
         ItemStack itemStack = user.getStackInHand(hand);
 
         if (world instanceof ServerWorld serverWorld) {
-            if (itemStack.contains(ModComponents.THROWN_ANCHOR_UUID)) { // Return
-                Objects.requireNonNull(itemStack.get(ModComponents.THROWN_ANCHOR_UUID)).ifPresent(projectileUuid -> {
-                    if (serverWorld.getEntity(projectileUuid) instanceof AnchorProjectileEntity anchorProjectile && anchorProjectile.isAlive()) {
-                        if (!anchorProjectile.isReturning()) {
+            Optional<UUID> projectileUuidOpt = itemStack.get(ModComponents.THROWN_ANCHOR_UUID);
+
+            if (projectileUuidOpt != null && projectileUuidOpt.isPresent()) { //whle anchor exists
+                Entity entity = serverWorld.getEntity(projectileUuidOpt.get());
+
+                if (entity instanceof AnchorProjectileEntity anchorProjectile && anchorProjectile.isAlive()) {
+                    if (!anchorProjectile.isReturning()) {
+                        int heaveLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.HEAVE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+
+                        if (heaveLevel > 0 && !anchorProjectile.isFlying()) { //heave enchant
+//                            Vec3d anchorPos = anchorProjectile.getPos();
+//                            Vec3d playerPos = user.getPos();
+//                            Vec3d direction = anchorPos.subtract(playerPos);
+//
+//                            if (direction.lengthSquared() > 0.01) {
+//                                double maxSpeed = 3.5;
+//                                double speed = Math.min(maxSpeed, 1 + (heaveLevel * 0.25));
+//                                Vec3d velocity = direction.normalize().multiply(speed);
+//
+//                                user.setVelocity(velocity);
+//                                user.velocityModified = true;
+//                            }
+//                            user.fallDistance = 0.0f;
+//
+//                            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_RIPTIDE_3, SoundCategory.PLAYERS, 1.5f, 0.6f + (heaveLevel * 0.1f));
+//                            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_BREAK, SoundCategory.PLAYERS, 2.0f, 0.8f);
+//
+//                            anchorProjectile.discard();
+//                            itemStack.remove(ModComponents.THROWN_ANCHOR_UUID);
+//                            itemStack.damage(1, user, LivingEntity.getSlotForHand(hand));
+
+                        } else { //return
                             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, SoundCategory.PLAYERS, 1f, 0.5f);
                             anchorProjectile.startReturning();
                         }
                     }
-                });
+                } else {
+                    itemStack.remove(ModComponents.THROWN_ANCHOR_UUID);
+                }
+
             } else { // Throw
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.8f, 0.6f);
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
 
                 AnchorProjectileEntity anchorProjectile = new AnchorProjectileEntity(ModEntities.ANCHOR_PROJECTILE, world);
 
-                int maelstromLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MAELSTROM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-                anchorProjectile.setMaelstromLevel(maelstromLevel);
-                int momentumLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MOMENTUM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-                anchorProjectile.setMomentumLevel(momentumLevel);
-                int resonanceLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.RESONANCE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-                anchorProjectile.setResonanceLevel(resonanceLevel);
+                int heaveLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.HEAVE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setHeaveLevel(heaveLevel);
+                int undertowLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.UNDERTOW).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setUndertowLevel(undertowLevel);
+                int crushingDepthLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.CRUSHING_DEPTH).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setCrushingDepthLevel(crushingDepthLevel);
 
                 anchorProjectile.setOwner(user);
                 anchorProjectile.setPosition(user.getEyePos().getX(), user.getEyePos().getY() - 0.5, user.getEyePos().getZ());

@@ -254,10 +254,6 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
 
     @Override
     public boolean shouldRender(AnchorProjectileEntity entity, Frustum frustum, double x, double y, double z) {
-        if (x * x + y * y + z * z > 128.0 * 128.0) {
-            return false;
-        } else {
-            return true;
-        }
+        return entity.squaredDistanceTo(x, y, z) <= 64.0 * 64.0;
     }
 }

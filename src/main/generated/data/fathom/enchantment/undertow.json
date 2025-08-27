@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "translate": "enchantment.fathom.maelstrom"
+    "translate": "enchantment.fathom.undertow"
   },
   "exclusive_set": "#fathom:anchor_exclusive",
   "max_cost": {
