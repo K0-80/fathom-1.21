@@ -1,5 +1,9 @@
 
-
+ANCHOR CHANGES:
+custom charge animation
+rework all enchants
+custom *cooldown* system only allow 1 anchor at a time
+render custom chain bwteen anchor and user
 
 
 DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them! (i will never make this caz lazy)

@@ -58,7 +58,6 @@ public class AmethystShardProjectileEntityRenderer extends EntityRenderer<Amethy
 
     @Override
     public Identifier getTexture(AmethystShardProjectileEntity entity) {
-        // Since we are rendering a model, this should point to the atlas that contains the item texture
         return net.minecraft.client.texture.SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
     }
 }

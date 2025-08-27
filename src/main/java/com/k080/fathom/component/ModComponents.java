@@ -4,33 +4,36 @@ import com.k080.fathom.Fathom;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.ComponentType;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.Uuids;
+import net.minecraft.util.dynamic.Codecs;
 
-import java.util.Set;
-import java.util.UUID;
-
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.function.UnaryOperator;
 
 public class ModComponents {
+
+    //anchor
+    public static final ComponentType<Optional<UUID>> THROWN_ANCHOR_UUID = register("thrown_anchor_uuid", builder -> builder
+            .codec(Codecs.optional(Uuids.CODEC))
+            .packetCodec(PacketCodecs.optional(Uuids.PACKET_CODEC))
+    );
 
     //hex
     public static final ComponentType<Integer> SOULS =
             register("souls", builder -> builder.codec(Codec.INT));
 
 
-//mirrage
-public static final ComponentType<Integer> SHARDS =
-        register("shards", builder -> builder.codec(Codec.INT));
+    //mirrage
+    public static final ComponentType<Integer> SHARDS =
+            register("shards", builder -> builder.codec(Codec.INT));
 
-//twilight
-public static final ComponentType<Integer> UMBRA_CHARGE  =
-        register("umbra_charge", builder -> builder.codec(Codec.INT));
+    //twilight
+    public static final ComponentType<Integer> UMBRA_CHARGE  =
+            register("umbra_charge", builder -> builder.codec(Codec.INT));
     public static final ComponentType<Integer> LUX_CHARGE  =
             register("lux_charge", builder -> builder.codec(Codec.INT));
 
@@ -46,7 +49,7 @@ public static final ComponentType<Integer> UMBRA_CHARGE  =
                     .packetCodec(Identifier.PACKET_CODEC));
 
 
-//dna sample
+    //dna sample
     public record SampledPlayerData(UUID uuid, String name) {
         public static final Codec<SampledPlayerData> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(
@@ -60,7 +63,6 @@ public static final ComponentType<Integer> UMBRA_CHARGE  =
                     .codec(SampledPlayerData.CODEC)
                     .packetCodec(PacketCodecs.codec(SampledPlayerData.CODEC)));
 
-
     // shatterded totem
     public static final ComponentType<Integer> REPAIR_TIME = register("repair_time",
             builder -> builder.codec(Codec.INT).packetCodec(PacketCodecs.VAR_INT)
@@ -68,13 +70,13 @@ public static final ComponentType<Integer> UMBRA_CHARGE  =
 
     //mending slate
     public record MendingTarget(int remainingRepair, long lastUpdateTick) {
-    public static final Codec<MendingTarget> CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(
-                    Codec.INT.fieldOf("remaining_repair").forGetter(MendingTarget::remainingRepair),
-                    Codec.LONG.fieldOf("last_update_tick").forGetter(MendingTarget::lastUpdateTick)
-            ).apply(instance, MendingTarget::new)
-    );
-}
+        public static final Codec<MendingTarget> CODEC = RecordCodecBuilder.create(instance ->
+                instance.group(
+                        Codec.INT.fieldOf("remaining_repair").forGetter(MendingTarget::remainingRepair),
+                        Codec.LONG.fieldOf("last_update_tick").forGetter(MendingTarget::lastUpdateTick)
+                ).apply(instance, MendingTarget::new)
+        );
+    }
     public static final ComponentType<MendingTarget> MENDING_TARGET = register("mending_target", builder -> builder
             .codec(MendingTarget.CODEC)
             .packetCodec(PacketCodecs.codec(MendingTarget.CODEC))

@@ -1,11 +1,11 @@
 package com.k080.fathom.item.custom;
 
+import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.enchantment.ModEnchantments;
 import com.k080.fathom.entity.ModEntities;
 import com.k080.fathom.entity.custom.AnchorProjectileEntity;
 import com.k080.fathom.item.ModToolMaterials;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -21,16 +21,22 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+
 public class AnchorItem extends ToolItem {
+
     public AnchorItem(ModToolMaterials anchor, Settings settings) {
         super(ModToolMaterials.ANCHOR, settings);
     }
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 0));
+        target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 10, 0));
         World world = target.getWorld();
 
         world.playSound(null, target.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.1f, 0.6f);
@@ -44,39 +50,80 @@ public class AnchorItem extends ToolItem {
         return super.postHit(stack, target, attacker);
     }
 
-
-
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
 
-        if (!world.isClient) {
+        if (world instanceof ServerWorld serverWorld) {
+            Optional<UUID> projectileUuidOpt = itemStack.get(ModComponents.THROWN_ANCHOR_UUID);
 
-            AnchorProjectileEntity anchorProjectile = new AnchorProjectileEntity(ModEntities.ANCHOR_PROJECTILE, world);
+            if (projectileUuidOpt != null && projectileUuidOpt.isPresent()) { //return
+                UUID projectileUuid = projectileUuidOpt.get();
+                if (serverWorld.getEntity(projectileUuid) instanceof AnchorProjectileEntity anchorProjectile && anchorProjectile.isAlive()) {
+                    if (!anchorProjectile.isReturning()) {
+                        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, SoundCategory.PLAYERS, 1f, 0.5f);
+                        anchorProjectile.startReturning();
+                    }
+                }
+//                itemStack.remove(ModComponents.THROWN_ANCHOR_UUID); in inv tick
+            } else { //throw
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.8f, 0.6f);
+                world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
 
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.9f, 0.8f);
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 0.7f);
+                AnchorProjectileEntity anchorProjectile = new AnchorProjectileEntity(ModEntities.ANCHOR_PROJECTILE, world);
 
-            int maelstromLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MAELSTROM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-            anchorProjectile.setMaelstromLevel(maelstromLevel);
-            int momentumLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MOMENTUM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-            anchorProjectile.setMomentumLevel(momentumLevel);
-            int resonanceLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.RESONANCE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
-            anchorProjectile.setResonanceLevel(resonanceLevel);
+                int maelstromLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MAELSTROM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setMaelstromLevel(maelstromLevel);
+                int momentumLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.MOMENTUM).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setMomentumLevel(momentumLevel);
+                int resonanceLevel = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getEntry(ModEnchantments.RESONANCE).map(entry -> EnchantmentHelper.getLevel(entry, itemStack)).orElse(0);
+                anchorProjectile.setResonanceLevel(resonanceLevel);
 
-            anchorProjectile.setOwner(user);
-            anchorProjectile.setPosition(user.getEyePos().getX(), user.getEyePos().getY() - 0.5, user.getEyePos().getZ());
-            float speed = 2F + (momentumLevel * 0.3F);
-            anchorProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, speed, 1.0F);
+                anchorProjectile.setOwner(user);
+                anchorProjectile.setPosition(user.getEyePos().getX(), user.getEyePos().getY() - 0.5, user.getEyePos().getZ());
+                anchorProjectile.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 2.5F, 1.0F);
 
-            world.spawnEntity(anchorProjectile);
-            user.getItemCooldownManager().set(this, 20 * 3);
+                world.spawnEntity(anchorProjectile);
+                itemStack.set(ModComponents.THROWN_ANCHOR_UUID, Optional.of(anchorProjectile.getUuid()));
+
+                user.incrementStat(Stats.USED.getOrCreateStat(this));
+                itemStack.damage(2, user, LivingEntity.getSlotForHand(hand));
+            }
         }
+        return TypedActionResult.success(itemStack, world.isClient());
+    }
 
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        itemStack.damage(2, user, LivingEntity.getSlotForHand(hand));
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
+        if (!world.isClient() && entity instanceof PlayerEntity player) {
+            Optional<UUID> projectileUuidOpt = stack.get(ModComponents.THROWN_ANCHOR_UUID);
 
-            return TypedActionResult.success(itemStack, world.isClient());
+            if (projectileUuidOpt != null && projectileUuidOpt.isPresent()) {
+                Entity projectile = ((ServerWorld) world).getEntity(projectileUuidOpt.get());
+
+                if (projectile instanceof AnchorProjectileEntity anchorProjectile) {
+                    if (anchorProjectile.isFlying()) {
+                        if (world.getRandom().nextInt(2) == 0) {
+                            final float MAX_SOUND_DISTANCE = 27.0f;
+                            final float MAX_VOLUME = 1.3f;
+                            final float MIN_VOLUME = 0.2f;
+
+                            float distance = player.distanceTo(anchorProjectile);
+                            float progress = 1.0f - MathHelper.clamp(distance / MAX_SOUND_DISTANCE, 0.0f, 1.0f);
+                            float volume = MathHelper.lerp(progress, MIN_VOLUME, MAX_VOLUME);
+
+                            float pitch = 0.7f + world.getRandom().nextFloat() * 0.4f;
+
+                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHAIN_HIT, SoundCategory.PLAYERS, volume, pitch);
+                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, volume, pitch);
+
+                        }
+                    }
+                } else {
+                    stack.remove(ModComponents.THROWN_ANCHOR_UUID);
+                }
+            }
+        }
     }
 }
