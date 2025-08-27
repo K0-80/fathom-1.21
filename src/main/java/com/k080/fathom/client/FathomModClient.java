@@ -12,7 +12,6 @@ import com.k080.fathom.entity.client.*;
 import com.k080.fathom.entity.client.feature.AmethystShardsFeatureRenderer;
 import com.k080.fathom.entity.client.model.*;
 import com.k080.fathom.item.ModItems;
-import com.k080.fathom.networking.ModMessages;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.particle.custom.*;
 import com.k080.fathom.util.ModModelPredicateProvider;
@@ -22,13 +21,9 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -44,8 +39,10 @@ public class FathomModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        ModelPredicateProviderRegistry.register(ModItems.ANCHOR, Identifier.of(Fathom.MOD_ID, "thrown"),
+                (stack, world, entity, seed) -> stack.contains(ModComponents.THROWN_ANCHOR_UUID) ? 1.0f : 0.0f);
+
         EntityRendererRegistry.register(ModEntities.SHOCKWAVE_BLOCK, ShockwaveBlockEntityRenderer::new);
-        ModMessages.registerS2CPackets();
 
         WorldRenderEvents.AFTER_ENTITIES.register(TrailManager::render);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

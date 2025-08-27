@@ -1,4 +1,4 @@
-package com.k080.fathom.entity.client;
+package com.k080.fathom.entity.block;
 
 import com.k080.fathom.entity.ModEntities;
 import net.minecraft.block.BlockState;
@@ -15,7 +15,7 @@ public class ShockwaveBlockEntity extends Entity {
 
     private BlockState blockState = Blocks.AIR.getDefaultState();
     private int animationDelay;
-    private final int animationDuration = 25;
+    private final int animationDuration = 20;
 
     public ShockwaveBlockEntity(EntityType<?> type, World world) {
         super(type, world);

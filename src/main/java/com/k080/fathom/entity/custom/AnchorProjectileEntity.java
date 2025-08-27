@@ -2,6 +2,7 @@ package com.k080.fathom.entity.custom;
 
 import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.util.ShockwaveUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -11,6 +12,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
@@ -115,6 +117,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     protected void onBlockHit(BlockHitResult blockHitResult) {
         if (!isReturning()) {
             playImpactSounds();
+//            ShockwaveUtil.triggerShockwave(this.getWorld(), blockHitResult.getBlockPos(), 3, 1);
         }
         super.onBlockHit(blockHitResult);
     }

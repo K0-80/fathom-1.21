@@ -1,7 +1,6 @@
 package com.k080.fathom;
 
 import com.k080.fathom.block.ModBlocks;
-import com.k080.fathom.command.ShockwaveCommand;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.effect.ModEffects;
@@ -11,7 +10,6 @@ import com.k080.fathom.event.BlockBreakHandler;
 import com.k080.fathom.event.PlayerAttackEvent;
 import com.k080.fathom.item.ModItemGroups;
 import com.k080.fathom.item.ModItems;
-import com.k080.fathom.networking.ModMessages;
 import com.k080.fathom.particle.ModParticles;
 import com.k080.fathom.util.ModLootTableModifiers;
 import com.k080.fathom.util.ReportCommand;
@@ -27,9 +25,6 @@ public class Fathom implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
-		ModMessages.registerC2SPackets();
-		CommandRegistrationCallback.EVENT.register(ShockwaveCommand::register);
 
 		ReportCommand.register();
 

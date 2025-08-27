@@ -1,8 +1,9 @@
 package com.k080.fathom.entity.client;
 
 
-import com.k080.fathom.entity.client.ShockwaveBlockEntity;
-import net.minecraft.client.render.OverlayTexture;
+import com.k080.fathom.entity.block.ShockwaveBlockEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -10,6 +11,8 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class ShockwaveBlockEntityRenderer extends EntityRenderer<ShockwaveBlockEntity> {
     private final BlockRenderManager blockRenderManager;
@@ -27,19 +30,25 @@ public class ShockwaveBlockEntityRenderer extends EntityRenderer<ShockwaveBlockE
             return;
         }
 
+        BlockState blockState = entity.getBlockState();
+        BlockPos blockPos = entity.getBlockPos();
+        World world = entity.getWorld();
+
         matrices.push();
-        float staticYOffset = -1.0f + 0.01f;
+        float staticYOffset = -1.0f - 0.001f;
         float animatedYOffset = entity.getVerticalOffset(tickDelta);
 
-//        matrices.scale(0.99f, 0.99f, 0.99f);
         matrices.translate(-0.5, staticYOffset + animatedYOffset, -0.5);
+        matrices.scale(0.001f, 0.001f, 0.0001f);
 
-        this.blockRenderManager.renderBlockAsEntity(
-                entity.getBlockState(),
+        this.blockRenderManager.renderBlock(
+                blockState,
+                blockPos,
+                world,
                 matrices,
-                vertexConsumers,
-                light,
-                OverlayTexture.DEFAULT_UV
+                vertexConsumers.getBuffer(RenderLayers.getMovingBlockLayer(blockState)),
+                false,
+                world.getRandom()
         );
 
         matrices.pop();

@@ -1,14 +1,9 @@
 package com.k080.fathom.entity;
 
 import com.k080.fathom.Fathom;
-import com.k080.fathom.block.ModBlocks;
-import com.k080.fathom.entity.client.ShockwaveBlockEntity;
+import com.k080.fathom.entity.block.ShockwaveBlockEntity;
 import com.k080.fathom.entity.custom.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;

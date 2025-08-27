@@ -48,7 +48,7 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
     @Override
     public void render(AnchorProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
-        matrices.translate(0.0, 0.15, 0.0);
+        matrices.translate(0.0, 0.3, 0.0);
 
         boolean isCurrentlyReturning = entity.isReturning();
 
@@ -142,8 +142,8 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
                 MathHelper.lerp(tickDelta, entity.prevZ, entity.getZ())
         );
 
-        Vec3d startPosRelative = handPos.subtract(interpolatedEntityPos);
-        Vec3d endPosRelative = new Vec3d(0.0, entity.getHeight() / 2.0, 0.0);
+        Vec3d startPosRelative = new Vec3d(0.0, entity.getHeight() / 2.0, 0.0);
+        Vec3d endPosRelative = handPos.subtract(interpolatedEntityPos);
 
         drawChain(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(CHAIN_TEXTURE)), startPosRelative, endPosRelative, light);
     }
