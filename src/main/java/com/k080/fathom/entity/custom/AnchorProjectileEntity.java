@@ -38,6 +38,10 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     private static final float DAMAGE = 10.0f;
     private static final double MAX_DISTANCE = 30.0D;
 
+    private Entity stuckEntity;
+    private float stuckYaw;
+    private float stuckPitch;
+
     public AnchorProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -67,6 +71,15 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     public void tick() {
+        if (this.stuckEntity != null) {
+            if (!this.stuckEntity.isAlive() || this.stuckEntity.isRemoved()) {
+                this.stuckEntity = null;
+                this.setStuck(false);
+            } else {
+                this.setPosition(this.stuckEntity.getBoundingBox().getCenter());
+            }
+        }
+
         Entity owner = this.getOwner();
         if (owner == null || !owner.isAlive() || owner.isRemoved()) {
             if (!this.getWorld().isClient) {
@@ -89,6 +102,11 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
         }
 
         super.tick();
+
+        if (this.stuckEntity != null) {
+            this.setYaw(this.stuckYaw);
+            this.setPitch(this.stuckPitch);
+        }
     }
 
     private void tickReturnMovement(Entity owner) {
@@ -102,15 +120,22 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (isReturning()) return;
+        if (isReturning() || this.stuckEntity != null) {
+            return;
+        }
 
         Entity hitEntity = entityHitResult.getEntity();
-        if (this.isOwner(hitEntity)) return;
+        if (this.isOwner(hitEntity)) {
+            return;
+        }
 
         playEntityHitSounds();
         applyDirectHitDamage(hitEntity);
-        this.setVelocity(Vec3d.ZERO);
+        this.stuckEntity = hitEntity;
         this.setStuck(true);
+        this.stuckYaw = this.getYaw();
+        this.stuckPitch = this.getPitch();
+        this.setVelocity(Vec3d.ZERO);
     }
 
     @Override
@@ -129,6 +154,7 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
     }
 
     public void startReturning() {
+        this.stuckEntity = null;
         this.setReturning(true);
         this.setStuck(false);
         this.setNoClip(true);

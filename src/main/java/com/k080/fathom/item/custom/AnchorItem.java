@@ -55,18 +55,16 @@ public class AnchorItem extends ToolItem {
         ItemStack itemStack = user.getStackInHand(hand);
 
         if (world instanceof ServerWorld serverWorld) {
-            Optional<UUID> projectileUuidOpt = itemStack.get(ModComponents.THROWN_ANCHOR_UUID);
-
-            if (projectileUuidOpt != null && projectileUuidOpt.isPresent()) { //return
-                UUID projectileUuid = projectileUuidOpt.get();
-                if (serverWorld.getEntity(projectileUuid) instanceof AnchorProjectileEntity anchorProjectile && anchorProjectile.isAlive()) {
-                    if (!anchorProjectile.isReturning()) {
-                        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, SoundCategory.PLAYERS, 1f, 0.5f);
-                        anchorProjectile.startReturning();
+            if (itemStack.contains(ModComponents.THROWN_ANCHOR_UUID)) { // Return
+                Objects.requireNonNull(itemStack.get(ModComponents.THROWN_ANCHOR_UUID)).ifPresent(projectileUuid -> {
+                    if (serverWorld.getEntity(projectileUuid) instanceof AnchorProjectileEntity anchorProjectile && anchorProjectile.isAlive()) {
+                        if (!anchorProjectile.isReturning()) {
+                            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_RETURN, SoundCategory.PLAYERS, 1f, 0.5f);
+                            anchorProjectile.startReturning();
+                        }
                     }
-                }
-//                itemStack.remove(ModComponents.THROWN_ANCHOR_UUID); in inv tick
-            } else { //throw
+                });
+            } else { // Throw
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 0.8f, 0.6f);
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_CHAIN_PLACE, SoundCategory.PLAYERS, 2.0f, 1.2f);
 

@@ -1,0 +1,49 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "fathom:item/anchor_e"
+	},
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 90, 0],
+			"translation": [-0.5, 3.8, 1],
+			"scale": [1.1, 1.1, 1]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, 0],
+			"translation": [-0.5, 3.75, 1],
+			"scale": [1.1, 1.1, 1]
+		},
+		"firstperson_righthand": {
+			"rotation": [170, 84, -160],
+			"translation": [5.75, 0, -3],
+			"scale": [0.7, 0.7, 0.6]
+		},
+		"firstperson_lefthand": {
+			"rotation": [170, 84, -160],
+			"translation": [5.75, 0, -3],
+			"scale": [0.7, 0.7, 0.6]
+		},
+		"ground": {
+			"rotation": [-13.82, 81.35, -128.54],
+			"translation": [0, 10.75, 0],
+			"scale": [0.8, 0.8, 0.7]
+		},
+		"gui": {
+			"rotation": [0, 0, -45],
+			"translation": [-2.25, -2.5, 0],
+			"scale": [0.9, 0.9, 0.9]
+		},
+		"head": {
+			"rotation": [-180, 0, 0],
+			"scale": [1.1, 1.1, 1]
+		},
+		"fixed": {
+			"rotation": [0, 0, 45],
+			"translation": [3, -3, -1.5]
+		}
+	}
+}

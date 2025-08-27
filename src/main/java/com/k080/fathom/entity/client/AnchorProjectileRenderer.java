@@ -5,10 +5,7 @@ import com.k080.fathom.entity.custom.AnchorProjectileEntity;
 import com.k080.fathom.item.ModItems;
 import com.k080.fathom.item.custom.AnchorItem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
@@ -185,8 +182,8 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
         double sinBodyYaw = Math.sin(bodyYaw);
         double cosBodyYaw = Math.cos(bodyYaw);
 
-        double handXOffset = (double)side * 0.45;
-        double handYOffset = -0.6;
+        double handXOffset = (double)side * 0.38;
+        double handYOffset = -0.7;
         double handZOffset = 0.1;
 
         double playerX = MathHelper.lerp(tickDelta, player.prevX, player.getX());
@@ -194,11 +191,11 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
         double playerZ = MathHelper.lerp(tickDelta, player.prevZ, player.getZ());
 
         if (player.isSneaking()) {
-            playerY -= 0.45;
+            playerY -= 0.08;
         }
 
         double worldHandX = playerX + (cosBodyYaw * handXOffset - sinBodyYaw * handZOffset);
-        double worldHandY = playerY + handYOffset - (swingAmount * 0.5);
+        double worldHandY = playerY + handYOffset - (swingAmount * -0.3);
         double worldHandZ = playerZ + (sinBodyYaw * handXOffset + cosBodyYaw * handZOffset);
 
         return new Vec3d(worldHandX, worldHandY, worldHandZ);
@@ -253,5 +250,14 @@ public class AnchorProjectileRenderer extends EntityRenderer<AnchorProjectileEnt
     @Override
     public Identifier getTexture(AnchorProjectileEntity entity) {
         return null;
+    }
+
+    @Override
+    public boolean shouldRender(AnchorProjectileEntity entity, Frustum frustum, double x, double y, double z) {
+        if (x * x + y * y + z * z > 128.0 * 128.0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
