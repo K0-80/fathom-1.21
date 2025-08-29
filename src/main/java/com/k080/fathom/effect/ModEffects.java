@@ -13,11 +13,16 @@ public class ModEffects {
     public static final RegistryEntry<StatusEffect> MITHRIL_VEIL = registerStatusEffect("mithril_veil",
             new MithrilVeilEffect(StatusEffectCategory.BENEFICIAL, 0x48e2f0));
     public static final RegistryEntry<StatusEffect> WIND_GLOW = registerStatusEffect("wind_glow",
-            new WindGlowEffect (StatusEffectCategory.NEUTRAL, 0x10cda5));
+            new WindGlowEffect(StatusEffectCategory.NEUTRAL, 0x10cda5));
     public static final RegistryEntry<StatusEffect> ANCHORED = registerStatusEffect("anchored",
-            new AnchoredEffect (StatusEffectCategory.HARMFUL, 0x393253));
+            new AnchoredEffect(StatusEffectCategory.HARMFUL, 0x393253));
     public static final RegistryEntry<StatusEffect> NO_GRAVITY = registerStatusEffect("no_gravity",
-            new NoGravityEffect (StatusEffectCategory.NEUTRAL, 0xDADADA));
+            new NoGravityEffect(StatusEffectCategory.NEUTRAL, 0xDADADA));
+
+    public static final RegistryEntry<StatusEffect> HEXED = registerStatusEffect("hexed",
+            new NoGravityEffect(StatusEffectCategory.NEUTRAL, 0x68153b));
+    public static final RegistryEntry<StatusEffect> BLOOD_DEBT = registerStatusEffect("blood_debt",
+            new NoGravityEffect(StatusEffectCategory.NEUTRAL, 0xc0272d));
 
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect) {
@@ -25,6 +30,5 @@ public class ModEffects {
     }
 
     public static void registerEffects() {
-        Fathom.LOGGER.info( "Registering Mod Effects for: " + Fathom.MOD_ID);
     }
 }

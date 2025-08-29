@@ -9,6 +9,8 @@
   "death.attack.mirage_shatter": "%1$s was shattered by %2$s's mirage",
   "death.attack.scythe_covenant": "%1$s made a pact they couldn't afford",
   "effect.fathom.anchored": "Anchored",
+  "effect.fathom.blood_debt": "Blood Debt",
+  "effect.fathom.hexed": "Hexed",
   "effect.fathom.mithril_veil": "Mithril Veil",
   "effect.fathom.no_gravity": "Anti Gravity",
   "effect.fathom.stunned": "Stunned",

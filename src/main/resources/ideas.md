@@ -1,9 +1,42 @@
 
 ANCHOR CHANGES:
-custom charge animation
 rework all enchants
-custom *cooldown* system only allow 1 anchor at a time
-render custom chain bwteen anchor and user
+
+
+HEX CHANGES:
+#### Passive: Blood Debt
+- Hitting an entity with a charged attack applies **[Blood Debt]** for 3 seconds.
+- Hitting a target afflicted with **[Blood Debt]** has a **50% chance to harvest 1 Soul**.
+- Hex can hold a maximum of **10 Souls**. Souls are displayed as a blood-filled jar on the HUD.
+
+#### Active Ability: Cull
+- **Activation:** **Right-Click** to consume all held Souls and unleash a wide, sweeping phantom scythe attack in a arc in front of you.
+- **Cooldown:** 5 seconds.
+- **Effect:**
+   - All targets hit by the scythe take **magic damage** equal to the number of Souls consumed (1 damage per Soul).
+   - If a target hit is afflicted with **[Blood Debt]**, the mark is consumed and they are afflicted with **[Hexed]** for a duration based on the Souls used (0.5 seconds per Soul).
+   - **[Hexed] Status Effect:** Reduces all incoming healing by 50%.
+  
+- #### Secondary Ability: Sacrifice
+- **Activation:** **Shift + Right-Click**. Requires no souls.
+- **Cooldown:** 30 seconds.
+- **Effect:** Sacrifice **8 hearts** of your own health to instantly cast **Cull** as if you had consumed **10 Souls**. 
+
+### Enchantments
+
+#### `Rend (I-V)`
+*   **Effect:** Increases the chance to harvest a Soul from a target with **[Blood Debt]** by 10% per level.
+
+#### `Lingering Debt (I-II)`
+*   **Effect:** Increases the duration of **[Blood Debt]** by 1 second per level (Max 5 seconds at level II).
+
+#### `Execute (I-III)`
+*   **Effect:** **Cull** now deals bonus damage to targets below 50% health. The damage bonus is 15% per level.
+
+#### `Soul Siphon (I-II)`
+*   **Effect:** When **Cull** deals damage, you are healed for a percentage of the total damage dealt.
+   *   Level I: Heal for 25% of damage dealt.
+   *   Level II: Heal for 50% of damage dealt.
 
 
 DNA SAMPLES with sticks + wool dab them, clone them, stalk them, kill them! (i will never make this caz lazy)
@@ -21,13 +54,8 @@ clone entity
 - mirage needs rework (made cooldowns  longer, hopefully it helps)
 - involnble during dash  weapon
 - steal heart containers weapon
-
-- repair anvils with iron ingot
-
 - dying with shattered totem will fully break totem, allowing you to keep 50% of your items
 
-- mirage sitll dosnt show skin
-- update  mod to 1.21.5
 
 4. Umbra & Lux
    "The brightest light casts the darkest shadow."

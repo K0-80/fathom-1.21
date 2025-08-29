@@ -61,6 +61,9 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         translationBuilder.add("effect.fathom.wind_glow", "Marked");
         translationBuilder.add("effect.fathom.anchored", "Anchored");
         translationBuilder.add("effect.fathom.no_gravity", "Anti Gravity");
+        translationBuilder.add("effect.fathom.blood_debt", "Blood Debt");
+        translationBuilder.add("effect.fathom.hexed", "Hexed");
+
 
         // Death Msg
         translationBuilder.add("death.attack.scythe_covenant", "%1$s made a pact they couldn't afford");

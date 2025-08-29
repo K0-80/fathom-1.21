@@ -31,6 +31,7 @@ import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -181,5 +182,20 @@ public abstract class LivingEntityMixin {
             }
         }
 
+    }
+
+    @ModifyVariable(method = "heal", at = @At("HEAD"), argsOnly = true)
+    private float fathom_modifyHealAmount(float amount) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self.hasStatusEffect(ModEffects.HEXED)) {
+            StatusEffectInstance effectInstance = self.getStatusEffect(ModEffects.HEXED);
+            if (effectInstance != null) {
+                int amplifier = effectInstance.getAmplifier();
+                float reduction = 0.25f * (amplifier + 1);
+                float modifiedAmount = amount * (1.0f - reduction);
+                return Math.max(0.0f, modifiedAmount);
+            }
+        }
+        return amount;
     }
 }
