@@ -89,6 +89,8 @@ public class FathomModClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ModParticles.ANCHORED_PARTICLE, AnchoredParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.RAPTURE_PARTICLE, RaptureParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.FLOWSTATE_PARTICLE, FlowstateParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticles.SCYTHE_SWEEP, ScytheSweepParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticles.SCYTHE_CRIT, CritSweepParticle.Factory::new);
 
         //wind blade charge change model
         ModelPredicateProviderRegistry.register(ModItems.WIND_BLADE, Identifier.of(Fathom.MOD_ID, "charge"),

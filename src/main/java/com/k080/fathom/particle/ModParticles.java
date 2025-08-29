@@ -14,6 +14,9 @@ public class ModParticles {
     public static final SimpleParticleType ANCHORED_PARTICLE = FabricParticleTypes.simple();
     public static final SimpleParticleType RAPTURE_PARTICLE = FabricParticleTypes.simple();
     public static final SimpleParticleType FLOWSTATE_PARTICLE = FabricParticleTypes.simple();
+    public static final SimpleParticleType SCYTHE_SWEEP = FabricParticleTypes.simple();
+    public static final SimpleParticleType SCYTHE_CRIT = FabricParticleTypes.simple();
+
 
 
     public static void registerParticles() {
@@ -22,6 +25,9 @@ public class ModParticles {
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "anchored_particle"), ANCHORED_PARTICLE);
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "rapture_particle"), RAPTURE_PARTICLE);
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "flowstate_particle"), FLOWSTATE_PARTICLE);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "scythe_sweep"), SCYTHE_SWEEP);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Fathom.MOD_ID, "scythe_crit"), SCYTHE_CRIT);
+
 
 
     }

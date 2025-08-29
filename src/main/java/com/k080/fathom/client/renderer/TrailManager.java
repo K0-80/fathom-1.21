@@ -16,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TrailManager {
 
-    private static final List<Trail> trails = new CopyOnWriteArrayList<>();
+    private static final List<AbstractTrail> trails = new CopyOnWriteArrayList<>();
     private static final float TRAIL_SEGMENT_LENGTH = 0.075f;
     private static final int TRAIL_SIDES = 6;
 
@@ -82,14 +82,25 @@ public class TrailManager {
     }
 
 
-
     public static void addTrail(Trail trail) {
         trails.add(trail);
     }
 
+    public static void addProjectileTrail(Vec3d startPos, Entity anchor, Vec3d anchorOffset, int travelDuration, float arcHeight, Vector3f color, float baseWidth, int lifetime, int maxLength) {
+        trails.add(new ProjectileTrail(startPos, anchor, anchorOffset, travelDuration, arcHeight, color, baseWidth, lifetime, maxLength));
+    }
+
+    public static void addSpiralTrails(Vec3d center, float radius, float height, int trailCount, float revolutions, int duration, Vector3f color, float baseWidth) {
+        for (int i = 0; i < trailCount; i++) {
+            double angleOffset = (double) i / trailCount * 2.0 * Math.PI;
+            trails.add(new SpiralTrail(center, radius, height, revolutions, duration, angleOffset, color, baseWidth));
+        }
+    }
+
+
     public static void tick() {
-        trails.forEach(Trail::tick);
-        trails.removeIf(Trail::isDead);
+        trails.forEach(AbstractTrail::tick);
+        trails.removeIf(AbstractTrail::isDead);
     }
 
     public static void clear() {
@@ -109,7 +120,7 @@ public class TrailManager {
         Matrix4f positionMatrix = matrixStack.peek().getPositionMatrix();
 
         VertexConsumer buffer = vertexConsumers.getBuffer(FathomRenderLayers.getTrailLayer());
-        for (Trail trail : trails) {
+        for (AbstractTrail trail : trails) {
             renderTrail(trail, positionMatrix, buffer);
         }
 
@@ -117,7 +128,7 @@ public class TrailManager {
         vertexConsumers.draw(FathomRenderLayers.getTrailLayer());
     }
 
-    private static void renderTrail(Trail trail, Matrix4f positionMatrix, VertexConsumer buffer) {
+    private static void renderTrail(AbstractTrail trail, Matrix4f positionMatrix, VertexConsumer buffer) {
         if (trail.getAlpha() <= 0.01f) {
             return;
         }
@@ -156,7 +167,7 @@ public class TrailManager {
         return points;
     }
 
-    private static void renderTrailBody(Trail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
+    private static void renderTrailBody(AbstractTrail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
         List<List<Vec3d>> ringVertices = new ArrayList<>();
         float alpha = trail.getAlpha();
 
@@ -210,7 +221,7 @@ public class TrailManager {
         }
     }
 
-    private static void renderTrailHead(Trail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
+    private static void renderTrailHead(AbstractTrail trail, List<Vec3d> points, Matrix4f positionMatrix, VertexConsumer buffer) {
         Vec3d headCenter = points.get(points.size() - 1);
         float headRadius = trail.getWidth(1.0f) / 2.0f;
         if (headRadius < 0.01f) {
@@ -231,34 +242,75 @@ public class TrailManager {
         }
     }
 
-    public static class Trail {
-
-        private static final double MIN_RADIUS = 1.1;
-        private static final double MAX_RADIUS = 1.9;
-        private static final double MIN_ANGLE_VELOCITY = 0.1;
-        private static final double MAX_ANGLE_VELOCITY = 0.2;
-        private static final double VERTICAL_DRIFT_FACTOR = 0.05;
-        private static final double RADIUS_SHRINK_RATE = -0.02;
-        private static final double MIN_ORBIT_RADIUS = 0.3;
-        private static final double MIN_OSCILLATION_FREQUENCY = 0.3;
-        private static final double MAX_OSCILLATION_FREQUENCY = 0.5;
-        private static final double MIN_OSCILLATION_AMPLITUDE = 0.1;
-        private static final double MAX_OSCILLATION_AMPLITUDE = 0.2;
-        private static final double ATTRACTION_STRENGTH = 0.15;
-        private static final float FADE_IN_TICKS = 5.0f;
-        private static final int FADE_OUT_SIZE_THRESHOLD = 20;
-        private static final int SHRINK_RATE_ON_DEATH = 2;
-
-        private final List<Vec3d> points = new LinkedList<>();
+    public static abstract class AbstractTrail {
+        protected final List<Vec3d> points = new LinkedList<>();
         public final Vector3f color;
         public final float baseWidth;
+        protected int age = 0;
+        protected final int lifetime;
+
+        private static final float FADE_IN_TICKS = 5.0f;
+        private static final int FADE_OUT_SIZE_THRESHOLD = 20;
+
+        public AbstractTrail(Vector3f color, float baseWidth, int lifetime) {
+            this.color = color;
+            this.baseWidth = baseWidth;
+            this.lifetime = lifetime;
+        }
+
+        public abstract void tick();
+
+        protected abstract boolean isShortening();
+
+        public void kill() {
+            this.age = this.lifetime;
+        }
+
+        public boolean isDead() {
+            return age >= lifetime && points.isEmpty();
+        }
+
+        public List<Vec3d> getPoints() {
+            return points;
+        }
+
+        public float getWidth(float segmentProgress) {
+            return baseWidth * MathHelper.sin(segmentProgress * ((float) Math.PI / 2.0f));
+        }
+
+        public float getAlpha() {
+            float alpha = Math.min(1.0f, age / FADE_IN_TICKS);
+
+            if (isShortening() && points.size() < FADE_OUT_SIZE_THRESHOLD) {
+                float lengthBasedFade = (float) points.size() / (float) FADE_OUT_SIZE_THRESHOLD;
+                alpha = Math.min(alpha, lengthBasedFade);
+            }
+
+            return MathHelper.clamp(alpha, 0.0f, 1.0f);
+        }
+    }
+
+
+    public static class Trail extends AbstractTrail {
+
+        public static final double MIN_RADIUS = 1.1;
+        public static final double MAX_RADIUS = 1.9;
+        public static final double MIN_ANGLE_VELOCITY = 0.1;
+        public static final double MAX_ANGLE_VELOCITY = 0.2;
+        public static final double VERTICAL_DRIFT_FACTOR = 0.05;
+        public static final double RADIUS_SHRINK_RATE = -0.02;
+        public static final double MIN_ORBIT_RADIUS = 0.3;
+        public static final double MIN_OSCILLATION_FREQUENCY = 0.3;
+        public static final double MAX_OSCILLATION_FREQUENCY = 0.5;
+        public static final double MIN_OSCILLATION_AMPLITUDE = 0.1;
+        public static final double MAX_OSCILLATION_AMPLITUDE = 0.2;
+        public static final double ATTRACTION_STRENGTH = 0.15;
+        public static final int SHRINK_RATE_ON_DEATH = 2;
 
         private final Entity anchorEntity;
         private final Vec3d anchorOffset;
-        private final int lifetime;
         private final int maxLength;
 
-        private int age = 0;
         private Vec3d centerPoint;
 
         private double radius;
@@ -273,11 +325,9 @@ public class TrailManager {
         private final Vec3d oscillationAxis;
 
         public Trail(Entity anchor, Vec3d anchorOffset, Vector3f color, float baseWidth, int lifetime, int maxLength) {
+            super(color, baseWidth, lifetime);
             this.anchorEntity = anchor;
             this.anchorOffset = anchorOffset;
-            this.color = color;
-            this.baseWidth = baseWidth;
-            this.lifetime = lifetime;
             this.maxLength = maxLength;
             this.centerPoint = anchor.getPos().add(this.anchorOffset);
 
@@ -292,10 +342,7 @@ public class TrailManager {
             this.oscillationAxis = new Vec3d(random.nextDouble() - 0.5, random.nextDouble() - 0.5, random.nextDouble() - 0.5).normalize();
         }
 
-        public void kill() {
-            this.age = this.lifetime;
-        }
-
+        @Override
         public void tick() {
             age++;
             boolean isAliveAndActive = anchorEntity != null && anchorEntity.isAlive() && age < lifetime;
@@ -329,28 +376,115 @@ public class TrailManager {
             }
         }
 
-        public boolean isDead() {
-            return age >= lifetime && points.isEmpty();
+        @Override
+        protected boolean isShortening() {
+            return (anchorEntity == null || !anchorEntity.isAlive()) || age >= lifetime;
+        }
+    }
+
+
+    public static class ProjectileTrail extends AbstractTrail {
+        private enum State {FLYING, FADING}
+
+        private State state = State.FLYING;
+        private final Vec3d startPos;
+        private final int travelDuration;
+        private final float arcHeight;
+        private final Entity anchorEntity;
+        private final Vec3d anchorOffset;
+        private final int maxLength;
+
+        private static final int SHRINK_RATE_ON_FADE = 2;
+
+        public ProjectileTrail(Vec3d startPos, Entity anchor, Vec3d anchorOffset, int travelDuration, float arcHeight, Vector3f color, float baseWidth, int lifetime, int maxLength) {
+            super(color, baseWidth, lifetime);
+            this.startPos = startPos;
+            this.anchorEntity = anchor;
+            this.anchorOffset = anchorOffset;
+            this.travelDuration = travelDuration;
+            this.arcHeight = arcHeight;
+            this.maxLength = maxLength;
         }
 
-        public List<Vec3d> getPoints() {
-            return points;
+        @Override
+        protected boolean isShortening() {
+            return state == State.FADING || (anchorEntity == null || !anchorEntity.isAlive()) || age >= lifetime;
         }
 
-        public float getWidth(float segmentProgress) {
-            return baseWidth * MathHelper.sin(segmentProgress * ((float) Math.PI / 2.0f));
+        @Override
+        public void tick() {
+            age++;
+            if (state == State.FLYING) {
+                tickFlying();
+            } else {
+                tickFading();
+            }
         }
 
-        public float getAlpha() {
-            float alpha = Math.min(1.0f, age / FADE_IN_TICKS);
-
-            boolean isShortening = (anchorEntity == null || !anchorEntity.isAlive()) || age >= lifetime;
-            if (isShortening && points.size() < FADE_OUT_SIZE_THRESHOLD) {
-                float lengthBasedFade = (float) points.size() / FADE_OUT_SIZE_THRESHOLD;
-                alpha = Math.min(alpha, lengthBasedFade);
+        private void tickFlying() {
+            if (age > travelDuration || anchorEntity == null || !anchorEntity.isAlive()) {
+                state = State.FADING;
+                return;
             }
 
-            return MathHelper.clamp(alpha, 0.0f, 1.0f);
+            float t = MathHelper.clamp((float) age / travelDuration, 0.0f, 1.0f);
+            Vec3d targetPos = anchorEntity.getPos().add(anchorOffset);
+            Vec3d currentPos = startPos.lerp(targetPos, t);
+            double yOffset = Math.sin(t * Math.PI) * arcHeight;
+            currentPos = currentPos.add(0, yOffset, 0);
+
+            points.add(currentPos);
+            while (points.size() > maxLength) {
+                points.remove(0);
+            }
+        }
+
+        private void tickFading() {
+            for (int i = 0; i < SHRINK_RATE_ON_FADE && !points.isEmpty(); i++) {
+                points.remove(0);
+            }
+        }
+    }
+
+    public static class SpiralTrail extends AbstractTrail {
+        private static final int SHRINK_RATE_ON_DEATH = 2;
+
+        private final Vec3d center;
+        private final float radius;
+        private final float height;
+        private final float revolutions;
+        private final double angleOffset;
+
+        public SpiralTrail(Vec3d center, float radius, float height, float revolutions, int duration, double angleOffset, Vector3f color, float baseWidth) {
+            super(color, baseWidth, duration);
+            this.center = center;
+            this.radius = radius;
+            this.height = height;
+            this.revolutions = revolutions;
+            this.angleOffset = angleOffset;
+        }
+
+        @Override
+        protected boolean isShortening() {
+            return age >= lifetime;
+        }
+
+        @Override
+        public void tick() {
+            age++;
+            if (age <= lifetime) {
+                float progress = (float) age / lifetime;
+                double currentAngle = progress * revolutions * 2.0 * Math.PI + angleOffset;
+                double currentHeight = progress * height;
+                double x = center.x + Math.cos(currentAngle) * radius;
+                double y = center.y + currentHeight;
+                double z = center.z + Math.sin(currentAngle) * radius;
+                points.add(new Vec3d(x, y, z));
+            } else {
+                for (int i = 0; i < SHRINK_RATE_ON_DEATH && !points.isEmpty(); i++) {
+                    points.remove(0);
+                }
+            }
         }
     }
 }

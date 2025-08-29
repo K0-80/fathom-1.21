@@ -1,5 +1,6 @@
 package com.k080.fathom.mixin;
 
+import com.k080.fathom.client.renderer.TrailManager;
 import com.k080.fathom.component.ModComponents;
 import com.k080.fathom.effect.ModEffects;
 import com.k080.fathom.enchantment.ModEnchantments;
@@ -26,6 +27,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -96,8 +98,18 @@ public abstract class LivingEntityMixin {
                     world.playSound(null, target.getBlockPos(), SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.MASTER, 1.56f, 0.6f);
 
                     if (world instanceof ServerWorld serverWorld) {
+
                         serverWorld.spawnParticles(ParticleTypes.SOUL, target.getX(), target.getBodyY(0.5), target.getZ(), 8, 0.3, 0.3, 0.3, 0.05);
-                    }
+                        Vec3d startPos = target.getPos().add(0, target.getHeight() * 0.5, 0);
+                        Vec3d anchorOffset = new Vec3d(0, attacker.getStandingEyeHeight() * 0.75, 0);
+                        int travelDuration = 25;
+                        float arcHeight = 1.5f;
+//                        Vector3f color = new Vector3f(0.3f, 0.9f, 0.8f);
+                        Vector3f color = new Vector3f(0.6f, 0.0f, 0.1f);
+                        float baseWidth = 0.17f;
+                        int lifetime = 25;
+                        int maxLength = 25;
+                        TrailManager.addProjectileTrail(startPos, attacker, anchorOffset, travelDuration, arcHeight, color, baseWidth, lifetime, maxLength);                    }
                 }
             }
         }
