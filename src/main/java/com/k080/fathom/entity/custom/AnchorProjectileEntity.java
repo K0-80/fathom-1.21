@@ -1,7 +1,9 @@
 package com.k080.fathom.entity.custom;
 
+import com.k080.fathom.Fathom;
 import com.k080.fathom.damage.ModDamageTypes;
 import com.k080.fathom.item.ModItems;
+import com.k080.fathom.item.custom.AnchorItem;
 import com.k080.fathom.util.ShockwaveUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -172,22 +174,11 @@ public class AnchorProjectileEntity extends PersistentProjectileEntity {
 
 
     private void playImpactSounds() {
-        Entity owner = this.getOwner();
-        if (owner instanceof PlayerEntity player && !this.getWorld().isClient()) {
-            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.4f, 0.5f);
-            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.8f, 0.7f);
-        }
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_ANVIL_LAND, this.getSoundCategory(), 0.2f, 0.5f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
     }
 
     private void playEntityHitSounds() {
-        Entity owner = this.getOwner();
-        if (owner instanceof PlayerEntity player && !this.getWorld().isClient()) {
-            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
-            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
-            this.getWorld().playSound(player, player.getBlockPos(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);
-        }
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_TRIDENT_HIT, this.getSoundCategory(), 1.0f, 0.9f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_STRONG, this.getSoundCategory(), 1.0f, 0.8f);
         this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ITEM_SHIELD_BLOCK, this.getSoundCategory(), 0.7f, 0.7f);

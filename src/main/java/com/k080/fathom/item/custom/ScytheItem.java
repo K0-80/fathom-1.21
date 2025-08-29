@@ -108,7 +108,6 @@ public class ScytheItem extends SwordItem  {
 
                 float radius = 5.0f + extraSouls;
                 int effectDuration = (3 + extraSouls) * 20;
-                //int cooldown = Math.max(0, (10 - (extraSouls * 2)) * 20); // cooldown = 10 seconds - 2 per extra soul
 
                 player.getItemCooldownManager().set(this, 10);
                 playRuptureActivationEffects(player, world, radius, extraSouls);
